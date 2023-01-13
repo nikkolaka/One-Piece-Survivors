@@ -10,3 +10,5 @@ ASSET_MANAGER.downloadAll(() => {
 
 	gameEngine.start();
 });
+// hello
+
