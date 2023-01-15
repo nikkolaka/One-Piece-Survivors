@@ -7,11 +7,11 @@ ASSET_MANAGER.downloadAll(() => {
 	const ctx = canvas.getContext("2d");
 
 
-	for( i = 0; i < 25; i++){
-		for(j = 0; j < 25; j++){
+	for( i = 0; i < 35; i++){
+		for(j = 0; j < 35; j++){
 			var enemy = new Enemy(gameEngine)
-			enemy.x = 400 + (i*10)
-			enemy.y = 400 + (j*10)
+			enemy.x = 400 + (i*6)
+			enemy.y = 400 + (j*6)
 			gameEngine.addEntity(enemy)
 		}
 

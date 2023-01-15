@@ -1,7 +1,7 @@
 class Enemy{
     constructor(game){
         this.game = game
-        this.size = 15;
+        this.size = 5;
         this.x = 400;
         this.y = 400;
         this.speed = 200;
@@ -56,7 +56,7 @@ class Enemy{
         var dy = thisCircle.y - otherCircle.y;
         var distance = Math.sqrt(dx * dx + dy * dy);
         var step = thisCircle.radius + otherCircle.radius - distance;
-        var COLLISIONREBOUND = 5;
+        var COLLISIONREBOUND = 2;
 
         if(step > 0){
             
