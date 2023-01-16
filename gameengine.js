@@ -98,6 +98,10 @@ class GameEngine {
 
             if (!entity.removeFromWorld) {
                 entity.update();
+                if(!entity instanceof Enemy){
+                    entity.physupdate();
+                }
+                
             }
         }
 
@@ -115,5 +119,3 @@ class GameEngine {
     };
 
 };
-
-// KV Le was here :)
