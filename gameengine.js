@@ -8,6 +8,7 @@ class GameEngine {
 
         // Everything that will be updated and drawn each frame
         this.entities = [];
+        this.prunedCollisions = [];
 
         // Information on the input
         this.click = null;
@@ -91,8 +92,20 @@ class GameEngine {
     };
 
     update() {
+
+
+
+
         let entitiesCount = this.entities.length;
 
+
+
+        this.sweepAndPrune();
+
+
+
+
+        
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
 
@@ -107,6 +120,50 @@ class GameEngine {
             }
         }
     };
+
+    sweepAndPrune(){
+        
+        this.entities.sort((a, b) => (a.x > b.x) ? 1 : -1)
+
+        var activeInterval = []
+        
+        for(i = 0; i < this.entities.length -1 ; i++){
+
+            var firstEntityRight = (this.entities[i].x+this.entities[i].radius)
+            var secondEntityLeft = (this.entities[i+1].x-this.entities[i+1].radius)
+            
+            if((firstEntityRight >= secondEntityLeft)){
+                activeInterval.push(this.entities[i])
+                activeInterval.push(this.entities[i+1])
+            } else {
+                for (let j = activeInterval.length-1; j > 0; j--) {
+                    for (let k = 0; k < activeInterval.length-1; k++) {
+
+
+                        activeInterval[j].checkCircleColliding(activeInterval[k])
+                        activeInterval[k].checkCircleColliding(activeInterval[j])
+                    }
+                    activeInterval.pop()
+                }
+
+                activeInterval = [];
+                
+            }
+        }
+        if(activeInterval.length != 0){
+            for (let j = activeInterval.length-1; j > 0; j--) {
+                for (let k = 0; k < activeInterval.length-1; k++) {
+
+
+                    activeInterval[j].checkCircleColliding(activeInterval[k])
+                    activeInterval[k].checkCircleColliding(activeInterval[j])
+                }
+                activeInterval.pop()
+            }
+
+            activeInterval = [];
+        }
+    }
 
     loop() {
         this.clockTick = this.timer.tick();

@@ -1,43 +1,53 @@
 class Enemy{
-    constructor(game){
+    constructor(game, theId){
+        this.id = theId;
         this.game = game
-        this.size = 5;
+        this.radius = 2.5;
+        this.diameter = this.radius*2;
         this.x = 400;
         this.y = 400;
+
+
+
+
         this.speed = 200;
     };
 
     update() {
-        if(this.game.mouse !== null){
-            this.game.entities[0].x = this.game.mouse.x;
-            this.game.entities[0].y = this.game.mouse.y;
+
+
+        if(this.game.mouse !== null && this.id == 0){
+            this.x = this.game.mouse.x;
+            this.y = this.game.mouse.y;
         }
 
-        var dx = this.x - this.game.entities[0].x;
-        var dy = this.y - this.game.entities[0].y;
+        var possibleCollisionList;
 
 
-/*         this.x += (dx/dy);
-        this.y += (dy/dx); */
-
-
+/* 
         for(var i = 0; i < this.game.entities.length; i++){
             
 
             var otherEntity = this.game.entities[i];
-            if(otherEntity.x !== this.x || otherEntity.y !== this.y){
+            if(i !== this.id){
+
+               
                 this.checkCircleColliding(otherEntity);
 
             }
-        }
+        } */
+
+
+
+
 
         
     };
 
     draw(ctx){
-        ctx.strokeStyle = "#FF0000";
+        ctx.strokeStyle = "#dec32c";
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size/2, 0, 2 * Math.PI);
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
         ctx.stroke(); 
         
 
@@ -49,25 +59,38 @@ class Enemy{
 
 
     checkCircleColliding(otherEntity){
-        var thisCircle={radius:(this.size/2), x:this.x, y:this.y}
-        var otherCircle={radius:(otherEntity.size/2), x:otherEntity.x, y:otherEntity.y}
+        if(this.id === otherEntity.id){
+            return;
+        }
+        var thisCircle={radius:(this.radius), x:this.x, y:this.y}
+        var otherCircle={radius:(otherEntity.radius), x:otherEntity.x, y:otherEntity.y}
 
         var dx = thisCircle.x - otherCircle.x;
         var dy = thisCircle.y - otherCircle.y;
-        var distance = Math.sqrt(dx * dx + dy * dy);
-        var step = thisCircle.radius + otherCircle.radius - distance;
-        var COLLISIONREBOUND = 2;
+        
+        var COLLISIONREBOUND = 5;
 
-        if(step > 0){
+        if((dx * dx + dy * dy) < (thisCircle.radius+otherCircle.radius)*(thisCircle.radius+otherCircle.radius)){
+
+
+            var distance = Math.sqrt(dx * dx + dy * dy);
+            var step = thisCircle.radius + otherCircle.radius - distance;
             
             dx /= distance;
             dy /= distance;
+
+
+
             this.x += dx*step/COLLISIONREBOUND;
             this.y += dy*step/COLLISIONREBOUND;
-            /* this.x += (20*Math.sin(collisionAngle)) * this.game.clockTick;
-            this.y += (20*Math.cos(collisionAngle)) * this.game.clockTick; */
+
+
+
         }
 
     }
+
+
+    
 
 }
