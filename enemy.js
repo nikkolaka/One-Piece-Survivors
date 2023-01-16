@@ -3,7 +3,7 @@ class Enemy{
         
         this.id = theId;
         this.game = game
-        this.radius = 2.5;
+        this.radius = 5;
         this.diameter = this.radius*2;
         this.x = 400;
         this.y = 400;
@@ -52,7 +52,7 @@ class Enemy{
         var dx = this.x - otherEntity.x;
         var dy = this.y - otherEntity.y;
         
-        var COLLISIONREBOUND = 5;
+        var COLLISIONREBOUND = 2.5;
         var radiusSum = this.radius+otherEntity.radius
 
         if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)){
