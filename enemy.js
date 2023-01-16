@@ -3,7 +3,7 @@ class Enemy{
         
         this.id = theId;
         this.game = game
-        this.radius = 5;
+        this.radius = 7;
         this.diameter = this.radius*2;
         this.x = 400;
         this.y = 400;
@@ -16,19 +16,14 @@ class Enemy{
 
     update() {
 
-
-
-        for(i = 0; i < this.game.entities.length; i++){
-            if(this.id !== this.game.entities[i].id){
-                this.checkCircleColliding(this.game.entities[i])
+        for(i = 0; i < this.game.enemies.length; i++){
+            if(this.id !== this.game.enemies[i].id && this.id !== 0){
+                this.checkCircleColliding(this.game.enemies[i])
             }
             
         }
 
-        if(this.game.mouse !== null && this.id == 0){
-            this.x = this.game.mouse.x;
-            this.y = this.game.mouse.y;
-        }
+        
 
         
     };
@@ -44,15 +39,11 @@ class Enemy{
         
     };
 
-
-
-
     checkCircleColliding(otherEntity){
 
         var dx = this.x - otherEntity.x;
         var dy = this.y - otherEntity.y;
-        
-        var COLLISIONREBOUND = 2.5;
+        var COLLISIONREBOUND = 5;
         var radiusSum = this.radius+otherEntity.radius
 
         if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)){
