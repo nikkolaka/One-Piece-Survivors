@@ -8,7 +8,6 @@ class GameEngine {
 
         // Everything that will be updated and drawn each frame
         this.entities = [];
-        this.prunedCollisions = [];
 
         // Information on the input
         this.click = null;
@@ -137,7 +136,7 @@ class GameEngine {
                 activeInterval.push(this.entities[i+1])
             } else {
                 for (let j = activeInterval.length-1; j > 0; j--) {
-                    for (let k = 0; k < activeInterval.length-1; k++) {
+                    for (let k = 0; k < activeInterval.length-1; k += 2) {
 
 
                         activeInterval[j].checkCircleColliding(activeInterval[k])
@@ -152,7 +151,7 @@ class GameEngine {
         }
         if(activeInterval.length != 0){
             for (let j = activeInterval.length-1; j > 0; j--) {
-                for (let k = 0; k < activeInterval.length-1; k++) {
+                for (let k = 0; k < activeInterval.length-1; k += 2) {
 
 
                     activeInterval[j].checkCircleColliding(activeInterval[k])
