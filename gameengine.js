@@ -9,6 +9,10 @@ class GameEngine {
         // Everything that will be updated and drawn each frame
         this.entities = [];
 
+        this.uniqueEId = 0;
+
+        this.playerLocation = {x: 0, y: 0};
+
 
         this.enemies = [];
 

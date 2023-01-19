@@ -16,7 +16,7 @@ class Enemy{
 
     update() {
 
-        for(i = 0; i < this.game.enemies.length; i++){
+        for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 this.checkCircleColliding(this.game.enemies[i])
             }
@@ -29,7 +29,7 @@ class Enemy{
     };
 
     draw(ctx){
-        ctx.strokeStyle = "#dec32c";
+        ctx.strokeStyle = "#FF0000";
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
         ctx.stroke(); 
