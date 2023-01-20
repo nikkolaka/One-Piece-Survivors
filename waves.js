@@ -48,7 +48,7 @@ class Wave{
         var playerY = this.game.playerLocation.y;
         
 
-        var  buffer = 30;
+        var  buffer = -100;
         for(var i = 0; i < this.spawnDensity*4; i++){
             var enemy = new Enemy(this.game, this.game.uniqueEId++);
             var quadrant = randomInt(4);
