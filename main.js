@@ -21,7 +21,7 @@ ASSET_MANAGER.downloadAll(() => {
 	}	else{
 		var waveMaker = new Wave(gameEngine);
 
-		waveMaker.spawn();
+		waveMaker.spawnRand();
 
 
 

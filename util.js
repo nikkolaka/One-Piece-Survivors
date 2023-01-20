@@ -1,5 +1,5 @@
 /** Global Parameters Object */
-const params = { };
+const params = {screenHeight:768,screenWidth:1024 };
 
 /**
  * @param {Number} n

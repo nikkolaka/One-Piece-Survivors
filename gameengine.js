@@ -11,7 +11,8 @@ class GameEngine {
 
         this.uniqueEId = 0;
 
-        this.playerLocation = {x: 0, y: 0};
+
+        this.playerLocation = {x: params.screenWidth/2, y: params.screenHeight/2};
 
 
         this.enemies = [];
