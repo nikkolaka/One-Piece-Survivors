@@ -5,7 +5,16 @@ const ASSET_MANAGER = new AssetManager();
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
-	var test = false;
+
+
+
+	var waveMaker = new Wave(gameEngine);
+
+	waveMaker.spawnRand();
+
+
+
+	/* var test = false;
 	if(test){
 		for( i = 0; i < 40; i++){
 			for(j = 0; j < 40; j++){ 
@@ -18,15 +27,7 @@ ASSET_MANAGER.downloadAll(() => {
 	
 		}
 		gameEngine.enemies[0].radius = 60
-	}	else{
-		var waveMaker = new Wave(gameEngine);
-
-		waveMaker.spawnRand();
-
-
-
-
-	}
+	} */
 
 
 
