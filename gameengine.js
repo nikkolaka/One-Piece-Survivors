@@ -9,6 +9,14 @@ class GameEngine {
         // Everything that will be updated and drawn each frame
         this.entities = [];
 
+        this.uniqueEId = 0;
+
+
+        this.playerLocation = {x: params.screenWidth/2, y: params.screenHeight/2};
+
+
+        this.enemies = [];
+
         // Information on the input
         this.click = null;
         this.mouse = null;
@@ -80,18 +88,34 @@ class GameEngine {
         this.entities.push(entity);
     };
 
+    addEnemy(enemy) {
+        this.enemies.push(enemy);
+    };
+
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
+
+
+        for (let i = this.enemies.length - 1; i >= 0; i--) {
+            this.enemies[i].draw(this.ctx, this);
+        }
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
         }
+
+
     };
 
     update() {
         let entitiesCount = this.entities.length;
+
+        if(this.mouse !== null){
+            this.enemies[0].x = this.mouse.x;
+            this.enemies[0].y = this.mouse.y;
+        }
 
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
@@ -100,12 +124,25 @@ class GameEngine {
                 entity.update();
             }
         }
+        for (let i = 0; i < this.enemies.length; i++) {
+            let enemy = this.enemies[i];
 
-        for (let i = this.entities.length - 1; i >= 0; --i) {
+            if (!enemy.removeFromWorld) {
+                enemy.update();
+            }
+        }
+
+
+
+        //mouse control
+        
+
+
+        /* for (let i = this.entities.length - 1; i >= 0; --i) {
             if (this.entities[i].removeFromWorld) {
                 this.entities.splice(i, 1);
             }
-        }
+        } */
     };
 
     loop() {
@@ -115,5 +152,3 @@ class GameEngine {
     };
 
 };
-
-// KV Le was here :)
