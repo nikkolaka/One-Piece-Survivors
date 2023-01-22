@@ -2,7 +2,9 @@ const gameEngine = new GameEngine();
 
 const ASSET_MANAGER = new AssetManager();
 
-ASSET_MANAGER.queueDownload("./img/Luffy.png")
+ASSET_MANAGER.queueDownload("./img/Navy.png");
+ASSET_MANAGER.queueDownload("./img/Luffy.png");
+ASSET_MANAGER.queueDownload("./img/Doflamingo2.png");
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
@@ -29,9 +31,7 @@ ASSET_MANAGER.downloadAll(() => {
 
 
 	}
-
-	gameEngine.addEntity(new Luffy(gameEngine));
-
+	gameEngine.addEntity(new luffy(gameEngine, 0));
 
 
 
@@ -43,5 +43,4 @@ ASSET_MANAGER.downloadAll(() => {
 
 	gameEngine.start();
 });
-// hello
 
