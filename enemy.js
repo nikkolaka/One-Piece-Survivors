@@ -18,7 +18,7 @@ class Enemy{
 
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                this.checkCircleColliding(this.game.enemies[i])
+                checkCircleColliding(this,this.game.enemies[i])
             }
             
         }
@@ -39,24 +39,7 @@ class Enemy{
         
     };
 
-    checkCircleColliding(otherEntity){
-
-        var dx = this.x - otherEntity.x;
-        var dy = this.y - otherEntity.y;
-        var COLLISIONREBOUND = 5;
-        var radiusSum = this.radius+otherEntity.radius
-
-        if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)){
-            var distance = Math.sqrt(dx * dx + dy * dy);
-            var step = radiusSum - distance;
-            
-            dx /= distance;
-            dy /= distance;
-            this.x += dx*step/COLLISIONREBOUND;
-            this.y += dy*step/COLLISIONREBOUND;
-        }
-
-    }
+    
 
 
     
