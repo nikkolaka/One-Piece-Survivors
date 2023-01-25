@@ -53,6 +53,8 @@ class Enemy{
     }
 
 }
+}
+
 
 class Navy{
     constructor(game, theId, x, y, velocity){
