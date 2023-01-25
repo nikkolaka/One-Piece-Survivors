@@ -44,46 +44,25 @@ class Wave{
     }
     spawnRand(){
         this.currentWave++;
-        var playerX = this.game.playerLocation.x;
-        var playerY = this.game.playerLocation.y;
-        
-
-        var  buffer = 30;
-        for(var i = 0; i < this.spawnDensity*5; i++){
-            switch(randomInt(2)){
-                case 0:
-                    var enemy = new Navy(this.game, this.game.uniqueEId++);
-                    break;
-                case 1:
-                    var enemy = new Dofalmingo(this.game, this.game.uniqueEId++);
-                    break;
+        setInterval(() =>{
+            const radius = 30;
+            let x;
+            let y;
+            if(Math.random() < 0.5){
+                x = Math.random() < 0.5 ? 0 - radius : params.screenWidth + radius;
+                y = Math.random() * params.screenHeight;
+            } else{
+                x = Math.random() * params.screenWidth;
+                y = Math.random() < 0.5? 0 - radius : params.screenHeight + radius;
             }
-            var quadrant = randomInt(4);
-            switch(quadrant){
-                case 0:
-                    //bottom quadrant
-                    enemy.x = playerX + randomInt(2*params.screenWidth)-params.screenWidth;
-                    enemy.y = playerY + randomInt(params.screenHeight)+(params.screenHeight/2)+buffer;
-                    break;
-                case 1:
-                    //top quadrant
-                    enemy.x = playerX + randomInt(2*params.screenWidth)-params.screenWidth;
-                    enemy.y = playerY - (params.screenHeight/2) - buffer - randomInt(params.screenHeight);
-                    break;
-                case 2:
-                    //left quadrant
-                    enemy.x = playerX - (params.screenWidth/2) - buffer - randomInt(params.screenWidth);
-                    enemy.y = playerY + randomInt(2*params.screenHeight)-params.screenHeight;
-                    break;
-                case 3:
-                    //right quadrant
-                    enemy.x = playerX + (params.screenWidth/2) + buffer + randomInt(params.screenWidth);
-                    enemy.y = playerY + randomInt(2*params.screenHeight)-params.screenHeight;
-                    break;
-
-            }
-            this.game.addEnemy(enemy);
-        }
+            const angle = Math.atan2(this.game.playerLocation.x / 2 - y, this.game.playerLocation.y / 2  - x);
+            const velocity ={
+                x: Math.cos(angle),
+                y: Math.sin(angle)
+            };
+            const enemy = new Enemy(this.game, this.game.uniqueEId++, x, y, velocity);
+        this.game.addEnemy(enemy);
+        },1000);
     }
 
 

@@ -11,8 +11,8 @@ class luffy{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
 
-        this.x = 100;
-        this.y = 100;
+        this.x = params.screenWidth/2;
+        this.y = params.screenHeight/2;
         this.scale = 1.5;
 
         //stats
@@ -30,18 +30,6 @@ class luffy{
     }
 
     update(){
-        if(this.game.keys.a){
-            this.facing = 1;
-            this.x -= this.speed;
-        }
-        if(this.game.keys.d){
-            this.facing = 0;
-            this.x += this.speed;
-        }
-        if(this.game.keys.w){
-            this.y -= this.speed;
-        }
-
 
     };
 

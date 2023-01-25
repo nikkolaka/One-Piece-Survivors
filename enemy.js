@@ -1,64 +1,37 @@
 class Enemy{
-    constructor(game, theId){
+    constructor(game, theId, x, y, velocity){
         
         this.id = theId;
-        this.game = game
-        this.radius = 7;
+        this.game = game;
+        this.radius = 20;
         this.diameter = this.radius*2;
-        this.x = 400;
-        this.y = 400;
+        this.x = x;
+        this.y = y;
 
-        this.speed = 200;
+        this.velocity = velocity;
     };
 
     update() {
-
-        for(let i = 0; i < this.game.enemies.length; i++){
-            if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                this.checkCircleColliding(this.game.enemies[i])
-            }
-            
-        }
-
-        
-
-        
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
     };
+
+        
+
+        
 
     draw(ctx){
-        ctx.strokeStyle = "#FF0000";
+        ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        ctx.stroke(); 
-        
-
-
+        ctx.fill(); 
+    
         
     };
-
-    checkCircleColliding(otherEntity){
-
-        var dx = this.x - otherEntity.x;
-        var dy = this.y - otherEntity.y;
-        var COLLISIONREBOUND = 5;
-        var radiusSum = this.radius+otherEntity.radius
-
-        if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)){
-            var distance = Math.sqrt(dx * dx + dy * dy);
-            var step = radiusSum - distance;
-            
-            dx /= distance;
-            dy /= distance;
-            this.x += dx*step/COLLISIONREBOUND;
-            this.y += dy*step/COLLISIONREBOUND;
-        }
-
-    }
-
 }
 
 class Navy{
-    constructor(game, theId){
+    constructor(game, theId, x, y, velocity){
         this.game = game;
         this.id = theId;
 
@@ -72,13 +45,14 @@ class Navy{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
 
-        this.x = 0;
-        this.y = 0;
+        this.x = x;
+        this.y = y;
+
         this.scale = 1.5;
 
         //stats
         this.health = 100;
-        this.speed = 4;
+        this.speed = velocity;
 
     };
 
@@ -94,8 +68,8 @@ class Navy{
     }
 
     update(){
-        
-
+        this.x += this.speed;
+        this.y += this.speed;
     };
 
     draw(ctx){
@@ -103,7 +77,7 @@ class Navy{
     }
 }
 
-class Dofalmingo{
+class Doflamingo{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
@@ -120,11 +94,14 @@ class Dofalmingo{
 
         this.x = 0;
         this.y = 0;
+
+
+        //stats
         this.scale = 1;
 
         //stats
         this.health = 100;
-        this.speed = 4;
+        this.speed = 600;
 
     };
 
@@ -140,10 +117,11 @@ class Dofalmingo{
     }
 
     update(){
-
     };
 
     draw(ctx){
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, this.scale);
     }
+
 }
+
