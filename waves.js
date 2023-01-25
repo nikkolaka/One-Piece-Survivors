@@ -48,16 +48,9 @@ class Wave{
         var playerY = this.game.playerLocation.y;
         
 
-        var  buffer = 30;
+        var  buffer = -100;
         for(var i = 0; i < this.spawnDensity*5; i++){
-            switch(randomInt(2)){
-                case 0:
-                    var enemy = new Navy(this.game, this.game.uniqueEId++);
-                    break;
-                case 1:
-                    var enemy = new Dofalmingo(this.game, this.game.uniqueEId++);
-                    break;
-            }
+            var enemy = new Navy(this.game, this.game.uniqueEId++);
             var quadrant = randomInt(4);
             switch(quadrant){
                 case 0:
