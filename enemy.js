@@ -19,10 +19,7 @@ class Enemy{
             }
             
         }
-
-        
-
-        
+    } 
 
     draw(ctx){
         ctx.fillStyle = this.color;
@@ -52,7 +49,6 @@ class Enemy{
 
     }
 
-}
 }
 
 
