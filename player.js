@@ -4,13 +4,13 @@ class luffy{
         this.id = theId;
 
         //sprite
-        this.spriteSheet = ASSET_MANAGER.getAsset("./img/Luffy4.png");
+        this.spriteSheet = ASSET_MANAGER.getAsset("./img/Luffy7.png");
         this.loadAnimation(this.spriteSheet);
 
         //states
-        this.states = 0; // 0 = idle, 1 = walking
+        this.states = 0; // 0 = idle, 1 = walking 2 = dead
         this.facing = 0; // 0 = right, 1 = left
-        this.dead = false;
+        this.dead = true;
 
         this.x =  512;
         this.y =  384;
@@ -25,7 +25,7 @@ class luffy{
 
     loadAnimation(spriteSheet){
         this.animation = [];
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 3; i++){
             this.animation.push([]);
             for(var j = 0; j < 2; j++){
                 this.animation[i].push([]);
@@ -40,42 +40,45 @@ class luffy{
         this.animation[1][0] = new Animator(spriteSheet, 0, 88, 79, 88, 8, .2, false, true);
         //walking left
         this.animation[1][1] = new Animator(spriteSheet, 638,88, 79, 88, 8, .2, false, true);
+
+        // dead right
+        this.animation[2][0] = new Animator(spriteSheet, 5, 176, 79, 88, 5, .2, false, false);
+        // dead left
+        this.animation[2][1] = new Animator(spriteSheet, 5, 264, 79, 88, 5, .2, false, false);
     }
 
     update(){
-        if(this.game.keys.a){
+        if(this.game.keys.a || this.game.keys.A){
             this.states = 1;
             this.facing = 1;
             this.x -= this.speed;
         }
-        if(this.game.keys.d){
+        if(this.game.keys.d || this.game.keys.D){
             this.states = 1;
             this.facing = 0;
             this.x += this.speed;
         }
-        if(this.game.keys.w){
+        if(this.game.keys.w || this.game.keys.W){
             this.states = 1;
             this.y -= this.speed;
         }
-        if(this.game.keys.s){
+        if(this.game.keys.s || this.game.keys.S){
             this.states = 1;
             this.y += this.speed;
         }
-        if(!this.game.keys.a && !this.game.keys.d && !this.game.keys.w && !this.game.keys.s){
+        if(!(this.game.keys.a || this.game.keys.A) && !(this.game.keys.d || this.game.keys.D) &&
+         !(this.game.keys.w || this.game.keys.W) && !(this.game.keys.s || this.game.keys.S)){
             this.states = 0;
         }
         if (this.health < 0){
             this.dead = true;
+            this.states = 2;
         }
         this.game.playerLocation.x = this.x;
         this.game.playerLocation.y = this.y;
     };
 
     draw(ctx){
-        if (this.dead){
-            
-        } else{
             this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, this.scale);
-        }
     }
 }

@@ -3,7 +3,7 @@ const gameEngine = new GameEngine();
 const ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./img/Navy.png");
-ASSET_MANAGER.queueDownload("./img/Luffy4.png");
+ASSET_MANAGER.queueDownload("./img/Luffy7.png");
 ASSET_MANAGER.queueDownload("./img/Doflamingo2.png");
 
 ASSET_MANAGER.downloadAll(() => {
