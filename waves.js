@@ -50,7 +50,7 @@ class Wave{
 
         var  buffer = -100;
         for(var i = 0; i < this.spawnDensity*5; i++){
-            var enemy = new Navy(this.game, this.game.uniqueEId++);
+            var enemy = new Enemy(this.game, this.game.uniqueEId++);
             var quadrant = randomInt(4);
             switch(quadrant){
                 case 0:
