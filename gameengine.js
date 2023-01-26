@@ -88,9 +88,11 @@ class GameEngine {
         this.entities.push(entity);
     };
 
+    /**
     addEnemy(enemy) {
         this.enemies.push(enemy);
     };
+    */
 
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
@@ -112,10 +114,11 @@ class GameEngine {
     update() {
         let entitiesCount = this.entities.length;
 
-        if(this.mouse !== null){
+        /*if(this.mouse !== null){
             this.enemies[0].x = this.mouse.x;
             this.enemies[0].y = this.mouse.y;
         }
+        */
 
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
@@ -124,13 +127,15 @@ class GameEngine {
                 entity.update();
             }
         }
-        for (let i = 0; i < this.enemies.length; i++) {
+        /*for (let i = 0; i < this.enemies.length; i++) {
             let enemy = this.enemies[i];
 
             if (!enemy.removeFromWorld) {
                 enemy.update();
             }
         }
+        */
+
 
 
 
@@ -143,11 +148,12 @@ class GameEngine {
                 this.entities.splice(i, 1);
             }
         }
-        for (let i = this.enemies.length - 1; i >= 0; --i) {
+        /*for (let i = this.enemies.length - 1; i >= 0; --i) {
             if (this.enemies[i].removeFromWorld) {
                 this.enemies.splice(i, 1);
             }
         }
+        */
     };
 
     loop() {
