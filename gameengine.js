@@ -106,7 +106,7 @@ class GameEngine {
             this.entities[i].draw(this.ctx, this);
         }
 
-
+        
     };
 
     update() {
@@ -138,11 +138,16 @@ class GameEngine {
         
 
 
-        /* for (let i = this.entities.length - 1; i >= 0; --i) {
+        for (let i = this.entities.length - 1; i >= 0; --i) {
             if (this.entities[i].removeFromWorld) {
                 this.entities.splice(i, 1);
             }
-        } */
+        }
+        for (let i = this.enemies.length - 1; i >= 0; --i) {
+            if (this.enemies[i].removeFromWorld) {
+                this.enemies.splice(i, 1);
+            }
+        }
     };
 
     loop() {
