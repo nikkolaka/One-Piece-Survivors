@@ -2,8 +2,8 @@ class Enemy{
     constructor(game, theId){
         
         this.id = theId;
-        this.game = game
-        this.radius = 7;
+        this.game = game 
+        this.radius = 15;
         this.diameter = this.radius*2;
         this.x = 400;
         this.y = 400;
@@ -19,11 +19,9 @@ class Enemy{
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 checkCircleColliding(this,this.game.enemies[i])
-            }
-            
+            }   
+            enemyTracking(this, this.game);
         }
-
-        
 
         
     };
@@ -33,13 +31,11 @@ class Enemy{
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
         ctx.stroke(); 
-        
-
-
-        
     };
 
     
+            
+
 
 
     

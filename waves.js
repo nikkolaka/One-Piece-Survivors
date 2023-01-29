@@ -5,7 +5,7 @@ class Wave{
         this.minDifficulty = 1;
         this.maxDifficulty = 10;
         this.currentWave = 0;
-        this.spawnDensity = 100;
+        this.spawnDensity = 50;
         
 
 
@@ -48,7 +48,7 @@ class Wave{
         var playerY = this.game.playerLocation.y;
         
 
-        var  buffer = -100;
+        var  buffer = -50;
         for(var i = 0; i < this.spawnDensity*4; i++){
             var enemy = new Enemy(this.game, this.game.uniqueEId++);
             var quadrant = randomInt(4);
