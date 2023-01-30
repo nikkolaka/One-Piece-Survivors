@@ -11,6 +11,8 @@ class GameEngine {
 
         this.uniqueEId = 0;
 
+        this.camera = this;
+
 
         this.playerLocation = {x: params.screenWidth/2, y: params.screenHeight/2};
 
@@ -109,6 +111,12 @@ class GameEngine {
         }
 
 
+
+        //added draw camera after entities
+        //this.camera.draw(this.ctx);
+
+
+
     };
 
     update() {
@@ -137,6 +145,8 @@ class GameEngine {
         */
 
 
+        //added camera update
+        this.camera.update();
 
 
         //mouse control
