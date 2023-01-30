@@ -11,7 +11,7 @@ class Enemy{
 
 
 
-        this.speed = 200;
+        this.speed = randomInt(100)+500;
     };
 
     update() {

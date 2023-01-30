@@ -115,6 +115,8 @@ class GameEngine {
         if(this.mouse !== null){
             this.enemies[0].x = this.mouse.x;
             this.enemies[0].y = this.mouse.y;
+            this.playerLocation.x = this.enemies[0].x;
+            this.playerLocation.y = this.enemies[0].y;
         }
 
         for (let i = 0; i < entitiesCount; i++) {
