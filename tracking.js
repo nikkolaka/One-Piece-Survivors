@@ -14,5 +14,4 @@ const enemyTracking = function enemyTracking(thisEntity, game){
     dy /= distance;
     thisEntity.x -= dx*step*game.clockTick;
     thisEntity.y -= dy*step*game.clockTick;
-
 }

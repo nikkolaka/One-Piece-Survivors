@@ -3,8 +3,8 @@ const gameEngine = new GameEngine();
 const ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./img/Navy.png");
-ASSET_MANAGER.queueDownlod("./img/Luffy7.png");
-ASSET_MANAGER.queueDownload("./img/Doflamingo2.png");
+ASSET_MANAGER.queueDownload("./img/luffy7.png");
+ASSET_MANAGER.queueDownload("./img/Doflamingo.png");
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
@@ -15,6 +15,8 @@ ASSET_MANAGER.downloadAll(() => {
 	var waveMaker = new Wave(gameEngine);
 
 	waveMaker.spawnRand();
+	var player = new luffy(gameEngine, gameEngine.uniqueEId++);
+	gameEngine.addEntity(player);
 
 
 

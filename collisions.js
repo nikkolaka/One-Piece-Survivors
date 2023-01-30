@@ -16,3 +16,4 @@ const checkCircleColliding = function(thisEntity, otherEntity){
     }
 
 }
+
