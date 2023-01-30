@@ -15,8 +15,6 @@ class Background{
 
                         
         this.spritesheet = ASSET_MANAGER.getAsset("./img/One_Piece_Survivors_Map.png"); 
-        //, 728, 752, 80, 184, 0, 0.2)
-
     };
 
 
@@ -37,12 +35,12 @@ class Background{
 
         }
 
-        if (this.x > 512) this.x = 512;
-        else if (this.x < -4608) this.x = -4608;
+        if (this.x > 450) this.x = 450;
+        else if (this.x < -4600) this.x = -4600;
 
-        if (this.y > 384) this.y = 384;
-        else if (this.y < -4646) this.y = -4646;
-    };
+        if (this.y > 326) this.y = 326;
+        else if (this.y < -4706) this.y = -4706;
+    };d
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, 0, 0, 1280, 1280, this.x, this.y, 5120, 5120);

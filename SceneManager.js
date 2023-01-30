@@ -18,13 +18,14 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
 
-        this.Luffy = new Luffy(gameEngine);
-        gameEngine.addEntity(this.Luffy);
+        var waveMaker = new Wave(gameEngine);
+        waveMaker.spawnRand();
+
+        this.luffy = new luffy(gameEngine);
+        gameEngine.addEntity(this.luffy);
 
         this.Background = new Background(gameEngine);
         gameEngine.addEntity(this.Background);
-
-
 
     }
 
@@ -35,8 +36,8 @@ class SceneManager {
         let midpointY = params.screenHeight/2 - 90;
 
 
-        this.x = this.Luffy.x - midpointX;
-        this.y = this.Luffy.y - midpointY;
+        this.x = this.luffy.x - midpointX;
+        this.y = this.luffy.y - midpointY;
     }
 
 
