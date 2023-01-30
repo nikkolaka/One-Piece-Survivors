@@ -2,6 +2,8 @@ class Luffy{
     constructor(game) {
         this.game = game;
 
+        this.game.Luffy = this;
+
         this.facing = 0;
 
         this.x = 0;
@@ -10,6 +12,7 @@ class Luffy{
 
         this.animations = [];
         this.loadAnimations();
+
 
     };
 
@@ -57,7 +60,8 @@ class Luffy{
     };
 
     draw(ctx) {
-        this.animations[this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y);
+        this.animations[this.facing].drawFrame(this.game.clockTick, ctx, 
+            this.x - this.game.camera.x, this.y - this.game.camera.y);
     };
 
 }
