@@ -40,7 +40,7 @@ class Background{
 
         if (this.y > 326) this.y = 326;
         else if (this.y < -4706) this.y = -4706;
-    };d
+    };
 
     draw(ctx) {
         ctx.drawImage(this.spritesheet, 0, 0, 1280, 1280, this.x, this.y, 5120, 5120);
