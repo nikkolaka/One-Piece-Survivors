@@ -42,6 +42,7 @@ class Wave{
             this.game.addEnemy(enemy);
         }
     }
+
     spawnRand(){
         this.currentWave++;
         var playerX = this.game.playerLocation.x;
@@ -49,16 +50,17 @@ class Wave{
         
 
         var  buffer = 150;
-        for(var i = 0; i < this.spawnDensity*2; i++){
+        for(var i = 0; i < this.spawnDensity*4; i++){
+            var enemy;
+            var quadrant = randomInt(4);
             switch(randomInt(2)){
                 case 0:
-                    var enemy = new Doflamingo(this.game, this.game.uniqueEId++);
+                    enemy = new Doflamingo(this.game, this.game.uniqueEId++);
                     break;
                 case 1:
-                    var enemy = new Navy(this.game, this.game.uniqueEId++);
+                    enemy = new Navy(this.game, this.game.uniqueEId++);
                     break;
-            }
-            var quadrant = randomInt(4);
+            }          
             switch(quadrant){
                 case 0:
                     //bottom quadrant

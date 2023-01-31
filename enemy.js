@@ -50,7 +50,7 @@ class Navy{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
 
-        this.radius = 10;
+        this.radius = 20;
         this.diameter = this.radius*2;
         this.scale = 1.5;
 
@@ -59,6 +59,8 @@ class Navy{
 
         //stats
         this.health = 100;
+
+        this.game.Navy = this;
 
     };
 
@@ -92,7 +94,7 @@ class Navy{
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x + 70, this.y + 50, this.radius, 0, 2 * Math.PI);
+        ctx.arc(this.x + 70 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
         ctx.stroke(); 
     }
 
@@ -113,7 +115,7 @@ class Doflamingo{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
 
-        this.radius = 10;
+        this.radius = 20;
         this.diameter = this.radius*2;
         this.scale = 1.5;
 
@@ -123,7 +125,10 @@ class Doflamingo{
         //stats
         this.health = 100;
 
+        this.game.Doflamingo = this;
+
     };
+    
 
     loadAnimation(){
         // walking right
@@ -155,7 +160,7 @@ class Doflamingo{
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x + 55, this.y + 50, this.radius, 0, 2 * Math.PI);
+        ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
         ctx.stroke(); 
     }
 
