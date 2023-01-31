@@ -57,6 +57,8 @@ class Navy{
         this.x = 10;
         this.y = 10;
 
+        this.speed = 1.5;
+
         //stats
         this.health = 100;
 
@@ -121,6 +123,7 @@ class Doflamingo{
 
         this.x = 10;
         this.y = 10;
+        this.speed = 0.8;
 
         //stats
         this.health = 100;

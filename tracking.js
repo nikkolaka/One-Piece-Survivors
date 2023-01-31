@@ -8,7 +8,7 @@ const enemyTracking = function enemyTracking(thisEntity, game){
     
 
     var distance = Math.sqrt(dx * dx + dy * dy);
-    var step = 0.12;
+    var step = 0.12*thisEntity.speed;
     
     dx /= distance;
     dy /= distance;
