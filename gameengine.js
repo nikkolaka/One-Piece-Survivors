@@ -11,11 +11,14 @@ class GameEngine {
 
         this.uniqueEId = 0;
 
+        this.camera = this;
+
 
         this.playerLocation = {x: params.screenWidth/2, y: params.screenHeight/2};
 
 
         this.enemies = [];
+        
 
         // Information on the input
         this.click = null;
@@ -88,9 +91,11 @@ class GameEngine {
         this.entities.push(entity);
     };
 
+    
     addEnemy(enemy) {
         this.enemies.push(enemy);
     };
+    
 
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
@@ -98,13 +103,21 @@ class GameEngine {
 
 
 
-        for (let i = this.enemies.length - 1; i >= 0; i--) {
-            this.enemies[i].draw(this.ctx, this);
-        }
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
         }
+
+        for (let i = this.enemies.length - 1; i >= 0; i--) {
+            this.enemies[i].draw(this.ctx, this);
+        }
+
+
+
+        //added draw camera after entities
+        //this.camera.draw(this.ctx);
+
+
 
         
     };
@@ -112,44 +125,49 @@ class GameEngine {
     update() {
         let entitiesCount = this.entities.length;
 
-        if(this.mouse !== null){
-            this.enemies[0].x = this.mouse.x;
-            this.enemies[0].y = this.mouse.y;
-            this.playerLocation.x = this.enemies[0].x;
-            this.playerLocation.y = this.enemies[0].y;
-        }
+        
 
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
 
+            entity.update();
+            /*
             if (!entity.removeFromWorld) {
                 entity.update();
             }
+            */
         }
         for (let i = 0; i < this.enemies.length; i++) {
             let enemy = this.enemies[i];
 
-            if (!enemy.removeFromWorld) {
-                enemy.update();
-            }
-        }
+            enemy.update();
 
+            /* if (!enemy.removeFromWorld) { */
+            /*     enemy.update(); */
+            /* } */
+        }
+        
+
+
+        //added camera update
+        this.camera.update();
 
 
         //mouse control
         
 
 
-        for (let i = this.entities.length - 1; i >= 0; --i) {
-            if (this.entities[i].removeFromWorld) {
-                this.entities.splice(i, 1);
-            }
-        }
-        for (let i = this.enemies.length - 1; i >= 0; --i) {
-            if (this.enemies[i].removeFromWorld) {
-                this.enemies.splice(i, 1);
-            }
-        }
+        /* for (let i = this.entities.length - 1; i >= 0; --i) { */
+        /*     if (this.entities[i].removeFromWorld) { */
+        /*         this.entities.splice(i, 1); */
+        /*     } */
+        /* } */
+        /* for (let i = this.enemies.length - 1; i >= 0; --i) { */
+        /*     if (this.enemies[i].removeFromWorld) { */
+        /*         this.enemies.splice(i, 1); */
+        /*     } */
+        /* } */
+        
     };
 
     loop() {
