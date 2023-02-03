@@ -3,6 +3,8 @@ class Luffy{
         this.game = game;
         this.id = theId;
 
+        this.game.luffy = this;
+
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/luffy7.png");
         this.loadAnimation(this.spriteSheet);
@@ -49,6 +51,7 @@ class Luffy{
     }
 
     update(){
+
         if(this.game.keys.a || this.game.keys.A){
             this.states = 1;
             this.facing = 1;
@@ -82,10 +85,10 @@ class Luffy{
     };
 
     draw(ctx){
-            this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, this.scale);
+            this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
             ctx.fillStyle = this.color;
             ctx.beginPath();
-            ctx.arc(this.x + 52, this.y + 53, this.radius, 0, 2 * Math.PI);
+            ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
             ctx.stroke(); 
     }
 }
