@@ -15,7 +15,7 @@ ASSET_MANAGER.downloadAll(() => {
 	var waveMaker = new Wave(gameEngine);
 
 	waveMaker.spawnRand();
-	var player = new luffy(gameEngine, gameEngine.uniqueEId++);
+	var player = new Luffy(gameEngine, gameEngine.uniqueEId++);
 	gameEngine.addEntity(player);
 
 

@@ -1,4 +1,4 @@
-class luffy{
+class Luffy{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
@@ -88,6 +88,4 @@ class luffy{
             ctx.arc(this.x + 52, this.y + 53, this.radius, 0, 2 * Math.PI);
             ctx.stroke(); 
     }
-
-
 }
