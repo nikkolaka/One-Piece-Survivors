@@ -43,7 +43,7 @@ class Background{
     };
 
     draw(ctx) {
-        ctx.drawImage(this.spritesheet, 0, 0, 1280, 1280, this.x, this.y, 5120, 5120);
+        ctx.drawImage(this.spritesheet, 0, 0, 1280, 1280, this.x - this.game.camera.x/2, this.y - this.game.camera.y/2, 5120, 5120);
     };
 
 }
