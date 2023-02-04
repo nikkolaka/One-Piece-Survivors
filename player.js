@@ -2,7 +2,7 @@ class luffy{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-
+        this.weapons = [new Gomu(game)];
         this.game.luffy = this;
 
         //sprite
@@ -52,6 +52,14 @@ class luffy{
 
     update(){
 
+        for (let i = 0; i < this.weapons.length; i++) {
+            let weapon = this.weapons[i];
+
+            weapon.update();
+
+
+        }
+
         if(this.game.keys.a || this.game.keys.A){
             this.states = 1;
             this.facing = 1;
@@ -85,11 +93,17 @@ class luffy{
     };
 
     draw(ctx){
-            this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
-            ctx.fillStyle = this.color;
-            ctx.beginPath();
-            ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
-            ctx.stroke(); 
+        for (let i = 0; i < this.weapons.length; i++) {
+            let weapon = this.weapons[i];
+            weapon.draw(ctx);
+
+        }
+
+        this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
+        ctx.stroke(); 
     }
 
 

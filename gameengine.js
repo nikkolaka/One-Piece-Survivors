@@ -148,6 +148,8 @@ class GameEngine {
         }
         
 
+        
+
 
         //added camera update
         this.camera.update();
