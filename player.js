@@ -17,6 +17,7 @@ class luffy{
         this.x =  512;
         this.y =  384;
         this.radius = 10;
+        this.direction = Direction.Up;
 
         this.scale = 1.2;
 
@@ -52,36 +53,45 @@ class luffy{
 
     update(){
 
-        for (let i = 0; i < this.weapons.length; i++) {
-            let weapon = this.weapons[i];
-
-            weapon.update();
-
-
-        }
+        
 
         if(this.game.keys.a || this.game.keys.A){
             this.states = 1;
             this.facing = 1;
+            this.direction = Direction.Left;
             this.x -= this.game.clockTick * this.speed;
         }
         if(this.game.keys.d || this.game.keys.D){
             this.states = 1;
             this.facing = 0;
+            this.direction = Direction.Right;
             this.x += this.game.clockTick * this.speed;
         }
         if(this.game.keys.w || this.game.keys.W){
             this.states = 1;
+            this.direction = Direction.Up;
             this.y -= this.game.clockTick * this.speed;
         }
         if(this.game.keys.s || this.game.keys.S){
             this.states = 1;
+            this.direction = Direction.Down;
             this.y += this.game.clockTick * this.speed;
         }
         if(!(this.game.keys.a || this.game.keys.A) && !(this.game.keys.d || this.game.keys.D) &&
          !(this.game.keys.w || this.game.keys.W) && !(this.game.keys.s || this.game.keys.S)){
             this.states = 0;
         }
+
+        for (let i = 0; i < this.weapons.length; i++) {
+            let weapon = this.weapons[i];
+
+            weapon.update();
+            weapon.direction = this.direction;
+
+
+        }
+
+
         if (this.health < 0){
             this.dead = true;
             this.states = 2;

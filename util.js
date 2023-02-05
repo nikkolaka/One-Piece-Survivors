@@ -1,6 +1,13 @@
 /** Global Parameters Object */
 const params = {screenHeight:768,screenWidth:1024 };
 
+const Direction = {
+    Up: 'Up',
+    Down: 'Down',
+    Left: 'Left',
+    Right: 'Right'
+};
+
 /**
  * @param {Number} n
  * @returns Random Integer Between 0 and n-1
