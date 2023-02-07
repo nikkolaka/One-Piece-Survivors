@@ -5,17 +5,19 @@ class Gomu{
         this.direction = Direction.Up;
         this.lastDirection = this.direction;
         if(this.direction == Direction.Up || this.direction == Direction.Down){
-            this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
+            
             this.location = {x1: -10, y1: 3, x2: 10, y2: -3};
         } else{
-            
-            
-            this.hitbox = {x1: -(this.height/2), y1: -(this.width/2), x2: (this.height/2), y2: (this.width/2)};
+            var temp = this.width;
+            this.width = this.height;
+            this.height = temp;
             this.location = {x1: -3, y1: -10, x2: 10, y2: 3};
         }
+
+        this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
         
         this.game = game;
-        this.range = 200;
+        this.range = 300;
         this.duration = 70;
         this.step = 0;
     }

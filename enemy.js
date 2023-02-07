@@ -64,6 +64,8 @@ class Navy{
 
         this.game.Navy = this;
 
+        this.removeFromWorld = false;
+
     };
 
     loadAnimation(){
@@ -127,7 +129,7 @@ class Doflamingo{
 
         //stats
         this.health = 100;
-
+        this.removeFromWorld = false;
         this.game.Doflamingo = this;
 
     };
