@@ -14,6 +14,7 @@ class Luffy{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
 
+        // player hitbox
         this.x =  512;
         this.y =  384;
         this.radius = 10;
@@ -35,6 +36,7 @@ class Luffy{
                 this.animation[i].push([]);
             }
         }
+
         // idle right
         this.animation[0][0] = new Animator(spriteSheet, 0, 0, 79, 88, 3, .3, false, true);
         // idle left
@@ -42,7 +44,7 @@ class Luffy{
 
         // walking right
         this.animation[1][0] = new Animator(spriteSheet, 0, 88, 79, 88, 8, .2, false, true);
-        //walking left
+        // walking left
         this.animation[1][1] = new Animator(spriteSheet, 645,88, 79, 88, 8, .2, true, true);
 
         // dead right
@@ -54,7 +56,7 @@ class Luffy{
     update(){
 
         
-
+        // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
             this.states = 1;
             this.facing = 1;
@@ -82,6 +84,7 @@ class Luffy{
             this.states = 0;
         }
 
+        // changes the direction of the player's direction
         for (let i = 0; i < this.weapons.length; i++) {
             let weapon = this.weapons[i];
 
@@ -91,8 +94,8 @@ class Luffy{
 
         }
 
-
-        if (this.health < 0){
+        // checks if the player is dead
+        if (this.health <= 0){
             this.dead = true;
             this.states = 2;
         }

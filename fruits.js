@@ -2,6 +2,12 @@ class Gomu{
     constructor(game){
         this.width = 20;
         this.height = 6;
+        this.scale = 1;
+
+        this.spriteSheet = ASSET_MANAGER.getAsset("./img/gomu.png");
+        this.loadAnimation(this.spriteSheet);
+        this.facing = 0; // 0 = up, 1 = down, 2 = left, 3 = right
+
         this.direction = Direction.Up;
         this.lastDirection = this.direction;
         if(this.direction == Direction.Up || this.direction == Direction.Down){
@@ -18,6 +24,27 @@ class Gomu{
         this.range = 200;
         this.duration = 70;
         this.step = 0;
+    }
+
+    loadAnimation(spriteSheet){
+        this.animation = [];
+        for(var i = 0; i < 4; i++){
+            this.animation.push([]);
+            for(var j = 0; j < 2; j++){
+                this.animation[i].push([]);
+            }
+        }
+        // up direction
+        this.animation[0] = new Animator(spriteSheet, 0, 0, 79, 88, 3, .3, false, true);
+
+        // down direction
+        this.animation[1] = new Animator(spriteSheet, 239, 0, 79, 88, 3, .3, false, true);
+
+        // left direction
+        this.animation[2] = new Animator(spriteSheet, 0, 88, 79, 88, 8, .2, false, true);
+        
+        // right direction
+        this.animation[3] = new Animator(spriteSheet, 645,88, 79, 88, 8, .2, true, true);
     }
 
     update(){
@@ -47,15 +74,19 @@ class Gomu{
         if(this.direction == Direction.Up){
             this.location.y1 -= this.step;
             this.location.y2 -= this.step;
+            this.facing = 0;
         } else if(this.direction == Direction.Down){
             this.location.y1 += this.step;
             this.location.y2 += this.step;
+            this.facing = 1;
         } else if(this.direction == Direction.Left){
             this.location.x1 -= this.step;
             this.location.x2 -= this.step;
+            this.facing = 2;
         } else if(this.direction == Direction.Right){
             this.location.x1 += this.step;
             this.location.x2 += this.step;
+            this.facing = 3;
         }
         
         this.step += this.range/this.duration;
@@ -63,6 +94,7 @@ class Gomu{
     }
 
     draw(ctx){
+        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.beginPath()
         if(this.direction == Direction.Up || this.direction == Direction.Down){
             ctx.rect(this.location.x1 - this.game.camera.x + 52, this.location.y1 - this.game.camera.y + 53, this.width, this.height);
