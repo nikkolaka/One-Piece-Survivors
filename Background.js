@@ -14,7 +14,7 @@ class Background{
         this.rightEdge = 512;
 
                         
-        this.spritesheet = ASSET_MANAGER.getAsset("./img/One_Piece_Survivors_Map.png"); 
+        this.spritesheet = ASSET_MANAGER.getAsset("./img/One Piece Survivors Map.png"); 
     };
 
 
