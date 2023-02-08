@@ -22,8 +22,8 @@ class SceneManager {
         waveMaker.spawnRand();
 
 
-        this.luffy = new Luffy(gameEngine);
-        gameEngine.addEntity(this.luffy);
+        this.luffy = new luffy(gameEngine);
+        gameEngine.addPlayer(this.luffy);
 
         this.Background = new Background(gameEngine);
         gameEngine.addEntity(this.Background);
