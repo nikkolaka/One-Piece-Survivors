@@ -1,5 +1,3 @@
-// This game shell was happily modified from Googler Seth Ladd's "Bad Aliens" game and his Google IO talk in 2011
-
 class GameEngine {
     constructor(options) {
         // What you will use to draw
@@ -186,3 +184,4 @@ class GameEngine {
     };
 
 };
+
