@@ -5,7 +5,7 @@ const ASSET_MANAGER = new AssetManager();
 ASSET_MANAGER.queueDownload("./img/Navy.png");
 ASSET_MANAGER.queueDownload("./img/luffy7.png");
 ASSET_MANAGER.queueDownload("./img/Doflamingo.png");
-ASSET_MANAGER.queueDownload("./img/One Piece Survivors Map.png");
+ASSET_MANAGER.queueDownload("./img/OnePieceMap.png");
 
 ASSET_MANAGER.downloadAll(() => {
     const canvas = document.getElementById("gameWorld");
