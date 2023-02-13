@@ -1,8 +1,9 @@
 class Gomu{
     constructor(game){
-        this.width = 20;
-        this.height = 6;
+        this.width = 60;
+        this.height = 10;
         this.scale = 1;
+
 
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/gomu.png");
         this.loadAnimation(this.spriteSheet);
@@ -23,8 +24,8 @@ class Gomu{
         this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
         
         this.game = game;
-        this.range = 300;
-        this.duration = 70;
+        this.range = 200;
+        this.duration = 95;
         this.step = 0;
     }
 
@@ -37,16 +38,16 @@ class Gomu{
             }
         }
         // up direction
-        this.animation[0] = new Animator(spriteSheet, 0, 0, 79, 88, 3, .3, false, true);
+        this.animation[0] = new Animator(spriteSheet, 0, 279, 90, 130, 6, .3, false, true);
 
         // down direction
-        this.animation[1] = new Animator(spriteSheet, 239, 0, 79, 88, 3, .3, false, true);
+        this.animation[1] = new Animator(spriteSheet, 0, 200, 90, 100, 6, .3, false, true);
 
         // left direction
-        this.animation[2] = new Animator(spriteSheet, 0, 88, 79, 88, 8, .2, false, true);
+        this.animation[2] = new Animator(spriteSheet, 0, 88, 79, 90, 6, 2, false, true);
         
         // right direction
-        this.animation[3] = new Animator(spriteSheet, 645,88, 79, 88, 8, .2, true, true);
+        this.animation[3] = new Animator(spriteSheet, 0, 120, 79, 30, 6, .3, true, true);
     }
 
     update(){
@@ -70,6 +71,7 @@ class Gomu{
         this.location.x2 = this.game.playerLocation.x + this.hitbox.x2;
         this.location.y2 = this.game.playerLocation.y + this.hitbox.y2;
 
+
         if(this.step >= this.range) this.step = 0;
         
 
@@ -90,6 +92,9 @@ class Gomu{
             this.location.x2 += this.step;
             this.facing = 3;
         }
+
+        this.x = this.location.x1 + 42;
+        this.y = this.location.y1 + 20;
         
         this.step += this.range/this.duration;
 
