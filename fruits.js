@@ -64,8 +64,6 @@ class Gomu{
             }
         }
 
-        
-
         this.location.x1 = this.game.playerLocation.x + this.hitbox.x1;
         this.location.y1 = this.game.playerLocation.y + this.hitbox.y1;
         this.location.x2 = this.game.playerLocation.x + this.hitbox.x2;

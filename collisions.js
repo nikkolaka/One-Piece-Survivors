@@ -1,5 +1,4 @@
 const checkCircleColliding = function(thisEntity, otherEntity){
-
     var dx = thisEntity.x - otherEntity.x;
     var dy = thisEntity.y - otherEntity.y;
     var COLLISIONREBOUND = 5;
@@ -18,8 +17,7 @@ const checkCircleColliding = function(thisEntity, otherEntity){
 }
 
 const CheckRectCircleColliding = function RectCircleColliding(circle,rect){
-
-
+    
     var distX = Math.abs(circle.x - rect.x-rect.width/2);
     var distY = Math.abs(circle.y - rect.y-rect.height/2);
 
