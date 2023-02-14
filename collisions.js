@@ -4,8 +4,8 @@ const checkCircleColliding = function(thisEntity, otherEntity){
     var dy = thisEntity.y - otherEntity.y;
     var COLLISIONREBOUND = 5;
     var radiusSum = thisEntity.radius+otherEntity.radius
-    
-    //
+
+    //if the distance is less than the radius, then there's no collision
     if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)){
         var distance = Math.sqrt(dx * dx + dy * dy);
         var step = radiusSum - distance;
@@ -24,9 +24,11 @@ const CheckRectCircleColliding = function RectCircleColliding(circle,rect){
     var distX = Math.abs(circle.x - rect.x-rect.width/2);
     var distY = Math.abs(circle.y - rect.y-rect.height/2);
 
+    //if the distance is more than the radius, then there's no collision
     if (distX > (rect.width/2 + circle.radius)) { return false; }
     if (distY > (rect.height/2 + circle.radius)) { return false; }
 
+    //if the distance is less than the radius, then there's a collision
     if (distX <= (rect.w/2)) { return true; } 
     if (distY <= (rect.h/2)) { return true; }
 
