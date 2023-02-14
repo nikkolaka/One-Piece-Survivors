@@ -22,7 +22,7 @@ class SceneManager {
         waveMaker.spawnRand();
 
 
-        this.luffy = new Luffy(gameEngine);
+        this.luffy = new Zoro(gameEngine);
         gameEngine.addPlayer(this.luffy);
 
         this.Background = new Background(gameEngine);
