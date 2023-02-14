@@ -1,9 +1,11 @@
+//Checks if a circle is colliding with another circle
 const checkCircleColliding = function(thisEntity, otherEntity){
     var dx = thisEntity.x - otherEntity.x;
     var dy = thisEntity.y - otherEntity.y;
     var COLLISIONREBOUND = 5;
     var radiusSum = thisEntity.radius+otherEntity.radius
-
+    
+    //
     if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)){
         var distance = Math.sqrt(dx * dx + dy * dy);
         var step = radiusSum - distance;
@@ -16,6 +18,7 @@ const checkCircleColliding = function(thisEntity, otherEntity){
 
 }
 
+// Chceks if a circle is colliding with a rectangle
 const CheckRectCircleColliding = function RectCircleColliding(circle,rect){
     
     var distX = Math.abs(circle.x - rect.x-rect.width/2);
