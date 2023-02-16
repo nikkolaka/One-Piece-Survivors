@@ -12,7 +12,7 @@ class GameEngine {
         this.uniqueEId = 0;
 
         this.camera = this;
-
+        this.player;
 
         this.playerLocation = {x: params.screenWidth/2, y: params.screenHeight/2};
 
@@ -91,6 +91,12 @@ class GameEngine {
         this.entities.push(entity);
     };
 
+    addPlayer(player) {
+        this.player = player;
+    }
+
+
+
     
     addEnemy(enemy) {
         this.enemies.push(enemy);
@@ -104,14 +110,17 @@ class GameEngine {
 
 
         // Draw latest things first
+        
+
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
         }
+        
 
         for (let i = this.enemies.length - 1; i >= 0; i--) {
             this.enemies[i].draw(this.ctx, this);
         }
-
+        this.player.draw(this.ctx);
 
 
         //added draw camera after entities
@@ -125,27 +134,34 @@ class GameEngine {
     update() {
         let entitiesCount = this.entities.length;
 
-        
+        this.player.update();
 
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
 
+            
+            
             entity.update();
-            /*
-            if (!entity.removeFromWorld) {
-                entity.update();
-            }
-            */
+           
         }
         for (let i = 0; i < this.enemies.length; i++) {
             let enemy = this.enemies[i];
+            if (!enemy.removeFromWorld) {
+                enemy.update();
+                for(let j = 0; j < this.player.weapons.length; j ++){
+                    if(CheckRectCircleColliding(enemy, this.player.weapons[j])){
+                        enemy.health -= this.player.weapons[j].damage;
+                    }
+                }
 
-            enemy.update();
 
-            /* if (!enemy.removeFromWorld) { */
-            /*     enemy.update(); */
-            /* } */
+            }
+
+            
+
         }
+        
+
         
 
 
@@ -156,7 +172,11 @@ class GameEngine {
         //mouse control
         
 
-
+        for (let i = this.enemies.length - 1; i >= 0; --i) { 
+             if (this.enemies[i].removeFromWorld) { 
+                 this.enemies.splice(i, 1); 
+             }
+        }
         /* for (let i = this.entities.length - 1; i >= 0; --i) { */
         /*     if (this.entities[i].removeFromWorld) { */
         /*         this.entities.splice(i, 1); */

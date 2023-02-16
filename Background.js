@@ -7,17 +7,14 @@ class Background{
         this.x = 0;
         this.y = 0;
 
-        this.width = 1280;
-        this.height = 1280;
+        this.width = 5000;
+        this.height = 5000;
 
         this.leftEdge = 512;
         this.rightEdge = 512;
-
-                        
-        this.spritesheet = ASSET_MANAGER.getAsset("./img/One_Piece_Survivors_Map.png"); 
+     
+        this.spritesheet = ASSET_MANAGER.getAsset("./img/OnePieceMap.png"); 
     };
-
-
 
     update() {
         if (gameEngine.keys['w']) {
@@ -32,7 +29,6 @@ class Background{
         }
         else if (gameEngine.keys['d']) {
             this.x -= 2;
-
         }
 
         if (this.x > 450) this.x = 450;
@@ -40,10 +36,10 @@ class Background{
 
         if (this.y > 326) this.y = 326;
         else if (this.y < -4706) this.y = -4706;
-    };d
+    };
 
     draw(ctx) {
-        ctx.drawImage(this.spritesheet, 0, 0, 1280, 1280, this.x, this.y, 5120, 5120);
+        ctx.drawImage(this.spritesheet, 0, 0, 5000, 5000, this.x - this.game.camera.x/2.9, this.y - this.game.camera.y/2.9, 5120, 5120);
     };
 
 }

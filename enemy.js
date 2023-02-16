@@ -57,10 +57,14 @@ class Navy{
         this.x = 10;
         this.y = 10;
 
+        this.speed = 1.5;
+
         //stats
         this.health = 100;
 
         this.game.Navy = this;
+
+        this.removeFromWorld = false;
 
     };
 
@@ -76,6 +80,9 @@ class Navy{
     }
 
     update(){
+        if(this.health <= 0){
+            this.removeFromWorld = true;
+        }
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 checkCircleColliding(this,this.game.enemies[i])
@@ -121,10 +128,11 @@ class Doflamingo{
 
         this.x = 10;
         this.y = 10;
+        this.speed = 0.8;
 
         //stats
         this.health = 100;
-
+        this.removeFromWorld = false;
         this.game.Doflamingo = this;
 
     };
@@ -142,6 +150,9 @@ class Doflamingo{
     }
 
     update(){
+        if(this.health <= 0){
+            this.removeFromWorld = true;
+        }
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 checkCircleColliding(this,this.game.enemies[i])
