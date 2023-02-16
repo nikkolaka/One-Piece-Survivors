@@ -1,40 +1,3 @@
-class Enemy{
-    constructor(game, theId){
-        
-        this.id = theId;
-        this.game = game 
-        this.radius = 15;
-        this.diameter = this.radius*2;
-        this.x = 400;
-        this.y = 400;
-    };
-
-    update() {
-
-        for(let i = 0; i < this.game.enemies.length; i++){
-            if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                checkCircleColliding(this,this.game.enemies[i])
-            }   
-            enemyTracking(this, this.game);
-        }
-
-        
-    };
-
-    draw(ctx){
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        ctx.stroke(); 
-    };
-}
-
-    
-            
-
-
-
-
 class Navy{
     constructor(game, theId){
         this.game = game;
@@ -76,9 +39,9 @@ class Navy{
             }
         }
         // walking right
-        this.animation[0][0] = new Animator(this.spriteSheet, 0, 0, 80, 70, 4, .15, false, true);
+        this.animation[0][0] = new Animator(this.spriteSheet, 0, 0, 80, 70, 4, .2, false, true);
         //walking left
-        this.animation[0][1] = new Animator(this.spriteSheet, 0, 80, 80, 70, 4, .15, true, true);
+        this.animation[0][1] = new Animator(this.spriteSheet, 0, 80, 80, 70, 4, .2, false, true);
         
         // dead right
         this.animation[1][0] = new Animator(this.spriteSheet, 0, 210, 70, 60, 3, .2, true, false);
@@ -109,7 +72,7 @@ class Navy{
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x + 70 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
+        ctx.arc(this.x + 50 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
         ctx.stroke(); 
     }
 
@@ -147,15 +110,21 @@ class Doflamingo{
     
 
     loadAnimation(){
+        for(var i = 0; i < 2; i++){
+            this.animation.push([]);
+            for(var j = 0; j < 2; j++){
+                this.animation[i].push([]);
+            }
+        }
         // walking right
-        this.animation[0] = new Animator(this.spriteSheet, 8, 0, 79, 88, 8, .19, false, true);
+        this.animation[0][0] = new Animator(this.spriteSheet, 8, 0, 79, 88, 8, .19, false, true);
         //walking left
-        this.animation[1] = new Animator(this.spriteSheet, 656, 0, 79, 88, 8, .19, true, true);
+        this.animation[0][1] = new Animator(this.spriteSheet, 656, 0, 79, 88, 8, .19, true, true);
         
         // dead right
-        this.animation[3] = new Animator(this.spriteSheet, 0, 88, 79, 88, 8, .2, false, false);
+        this.animation[1][0] = new Animator(this.spriteSheet, 0, 88, 79, 88, 8, .2, false, false);
         // dead left
-        this.animation[4] = new Animator(this.spriteSheet, 648, 88, 79, 88, 8, .2, true, false);
+        this.animation[1][1] = new Animator(this.spriteSheet, 648, 88, 79, 88, 8, .2, true, false);
     }
 
 
@@ -163,7 +132,6 @@ class Doflamingo{
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 checkCircleColliding(this,this.game.enemies[i])
-                CheckRectCircleColliding(this.game.enemies[i], this.game.player)
             }   
             enemyTracking(this, this.game);
         }
@@ -176,7 +144,7 @@ class Doflamingo{
     };
 
     draw(ctx){
-        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+        this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
@@ -211,21 +179,27 @@ class Blackbeard{
         //stats
         this.health = 150;
         this.removeFromWorld = false;
-        this.game.Doflamingo = this;
+        this.game.Blackbeard = this;
 
     };
     
 
     loadAnimation(){
+        for(var i = 0; i < 2; i++){
+            this.animation.push([]);
+            for(var j = 0; j < 2; j++){
+                this.animation[i].push([]);
+            }
+        }
         // walking right
-        this.animation[0] = new Animator(this.spriteSheet, 0, 0, 90, 88, 8, .19, false, true);
+        this.animation[0][0] = new Animator(this.spriteSheet, 0, 0, 90, 88, 8, .19, false, true);
         //walking left
-        this.animation[1] = new Animator(this.spriteSheet, 0, 90, 90, 88, 8, .19, true, true);
+        this.animation[1][1] = new Animator(this.spriteSheet, 0, 90, 90, 88, 8, .19, true, true);
         
         // dead right
-        this.animation[3] = new Animator(this.spriteSheet, 0, 180, 90, 88, 5, .2, false, false);
+        this.animation[1][0] = new Animator(this.spriteSheet, 0, 180, 90, 88, 5, .2, false, false);
         // dead left
-        this.animation[4] = new Animator(this.spriteSheet, 0, 270, 90, 88, 5, .2, true, false);
+        this.animation[1][1] = new Animator(this.spriteSheet, 0, 270, 90, 88, 5, .2, true, false);
     }
 
     update(){
@@ -244,7 +218,7 @@ class Blackbeard{
     };
 
     draw(ctx){
-        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+        this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
@@ -286,14 +260,14 @@ class Buggy{
 
     loadAnimation(){
         // walking right
-        this.animation[0] = new Animator(this.spriteSheet, 0, 0, 90, 88, 8, .19, false, true);
+        this.animation[0][0] = new Animator(this.spriteSheet, 0, 0, 90, 88, 8, .19, false, true);
         //walking left
-        this.animation[1] = new Animator(this.spriteSheet, 0, 90, 90, 88, 8, .19, true, true);
+        this.animation[0][1] = new Animator(this.spriteSheet, 0, 90, 90, 88, 8, .19, true, true);
         
         // dead right
-        this.animation[3] = new Animator(this.spriteSheet, 0, 180, 90, 88, 5, .2, false, false);
+        this.animation[1][0] = new Animator(this.spriteSheet, 0, 180, 90, 88, 5, .2, false, false);
         // dead left
-        this.animation[4] = new Animator(this.spriteSheet, 0, 270, 90, 88, 5, .2, true, false);
+        this.animation[1][1] = new Animator(this.spriteSheet, 0, 270, 90, 88, 5, .2, true, false);
     }
 
     update(){
@@ -312,7 +286,7 @@ class Buggy{
     };
 
     draw(ctx){
-        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+        this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
@@ -353,15 +327,21 @@ class Akainu{
     
 
     loadAnimation(){
+        for(var i = 0; i < 2; i++){
+            this.animation.push([]);
+            for(var j = 0; j < 2; j++){
+                this.animation[i].push([]);
+            }
+        }
         // walking right
-        this.animation[0] = new Animator(this.spriteSheet, 0, 0, 90, 88, 8, .19, false, true);
+        this.animation[0][0] = new Animator(this.spriteSheet, 0, 0, 90, 88, 8, .19, false, true);
         //walking left
-        this.animation[1] = new Animator(this.spriteSheet, 0, 90, 90, 88, 8, .19, true, true);
+        this.animation[0][1] = new Animator(this.spriteSheet, 0, 90, 90, 88, 8, .19, true, true);
         
         // dead right
-        this.animation[3] = new Animator(this.spriteSheet, 0, 180, 90, 88, 5, .2, false, false);
+        this.animation[1][0] = new Animator(this.spriteSheet, 0, 180, 90, 88, 5, .2, false, false);
         // dead left
-        this.animation[4] = new Animator(this.spriteSheet, 0, 270, 90, 88, 5, .2, true, false);
+        this.animation[1][1] = new Animator(this.spriteSheet, 0, 270, 90, 88, 5, .2, true, false);
     }
 
     update(){
@@ -380,7 +360,7 @@ class Akainu{
     };
 
     draw(ctx){
-        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+        this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);

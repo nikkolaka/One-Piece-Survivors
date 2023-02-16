@@ -3,7 +3,7 @@ class Luffy{
         this.game = game;
         this.id = theId;
         this.weapons = [new Gomu(game)];
-        this.game.player = this;
+        this.game.luffy = this;
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/luffy7.png");
@@ -84,7 +84,6 @@ class Luffy{
             this.states = 0;
         }
 
-        // changes the direction of the player's direction
         for (let i = 0; i < this.weapons.length; i++) {
             let weapon = this.weapons[i];
 
@@ -206,7 +205,6 @@ class Zoro{
             this.states = 0;
         }
 
-        // changes the direction of the player's direction
         for (let i = 0; i < this.weapons.length; i++) {
             let weapon = this.weapons[i];
 

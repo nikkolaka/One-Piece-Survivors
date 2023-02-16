@@ -1,5 +1,4 @@
 //Checks if a circle is colliding with another circle
-// checks if a circle collides with a another circle
 const checkCircleColliding = function(thisEntity, otherEntity){
     var dx = thisEntity.x - otherEntity.x;
     var dy = thisEntity.y - otherEntity.y;
@@ -19,7 +18,6 @@ const checkCircleColliding = function(thisEntity, otherEntity){
 
 }
 // checks if a circle collides with a rectangle
-// Chceks if a circle is colliding with a rectangle
 const CheckRectCircleColliding = function RectCircleColliding(circle, rect){
     
     // calculate distance between the circle's center and this rectangle's center
