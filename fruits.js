@@ -38,16 +38,16 @@ class Gomu{
             }
         }
         // up direction
-        this.animation[0] = new Animator(spriteSheet, 0, 279, 90, 130, 6, .3, false, true);
+        this.animation[0] = new Animator(spriteSheet, -2, 270, 90, 90, 6, .3, false, true);
 
         // down direction
-        this.animation[1] = new Animator(spriteSheet, 0, 200, 90, 100, 6, .3, false, true);
+        this.animation[1] = new Animator(spriteSheet, -2, 180, 90, 90, 6, .3, false, true);
 
         // left direction
-        this.animation[2] = new Animator(spriteSheet, 0, 88, 79, 90, 6, 2, false, true);
+        this.animation[2] = new Animator(spriteSheet, -1, 0, 90, 90, 6, .3, false, true);
         
         // right direction
-        this.animation[3] = new Animator(spriteSheet, 0, 120, 79, 30, 6, .3, true, true);
+        this.animation[3] = new Animator(spriteSheet, -1, 90, 90, 90, 6, .3, true, true);
     }
 
     update(){
@@ -91,10 +91,23 @@ class Gomu{
             this.facing = 3;
         }
 
-        this.x = this.location.x1 + 42;
-        this.y = this.location.y1 + 20;
+        if(this.direction == Direction.Up || this.direction == Direction.Down){
+            this.x = this.location.x1 + 42;
+            this.y = this.location.y1 + 20;
+        } else {
+            this.x = this.location.x1 + 20;
+            this.y = this.location.y1 + 42;
+        }
         
         this.step += this.range/this.duration;
+
+        for(let i = 0; i < this.game.enemies.length; i++){
+            if(this.id !== this.game.enemies[i].id && this.id !== 0){
+                if(CheckRectCircleColliding(this.game.enemies[i], this)){
+                    this.game.enemies[i].health -= 200;
+                } 
+            }   
+        }
 
     }
 

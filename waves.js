@@ -53,15 +53,16 @@ class Wave{
         for(var i = 0; i < this.spawnDensity*4; i++){
             var enemy;
             var quadrant = randomInt(4);
-            switch(randomInt(3)){
+            switch(randomInt(1)){
                 case 0:
-                    enemy = new Doflamingo(this.game, this.game.uniqueEId++);
+                    enemy = new Navy(this.game, this.game.uniqueEId++);
                     break;
                 case 1:
-                    enemy = new Navy(this.game, this.game.uniqueEId++);
+                    enemy = new Doflamingo(this.game, this.game.uniqueEId++);
                     break;
                 case 2:
                     enemy = new Blackbeard(this.game, this.game.uniqueEId++);
+                    break;
             }          
             switch(quadrant){
                 case 0:

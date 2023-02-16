@@ -3,7 +3,7 @@ class Luffy{
         this.game = game;
         this.id = theId;
         this.weapons = [new Gomu(game)];
-        this.game.luffy = this;
+        this.game.player = this;
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/luffy7.png");
@@ -125,7 +125,7 @@ class Zoro{
         this.game = game;
         this.id = theId;
         this.weapons = [new Gomu(game)];
-        this.game.zoro = this;
+        this.game.player = this;
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/zoro1.png");
