@@ -1,10 +1,11 @@
 class Gomu{
     constructor(game){
+        //hitbox dimensions
         this.width = 60;
         this.height = 10;
         this.scale = 1;
 
-
+        //sprites
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/gomu.png");
         this.loadAnimation(this.spriteSheet);
         this.facing = 0; // 0 = up, 1 = down, 2 = left, 3 = right
@@ -21,6 +22,7 @@ class Gomu{
             this.location = {x1: -3, y1: -10, x2: 10, y2: 3};
         }
 
+        // hitbox
         this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
         
         this.game = game;
@@ -72,7 +74,7 @@ class Gomu{
 
         if(this.step >= this.range) this.step = 0;
         
-
+        //updates the direction of gomu
         if(this.direction == Direction.Up){
             this.location.y1 -= this.step;
             this.location.y2 -= this.step;
@@ -90,7 +92,7 @@ class Gomu{
             this.location.x2 += this.step;
             this.facing = 3;
         }
-
+        // sets the location of gomu hitbox
         if(this.direction == Direction.Up || this.direction == Direction.Down){
             this.x = this.location.x1 + 42;
             this.y = this.location.y1 + 20;
@@ -101,6 +103,7 @@ class Gomu{
         
         this.step += this.range/this.duration;
 
+        // checks for collision with enemies
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 if(CheckRectCircleColliding(this.game.enemies[i], this)){
