@@ -12,6 +12,7 @@ ASSET_MANAGER.queueDownload("./img/luffy7.png");
 ASSET_MANAGER.queueDownload("./img/zoro1.png");
 
 ASSET_MANAGER.queueDownload("./img/Map.png");
+ASSET_MANAGER.queueDownload("./img/OnePieceMap.png");
 
 ASSET_MANAGER.downloadAll(() => {
     const canvas = document.getElementById("gameWorld");

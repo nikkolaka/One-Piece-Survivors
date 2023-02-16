@@ -48,5 +48,43 @@ const checkCircleColliding = function(thisEntity, otherEntity){
 }
 
 
+//Checks if a circle is colliding with another circle
+const checkCircleColliding = function(thisEntity, otherEntity){
+    var dx = thisEntity.x - otherEntity.x;
+    var dy = thisEntity.y - otherEntity.y;
+    var COLLISIONREBOUND = 5;
+    var radiusSum = thisEntity.radius+otherEntity.radius
+
+    //if the distance is less than the radius, then there's no collision
+    if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)){
+        var distance = Math.sqrt(dx * dx + dy * dy);
+        var step = radiusSum - distance;
+        
+        dx /= distance;
+        dy /= distance;
+        thisEntity.x += dx*step/COLLISIONREBOUND;
+        thisEntity.y += dy*step/COLLISIONREBOUND;
+    }
+
+}
 
 
+
+//     if (Math.abs(dx) <= width && Math.abs(dy) <= height) {
+//         if (crossWidth > crossHeight) {
+//             collision = (crossWidth > (-crossHeight)) ? 'bottom' : 'left';
+//         } else {
+//             collision = (crossWidth > -(crossHeight)) ? 'right' : 'top';
+//         }
+//     }
+
+//     if (collision === 'left') {
+//         thisEntity.x += width - dx;
+//     } else if (collision === 'right') {
+//         thisEntity.x -= width + dx;
+//     } else if (collision === 'top') {
+//         thisEntity.y += height - dy;
+//     } else if (collision === 'bottom') {
+//         thisEntity.y -= height + dy;
+//     }
+// }

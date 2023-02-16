@@ -24,11 +24,13 @@ class Gomu{
 
         // hitbox
         this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
-        
+        this.x = this.location.x1;
+        this.y = this.location.y1;
         this.game = game;
         this.range = 200;
         this.duration = 95;
         this.step = 0;
+        this.damage = 5;
     }
 
     loadAnimation(spriteSheet){
