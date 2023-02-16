@@ -20,14 +20,10 @@ ASSET_MANAGER.downloadAll(() => {
 
 	params.screenWidth = 1024;
 	params.screenHeight = 768;
-
-    //gameEngine.addEntity(new SceneManager(gameEngine));
 	
 
     gameEngine.init(ctx);
 
-	/* var waveMaker = new Wave(gameEngine); */
-	/* waveMaker.spawnRand(); */
 	new SceneManager(gameEngine);
 
     gameEngine.start();
