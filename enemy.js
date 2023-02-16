@@ -50,12 +50,15 @@ class Navy{
     }
 
     update(){
+        // Check for collisions with other enemies
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 checkCircleColliding(this,this.game.enemies[i])
             }   
             enemyTracking(this, this.game);
         }
+
+        // Determine facing
         if (this.x > this.game.playerLocation.x){
             this.facing = 1;
         }else{

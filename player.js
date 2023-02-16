@@ -245,7 +245,7 @@ class Brook{
         this.game = game;
         this.id = theId;
         this.weapons = [new Gomu(game)];
-        this.game.Zoro = this;
+        this.game.Brook = this;
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/zoro1.png");
