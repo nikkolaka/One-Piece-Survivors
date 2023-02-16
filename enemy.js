@@ -80,6 +80,9 @@ class Navy{
     }
 
     update(){
+        if(this.health <= 0){
+            this.removeFromWorld = true;
+        }
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 checkCircleColliding(this,this.game.enemies[i])
@@ -147,6 +150,9 @@ class Doflamingo{
     }
 
     update(){
+        if(this.health <= 0){
+            this.removeFromWorld = true;
+        }
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 checkCircleColliding(this,this.game.enemies[i])

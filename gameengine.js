@@ -148,6 +148,13 @@ class GameEngine {
             let enemy = this.enemies[i];
             if (!enemy.removeFromWorld) {
                 enemy.update();
+                for(let j = 0; j < this.player.weapons.length; j ++){
+                    if(CheckRectCircleColliding(enemy, this.player.weapons[j])){
+                        enemy.health -= this.player.weapons[j].damage;
+                    }
+                }
+
+
             }
 
             
@@ -165,7 +172,11 @@ class GameEngine {
         //mouse control
         
 
-
+        for (let i = this.enemies.length - 1; i >= 0; --i) { 
+             if (this.enemies[i].removeFromWorld) { 
+                 this.enemies.splice(i, 1); 
+             }
+        }
         /* for (let i = this.entities.length - 1; i >= 0; --i) { */
         /*     if (this.entities[i].removeFromWorld) { */
         /*         this.entities.splice(i, 1); */

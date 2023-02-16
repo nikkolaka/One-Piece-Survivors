@@ -36,7 +36,7 @@ const checkCircleColliding = function(thisEntity, otherEntity) {
         thisEntity.x += dx*step/COLLISIONREBOUND;
         thisEntity.y += dy*step/COLLISIONREBOUND;
     }
-}
+} 
 
 // const checkSqaureColliding = function(thisEntity, otherEntity) {
 //     var COLLISIONREBOUND = 5;
