@@ -1,10 +1,18 @@
+
 const gameEngine = new GameEngine();
 
 const ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./img/Navy.png");
-ASSET_MANAGER.queueDownload("./img/luffy7.png");
 ASSET_MANAGER.queueDownload("./img/Doflamingo.png");
+ASSET_MANAGER.queueDownload("./img/blackbeard1.png");
+ASSET_MANAGER.queueDownload("./img/akainu.png");
+
+ASSET_MANAGER.queueDownload("./img/luffy7.png");
+ASSET_MANAGER.queueDownload("./img/zoro1.png");
+
+ASSET_MANAGER.queueDownload("./img/gomu.png");
+
 ASSET_MANAGER.queueDownload("./img/OnePieceMap.png");
 
 ASSET_MANAGER.downloadAll(() => {
@@ -14,19 +22,13 @@ ASSET_MANAGER.downloadAll(() => {
 
 	params.screenWidth = 1024;
 	params.screenHeight = 768;
-
-    //gameEngine.addEntity(new SceneManager(gameEngine));
 	
 
     gameEngine.init(ctx);
 
-	/* var waveMaker = new Wave(gameEngine); */
-	/* waveMaker.spawnRand(); */
 	new SceneManager(gameEngine);
 
     gameEngine.start();
 	
-
-
 });
 
