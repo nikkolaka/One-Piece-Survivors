@@ -15,8 +15,8 @@ const CheckHeroHit = function CheckHeroHit(hero, enemy){
         return true;
     }
     return false;
-
 }
+
 // checks if a circle collides with a rectangle
 const CheckRectCircleColliding = function RectCircleColliding(circle, rect){
     
