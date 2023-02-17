@@ -4,6 +4,19 @@ class Collisions {
     }
 }
 
+
+// checks if a circle collides with a rectangle
+const CheckHeroHit = function CheckHeroHit(hero, enemy){
+    var dx = hero.x - enemy.x;
+    var dy = hero.y - enemy.y;
+    var radiusSum = hero.radius + enemy.radius;
+
+    if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)){
+        return true;
+    }
+    return false;
+
+}
 // checks if a circle collides with a rectangle
 const CheckRectCircleColliding = function RectCircleColliding(circle, rect){
     
