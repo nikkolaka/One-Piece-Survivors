@@ -14,6 +14,7 @@ class luffy{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
 
+        // position
         this.x =  512;
         this.y =  384;
         this.radius = 10;
@@ -82,6 +83,13 @@ class luffy{
             this.states = 0;
         }
 
+        // this is for the camera to follow the player when he gets to the edge of the screen
+        if (this.game.playerLocation.x >= 600 || this.game.playerLocation.y >= 600) {
+            this.game.camera.x += this.game.clockTick * this.speed;
+            this.game.camera.y += this.game.clockTick * this.speed;
+        }
+
+
         for (let i = 0; i < this.weapons.length; i++) {
             let weapon = this.weapons[i];
 
@@ -98,6 +106,10 @@ class luffy{
         }
         this.game.playerLocation.x = this.x;
         this.game.playerLocation.y = this.y;
+
+        // this is for the border collision
+        borderCollide(this);
+
 
 
     };
