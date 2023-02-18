@@ -22,23 +22,23 @@ class SceneManager {
         waveMaker.spawnRand();
 
 
-        this.luffy = new luffy(gameEngine);
-        gameEngine.addPlayer(this.luffy);
+        this.player = new Luffy(gameEngine);
+        gameEngine.addPlayer(this.player);
 
-        this.Background = new Background(gameEngine);
-        gameEngine.addEntity(this.Background);
+        /* this.Background = new Background(gameEngine);
+        gameEngine.addEntity(this.Background); */
 
     }
 
     update() {
  
 
-        let midpointX = params.screenWidth/2 - 100; //Canvas width - half of luffy width
+        let midpointX = params.screenWidth/2 - 100; //Canvas width - half of player width
         let midpointY = params.screenHeight/2 - 90;
 
 
-        this.x = this.luffy.x - midpointX;
-        this.y = this.luffy.y - midpointY;
+        this.x = this.player.x - midpointX;
+        this.y = this.player.y - midpointY;
     }
 
 

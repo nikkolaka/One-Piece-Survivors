@@ -1,5 +1,3 @@
-// This game shell was happily modified from Googler Seth Ladd's "Bad Aliens" game and his Google IO talk in 2011
-
 class GameEngine {
     constructor(options) {
         // What you will use to draw
@@ -122,6 +120,11 @@ class GameEngine {
         }
         this.player.draw(this.ctx);
 
+        var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth);
+        this.ctx.fillStyle = "red";
+        this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20)
+        this.ctx.stroke();
+
 
         //added draw camera after entities
         //this.camera.draw(this.ctx);
@@ -147,7 +150,17 @@ class GameEngine {
         for (let i = 0; i < this.enemies.length; i++) {
             let enemy = this.enemies[i];
             if (!enemy.removeFromWorld) {
+
                 enemy.update();
+                if(CheckHeroHit(this.player, enemy)) this.player.health -= enemy.health/200;
+                for(let j = 0; j < this.player.weapons.length; j ++){
+                    if(CheckRectCircleColliding(enemy, this.player.weapons[j])){
+                        enemy.health -= this.player.weapons[j].damage;
+                        if(enemy.health < 1) enemy.removeFromWorld = true;
+                    }
+                }
+
+
             }
 
             
@@ -165,7 +178,11 @@ class GameEngine {
         //mouse control
         
 
-
+        for (let i = this.enemies.length - 1; i >= 0; --i) { 
+             if (this.enemies[i].removeFromWorld) { 
+                 this.enemies.splice(i, 1); 
+             }
+        }
         /* for (let i = this.entities.length - 1; i >= 0; --i) { */
         /*     if (this.entities[i].removeFromWorld) { */
         /*         this.entities.splice(i, 1); */
@@ -186,3 +203,4 @@ class GameEngine {
     };
 
 };
+

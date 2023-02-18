@@ -17,19 +17,7 @@ class Background{
     };
 
     update() {
-        if (gameEngine.keys['w']) {
-            this.y += 2;
-        }
-        else if (gameEngine.keys['s']) {
-            this.y -= 2;
-        }
-        //determine horizontal
-        if (gameEngine.keys['a']) {
-            this.x += 2;
-        }
-        else if (gameEngine.keys['d']) {
-            this.x -= 2;
-        }
+
 
         if (this.x > 450) this.x = 450;
         else if (this.x < -4600) this.x = -4600;
@@ -39,7 +27,7 @@ class Background{
     };
 
     draw(ctx) {
-        ctx.drawImage(this.spritesheet, 0, 0, 5000, 5000, this.x - this.game.camera.x/2.9, this.y - this.game.camera.y/2.9, 5120, 5120);
+        ctx.drawImage(this.spritesheet, 0, 0, 5000, 5000, this.x - this.game.camera.x, this.y - this.game.camera.y, 5120, 5120);
     };
 
 }
