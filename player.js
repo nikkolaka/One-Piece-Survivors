@@ -24,6 +24,7 @@ class Luffy{
 
         //stats
         this.health = 100;
+        this.maxHealth = 100;
         this.speed = 200;
 
     };
@@ -55,7 +56,7 @@ class Luffy{
 
     update(){
 
-        
+        if(this.dead) return;
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
             this.states = 1;
@@ -145,6 +146,7 @@ class Zoro{
 
         //stats
         this.health = 100;
+        this.maxHealth = 100;
         this.speed = 200;
 
     };
@@ -176,6 +178,7 @@ class Zoro{
 
     update(){
 
+        if(this.dead) return;
         
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
@@ -266,6 +269,7 @@ class Brook{
 
         //stats
         this.health = 100;
+        this.maxHealth = 100;
         this.speed = 200;
 
     };
@@ -296,7 +300,7 @@ class Brook{
     }
 
     update(){
-
+        if(this.dead) return;
         
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
