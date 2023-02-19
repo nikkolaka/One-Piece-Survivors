@@ -55,7 +55,6 @@ class Gomu{
     }
 
     update(){
-
         if(this.direction !== this.lastDirection){
             this.lastDirection = this.direction;
             this.step = 0
@@ -105,19 +104,12 @@ class Gomu{
         
         this.step += this.range/this.duration;
 
-        // checks for collision with enemies
-        for(let i = 0; i < this.game.enemies.length; i++){
-            if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                if(CheckRectCircleColliding(this.game.enemies[i], this)){
-                    this.game.enemies[i].health -= 200;
-                } 
-            }   
-        }
-
     }
 
     draw(ctx){
+        if (this.game.player.health <= 0) return;
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+        
         ctx.beginPath()
         if(this.direction == Direction.Up || this.direction == Direction.Down){
             ctx.rect(this.location.x1 - this.game.camera.x + 52, this.location.y1 - this.game.camera.y + 53, this.width, this.height);
@@ -125,6 +117,7 @@ class Gomu{
             ctx.rect(this.location.x1 - this.game.camera.x + 52, this.location.y1 - this.game.camera.y + 53, this.height, this.width);
         }
         ctx.stroke();
+        ctx.closePath();
     }
 
 
@@ -174,20 +167,19 @@ class Sword{
             }
         }
         // up direction
-        this.animation[0] = new Animator(spriteSheet, -2, 270, 90, 90, 6, .3, false, true);
+        this.animation[0] = new Animator(spriteSheet, -2, 270, 90, 90, 6, .3, false, false);
 
         // down direction
-        this.animation[1] = new Animator(spriteSheet, -2, 180, 90, 90, 6, .3, false, true);
+        this.animation[1] = new Animator(spriteSheet, -2, 180, 90, 90, 6, .3, false, false);
 
         // left direction
-        this.animation[2] = new Animator(spriteSheet, -1, 0, 90, 90, 6, .3, false, true);
+        this.animation[2] = new Animator(spriteSheet, -1, 0, 90, 90, 6, .3, false, false);
         
         // right direction
-        this.animation[3] = new Animator(spriteSheet, -1, 90, 90, 90, 6, .3, true, true);
+        this.animation[3] = new Animator(spriteSheet, -1, 90, 90, 90, 6, .3, true, false);
     }
 
     update(){
-
         if(this.direction !== this.lastDirection){
             this.lastDirection = this.direction;
             this.step = 0
@@ -248,13 +240,14 @@ class Sword{
     }
 
     draw(ctx){
-        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
-        ctx.beginPath()
-        if(this.direction == Direction.Up || this.direction == Direction.Down){
-            ctx.rect(this.location.x1 - this.game.camera.x + 52, this.location.y1 - this.game.camera.y + 53, this.width, this.height);
-        } else {
-            ctx.rect(this.location.x1 - this.game.camera.x + 52, this.location.y1 - this.game.camera.y + 53, this.height, this.width);
+            this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+            ctx.beginPath()
+            if(this.direction == Direction.Up || this.direction == Direction.Down){
+                ctx.rect(this.location.x1 - this.game.camera.x + 52, this.location.y1 - this.game.camera.y + 53, this.width, this.height);
+            } else {
+                ctx.rect(this.location.x1 - this.game.camera.x + 52, this.location.y1 - this.game.camera.y + 53, this.height, this.width);
+            }
+            ctx.stroke();
+            ctx.closePath();
         }
-        ctx.stroke();
-    }
 }

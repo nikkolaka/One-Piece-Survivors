@@ -6,19 +6,17 @@ class Collisions {
 
 
 // checks if a circle collides with a rectangle
-const CheckHeroHit = function CheckHeroHit(hero, enemy){
-    var dx = hero.x - enemy.x;
-    var dy = hero.y - enemy.y;
-    var radiusSum = hero.radius + enemy.radius;
+const checkPlayerTouchingEnemy = function(player, enemy){
 
-    if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)){
-        return true;
-    }
-    return false;
+    var dx = player.x - enemy.x;
+    var dy = player.y - enemy.y;
+    var radiusSum = player.radius + enemy.radius
+
+    return((dx * dx + dy * dy) < (radiusSum)*(radiusSum))
+
 }
 
-// checks if a circle collides with a rectangle
-const CheckRectCircleColliding = function RectCircleColliding(circle, rect){
+const CheckRectCircleColliding = function (circle, rect){
     
     // calculate distance between the circle's center and this rectangle's center
     var distX = Math.abs(circle.x - rect.x-rect.width/2);
@@ -59,7 +57,27 @@ const checkCircleColliding = function(thisEntity, otherEntity){
     }
 
 }
+// this is the collision function for the map boundaries
+const CheckBorder = function(hero) {
 
+    // if the player is within the boundaries, then there's no collision
+    if (hero.x < 0 + hero.radius) {
+        hero.x = 0 + hero.radius;
+    }
+    if (hero.x > 5000 - hero.radius) {
+        hero.x = 5000 - hero.radius;
+    }
+
+    // if the player is within the boundaries, then there's no collision
+    if (hero.y < 0 + hero.radius) {
+        hero.y = 0 + hero.radius;
+    }
+    if (hero.y > 5000 - hero.radius) {
+        hero.y = 5000 - hero.radius;
+    }
+
+
+}
  // const checkSqaureColliding = function(thisEntity, otherEntity) {
 //     var COLLISIONREBOUND = 5;
 //     var dx = thisEntity.x - otherEntity.x;

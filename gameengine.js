@@ -150,13 +150,12 @@ class GameEngine {
         for (let i = 0; i < this.enemies.length; i++) {
             let enemy = this.enemies[i];
             if (!enemy.removeFromWorld) {
-
                 enemy.update();
-                if(CheckHeroHit(this.player, enemy)) this.player.health -= enemy.health/200;
+                if(checkPlayerTouchingEnemy(this.player, enemy)) this.player.health -= enemy.health/200;
                 for(let j = 0; j < this.player.weapons.length; j ++){
                     if(CheckRectCircleColliding(enemy, this.player.weapons[j])){
                         enemy.health -= this.player.weapons[j].damage;
-                        if(enemy.health < 1) enemy.removeFromWorld = true;
+                        if(enemy.dead) setTimeout(() => {enemy.removeFromWorld = true;}, 1000)
                     }
                 }
 

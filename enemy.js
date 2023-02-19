@@ -50,6 +50,7 @@ class Navy{
     }
 
     update(){
+        if(this.dead == true) return;
         // Check for collisions with other enemies
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
