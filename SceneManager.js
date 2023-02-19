@@ -25,8 +25,8 @@ class SceneManager {
         this.player = new Luffy(gameEngine);
         gameEngine.addPlayer(this.player);
 
-        /* this.Background = new Background(gameEngine);
-        gameEngine.addEntity(this.Background); */
+        this.Background = new Background(gameEngine);
+        gameEngine.addEntity(this.Background);
 
     }
 
