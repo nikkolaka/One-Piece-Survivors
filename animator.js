@@ -11,7 +11,7 @@ class Animator {
 
         if (this.isDone()) {
             if (this.loop) this.elapsedTime -= this.totalTime;
-        }
+        } 
 
         let frame = this.currentFrame();
         if(this.reverse)
@@ -30,5 +30,5 @@ class Animator {
 
     isDone() {
         return (this.elapsedTime >= this.totalTime);
-    };
+    }
 };
