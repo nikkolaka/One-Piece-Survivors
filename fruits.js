@@ -107,7 +107,7 @@ class Gomu{
     }
 
     draw(ctx){
-        if (this.game.player.health <= 0) return;
+        if (this.game.player.dead) return;
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         
         ctx.beginPath()
