@@ -1,9 +1,12 @@
 class Gomu{
     constructor(game){
         //hitbox dimensions
-        this.width = 60;
-        this.height = 10;
+        this.width = 30;
+        this.height = 30;
         this.scale = 1;
+
+        this.x = this.game.player.x + this.width/2
+        this.y = this.game.player.y + this.height/2
 
         //sprites
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/gomu.png");
@@ -12,25 +15,17 @@ class Gomu{
 
         this.direction = Direction.Up;
         this.lastDirection = this.direction;
-        if(this.direction == Direction.Up || this.direction == Direction.Down){
-            
-            this.location = {x1: -10, y1: 3, x2: 10, y2: -3};
-        } else{
-            var temp = this.width;
-            this.width = this.height;
-            this.height = temp;
-            this.location = {x1: -3, y1: -10, x2: 10, y2: 3};
-        }
+        
 
         // hitbox
-        this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
-        this.x = this.location.x1;
-        this.y = this.location.y1;
+        
+        this.originX = this.game.player.x + this.width/2;
+        this.originY = this.game.player.y + this.height/2;
         this.game = game;
         this.range = 200;
         this.duration = 95;
         this.step = 0;
-        this.damage = 5;
+        this.damage = 15;
     }
 
     loadAnimation(spriteSheet){
@@ -59,48 +54,42 @@ class Gomu{
             this.lastDirection = this.direction;
             this.step = 0
             if(this.direction == Direction.Up || this.direction == Direction.Down){
+                
                 this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
                 this.location = {x1: -10, y1: 3, x2: 10, y2: -3};
             } else{
+                var temp = this.width;
+                this.width = this.height;
+                this.height = temp;
                 this.hitbox = {x1: -(this.height/2), y1: -(this.width/2), x2: (this.height/2), y2: (this.width/2)};
                 this.location = {x1: -3, y1: -10, x2: 10, y2: 3};
             }
         }
 
-        this.location.x1 = this.game.playerLocation.x + this.hitbox.x1;
-        this.location.y1 = this.game.playerLocation.y + this.hitbox.y1;
-        this.location.x2 = this.game.playerLocation.x + this.hitbox.x2;
-        this.location.y2 = this.game.playerLocation.y + this.hitbox.y2;
+        this.x = this.game.playerLocation.x + this.originX;
+        this.y = this.game.playerLocation.y + this.this.originY;
+        
 
 
         if(this.step >= this.range) this.step = 0;
         
         //updates the direction of gomu
         if(this.direction == Direction.Up){
-            this.location.y1 -= this.step;
-            this.location.y2 -= this.step;
+            this.y -= this.step;
+            
             this.facing = 0;
         } else if(this.direction == Direction.Down){
-            this.location.y1 += this.step;
-            this.location.y2 += this.step;
+            this.y += this.step;
+            
             this.facing = 1;
         } else if(this.direction == Direction.Left){
-            this.location.x1 -= this.step;
-            this.location.x2 -= this.step;
+            this.x -= this.step;
             this.facing = 2;
         } else if(this.direction == Direction.Right){
-            this.location.x1 += this.step;
-            this.location.x2 += this.step;
+            this.x += this.step;
             this.facing = 3;
         }
-        // sets the location of gomu hitbox
-        if(this.direction == Direction.Up || this.direction == Direction.Down){
-            this.x = this.location.x1 + 42;
-            this.y = this.location.y1 + 20;
-        } else {
-            this.x = this.location.x1 + 20;
-            this.y = this.location.y1 + 42;
-        }
+        
         
         this.step += this.range/this.duration;
 
@@ -112,9 +101,9 @@ class Gomu{
         
         ctx.beginPath()
         if(this.direction == Direction.Up || this.direction == Direction.Down){
-            ctx.rect(this.location.x1 - this.game.camera.x + 52, this.location.y1 - this.game.camera.y + 53, this.width, this.height);
+            ctx.rect(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.width, this.height);
         } else {
-            ctx.rect(this.location.x1 - this.game.camera.x + 52, this.location.y1 - this.game.camera.y + 53, this.height, this.width);
+            ctx.rect(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.height, this.width);
         }
         ctx.stroke();
         ctx.closePath();
