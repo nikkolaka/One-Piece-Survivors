@@ -16,6 +16,9 @@ class GameEngine {
 
 
         this.enemies = [];
+
+        this.score = 0;
+        this.wave = 0;
         
 
         // Information on the input
@@ -125,6 +128,12 @@ class GameEngine {
         this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20)
         this.ctx.stroke();
 
+        this.ctx.font = "48px sans-serif";
+        this.ctx.fillText(this.score, 20, 50);
+
+        this.ctx.font = "48px sans-serif";
+        this.ctx.fillText(this.wave, 20, 100);
+
 
         //added draw camera after entities
         //this.camera.draw(this.ctx);
@@ -155,7 +164,11 @@ class GameEngine {
                 for(let j = 0; j < this.player.weapons.length; j ++){
                     if(CheckRectCircleColliding(enemy, this.player.weapons[j])){
                         enemy.health -= this.player.weapons[j].damage;
-                        if(enemy.dead) setTimeout(() => {enemy.removeFromWorld = true;}, 1000)
+                        if(enemy.dead){
+                            
+                            setTimeout(() => {enemy.removeFromWorld = true;}, 1000)
+
+                        } 
                     }
                 }
 
@@ -179,6 +192,7 @@ class GameEngine {
 
         for (let i = this.enemies.length - 1; i >= 0; --i) { 
              if (this.enemies[i].removeFromWorld) { 
+                this.score++;
                  this.enemies.splice(i, 1); 
              }
         }

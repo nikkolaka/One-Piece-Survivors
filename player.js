@@ -4,6 +4,7 @@ class Luffy{
         this.id = theId;
         this.weapons = [new Gomu(game)];
         this.game.luffy = this;
+        
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/luffy7.png");

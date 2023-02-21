@@ -18,8 +18,8 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
 
-        var waveMaker = new Wave(gameEngine);
-        waveMaker.spawnRand();
+        this.waveMaker = new Wave(gameEngine);
+        
 
 
         this.player = new Luffy(gameEngine);
@@ -31,7 +31,8 @@ class SceneManager {
     }
 
     update() {
- 
+
+        this.waveMaker.update();
 
         let midpointX = params.screenWidth/2 - 100; //Canvas width - half of player width
         let midpointY = params.screenHeight/2 - 90;

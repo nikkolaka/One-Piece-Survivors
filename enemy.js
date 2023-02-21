@@ -2,6 +2,7 @@ class Navy{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
+        this.wave;
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/Navy.png");
@@ -88,6 +89,7 @@ class Doflamingo{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
+        this.wave;
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/Doflamingo.png");
@@ -169,6 +171,7 @@ class Blackbeard{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
+        this.wave;
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/blackbeard1.png");
@@ -249,6 +252,7 @@ class Akainu{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
+        this.wave;
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/akainu.png");
