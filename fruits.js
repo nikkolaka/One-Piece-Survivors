@@ -5,8 +5,8 @@ class Gomu{
         this.height = 30;
         this.scale = 1;
 
-        this.x = this.game.player.x + this.width/2
-        this.y = this.game.player.y + this.height/2
+        this.x;
+        this.y;
 
         //sprites
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/gomu.png");
@@ -19,8 +19,8 @@ class Gomu{
 
         // hitbox
         
-        this.originX = this.game.player.x + this.width/2;
-        this.originY = this.game.player.y + this.height/2;
+        this.originX;
+        this.originY;
         this.game = game;
         this.range = 200;
         this.duration = 95;
@@ -50,6 +50,9 @@ class Gomu{
     }
 
     update(){
+        this.originX = this.game.player.x - this.width/2;
+        this.originY = this.game.player.y - this.height/2;
+
         if(this.direction !== this.lastDirection){
             this.lastDirection = this.direction;
             this.step = 0
@@ -66,8 +69,8 @@ class Gomu{
             }
         }
 
-        this.x = this.game.playerLocation.x + this.originX;
-        this.y = this.game.playerLocation.y + this.this.originY;
+        this.x = this.originX;
+        this.y = this.originY;
         
 
 

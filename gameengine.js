@@ -17,7 +17,7 @@ class GameEngine {
 
         this.enemies = [];
 
-        this.points = 0;
+        this.score = 0;
         this.wave = 0;
         
 
@@ -165,7 +165,7 @@ class GameEngine {
                     if(CheckRectCircleColliding(enemy, this.player.weapons[j])){
                         enemy.health -= this.player.weapons[j].damage;
                         if(enemy.dead){
-                            this.score++;
+                            
                             setTimeout(() => {enemy.removeFromWorld = true;}, 1000)
 
                         } 
@@ -192,6 +192,7 @@ class GameEngine {
 
         for (let i = this.enemies.length - 1; i >= 0; --i) { 
              if (this.enemies[i].removeFromWorld) { 
+                this.score++;
                  this.enemies.splice(i, 1); 
              }
         }
