@@ -13,30 +13,69 @@ class Wave{
 
     };
 
+
+    update(){
+        let oldWaveCount = 0;
+        this.game.enemies.forEach(enemy => {
+            if(enemy.wave == this.currentWave){
+                oldWaveCount++;
+            }
+            
+        });
+        if(oldWaveCount < 30){
+            this.currentWave++;
+            this.game.wave++;
+            switch(randomInt(2)){
+                case 0: 
+                    this.spawnRand();
+                    break;
+                case 1:
+                    this.spawnSquare();
+                    break;
+            }
+        }
+    }
+
     spawnSquare(){
         this.currentWave++;
-        var playerX = this.game.playerLocation.x;
-        var playerY = this.game.playerLocation.y;
+        var sqrDensity = this.spawnDensity/4;
+        var playerX = this.game.playerLocation.x - params.screenWidth/2;
+        var playerY = this.game.playerLocation.y - params.screenHeight/2;
         var  buffer = -100;
-        for(var i = 0; i < this.spawnDensity*4; i++){
-            var enemy = new Enemy(this.game, this.game.uniqueEId++);
+        var enemy;
+        for(var i = 0; i < sqrDensity*4; i++){
+            switch(randomInt(4)){
+                case 0:
+                    enemy = new Blackbeard(this.game, this.game.uniqueEId++);
+                    break;
+                case 1:
+                    enemy = new Doflamingo(this.game, this.game.uniqueEId++);
+                    break;
+                case 2:
+                    enemy = new Navy(this.game, this.game.uniqueEId++);
+                    break;
+                case 3:
+                    enemy = new Akainu(this.game, this.game.uniqueEId++);
+                    break;
+            } 
+            enemy.wave = this.currentWave;
 
-            if(i > this.spawnDensity*3) {
+            if(i > sqrDensity*3) {
                 //bottom
-                enemy.x = i*(params.screenWidth / this.spawnDensity) % params.screenWidth; 
-                enemy.y = params.screenHeight + buffer;
-            } else if(i > this.spawnDensity*2){
+                enemy.x = (i*(params.screenWidth / sqrDensity) % params.screenWidth) + playerX ; 
+                enemy.y = (params.screenHeight + buffer) +playerY;
+            } else if(i > sqrDensity*2){
                 //top
-                enemy.x = i*(params.screenWidth / this.spawnDensity) % params.screenWidth; 
-                enemy.y = -1*buffer;
-            } else if(i > this.spawnDensity){
+                enemy.x = (i*(params.screenWidth / sqrDensity) % params.screenWidth) + playerX; 
+                enemy.y = (-1*buffer) +playerY;
+            } else if(i > sqrDensity){
                 //left
-                enemy.x = -1 * buffer;
-                enemy.y = i*(params.screenHeight / this.spawnDensity) % params.screenHeight;
+                enemy.x = (-1 * buffer) + playerX;
+                enemy.y = (i*(params.screenHeight / sqrDensity) % params.screenHeight) + playerY;
             } else if(i >= 0){
                 //right
-                enemy.x = params.screenWidth + buffer;
-                enemy.y = i*(params.screenHeight / this.spawnDensity) % params.screenHeight;
+                enemy.x = (params.screenWidth + buffer) + playerX;
+                enemy.y = (i*(params.screenHeight / sqrDensity) % params.screenHeight) + playerY;
             }
 
             this.game.addEnemy(enemy);
@@ -67,6 +106,7 @@ class Wave{
                     enemy = new Akainu(this.game, this.game.uniqueEId++);
                     break;
             }          
+            enemy.wave = this.currentWave;
             switch(quadrant){
                 case 0:
                     //bottom quadrant
