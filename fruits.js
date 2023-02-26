@@ -1,3 +1,39 @@
+class Shop{
+    constructor(game){
+        this.berryRequirment = 100;
+        this.game = game;
+
+        this.inShop = false;
+
+    }
+
+    update(){
+        if(this.game.berriesTotal >= this.berryRequirment){
+            this.game.berriesTotal = 0
+            this.berryRequirment = (this.berryRequirment*1.5) + 50;
+            this.inShop = true;
+        }
+
+        
+
+    }
+
+    draw(ctx){
+        var berryWidth = params.screenWidth*(this.game.berriesTotal/this.berryRequirment);
+        ctx.fillStyle = "grey";
+        ctx.fillRect(0,0, params.screenWidth, 20)
+        ctx.stroke();
+        ctx.fillStyle = "blue";
+        ctx.fillRect(0,0, berryWidth, 20)
+        ctx.stroke();
+    }
+
+
+
+
+}
+
+
 class Gomu{
     constructor(game){
         //hitbox dimensions
@@ -100,7 +136,7 @@ class Gomu{
 
     draw(ctx){
         if (this.game.player.health <= 0) return;
-        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x + 25 - this.game.camera.x, this.y + 25 - this.game.camera.y, this.scale);
         
         ctx.beginPath()
         if(this.direction == Direction.Up || this.direction == Direction.Down){

@@ -64,3 +64,8 @@ window.requestAnimFrame = (() => {
 const getDistance = (p1, p2) => {
     return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 };
+
+const inWindow = (object, player) => {
+    return (((object.x > player.x - params.screenWidth/2 - 50)&& (object.x < player.x + params.screenWidth/2 + 50)) && 
+    ((object.y > player.y - params.screenHeight/2 - 50)&& (object.y < player.y + params.screenHeight/2 + 50)));
+};

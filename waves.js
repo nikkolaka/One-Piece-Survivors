@@ -5,7 +5,7 @@ class Wave{
         this.minDifficulty = 1;
         this.maxDifficulty = 10;
         this.currentWave = 0;
-        this.spawnDensity = 50;
+        this.spawnDensity = 10;
         
 
 
@@ -38,9 +38,9 @@ class Wave{
 
     spawnSquare(){
         this.currentWave++;
-        var sqrDensity = this.spawnDensity/4;
-        var playerX = this.game.playerLocation.x - params.screenWidth/2;
-        var playerY = this.game.playerLocation.y - params.screenHeight/2;
+        var sqrDensity = Math.floor(this.spawnDensity/4);
+        var playerX = this.game.player.x - params.screenWidth/2;
+        var playerY = this.game.player.y - params.screenHeight/2;
         var  buffer = -100;
         var enemy;
         for(var i = 0; i < sqrDensity*4; i++){
@@ -84,8 +84,8 @@ class Wave{
 
     spawnRand(){
         this.currentWave++;
-        var playerX = this.game.playerLocation.x;
-        var playerY = this.game.playerLocation.y;
+        var playerX = this.game.player.x;
+        var playerY = this.game.player.y;
         
 
         var  buffer = 150;
