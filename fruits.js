@@ -1,8 +1,48 @@
+class Shop{
+    constructor(game){
+        this.berryRequirment = 100;
+        this.game = game;
+
+        this.inShop = false;
+
+    }
+
+    update(){
+        if(this.game.berriesTotal >= this.berryRequirment){
+            this.game.berriesTotal = 0
+            this.berryRequirment = (this.berryRequirment*1.5) + 50;
+            this.inShop = true;
+        }
+
+        
+
+    }
+
+    draw(ctx){
+        var berryWidth = params.screenWidth*(this.game.berriesTotal/this.berryRequirment);
+        ctx.fillStyle = "grey";
+        ctx.fillRect(0,0, params.screenWidth, 20)
+        ctx.stroke();
+        ctx.fillStyle = "blue";
+        ctx.fillRect(0,0, berryWidth, 20)
+        ctx.stroke();
+    }
+
+
+
+
+}
+
+
 class Gomu{
     constructor(game){
         //hitbox dimensions
-        this.width = 30;
-        this.height = 30;
+        this.ogWidth = 50;
+        this.ogHeight = 20;
+        
+
+        this.width = 50;
+        this.height = 20;
         this.scale = 1;
 
         this.x;
@@ -15,6 +55,7 @@ class Gomu{
 
         this.direction = Direction.Up;
         this.lastDirection = this.direction;
+        this.color = "black"
         
 
         // hitbox
@@ -58,14 +99,19 @@ class Gomu{
             this.step = 0
             if(this.direction == Direction.Up || this.direction == Direction.Down){
                 
-                this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
-                this.location = {x1: -10, y1: 3, x2: 10, y2: -3};
+                this.width = this.ogWidth;
+                this.height = this.ogHeight;
+                this.originX = this.game.player.x - this.width/2;
+                this.originY = this.game.player.y - this.height/2;
+                /* this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
+                this.location = {x1: -10, y1: 3, x2: 10, y2: -3}; */
             } else{
-                var temp = this.width;
-                this.width = this.height;
-                this.height = temp;
-                this.hitbox = {x1: -(this.height/2), y1: -(this.width/2), x2: (this.height/2), y2: (this.width/2)};
-                this.location = {x1: -3, y1: -10, x2: 10, y2: 3};
+                this.height = this.ogWidth;
+                this.width = this.ogHeight;
+                this.originX = this.game.player.x - this.width/2;
+                this.originY = this.game.player.y - this.height/2;
+                /* this.hitbox = {x1: -(this.height/2), y1: -(this.width/2), x2: (this.height/2), y2: (this.width/2)};
+                this.location = {x1: -3, y1: -10, x2: 10, y2: 3}; */
             }
         }
 
@@ -100,15 +146,20 @@ class Gomu{
 
     draw(ctx){
         if (this.game.player.health <= 0) return;
-        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x + 25 - this.game.camera.x, this.y + 25 - this.game.camera.y, this.scale);
+        console.log(this.color)
+
+
+
         
         ctx.beginPath()
-        if(this.direction == Direction.Up || this.direction == Direction.Down){
-            ctx.rect(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.width, this.height);
-        } else {
-            ctx.rect(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.height, this.width);
-        }
+        ctx.strokeStyle = "red";
+        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, 5, 0, 2 * Math.PI);
+        ctx.strokeStyle = "black";
+        ctx.rect(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.width, this.height);
+        
         ctx.stroke();
+        
         ctx.closePath();
     }
 

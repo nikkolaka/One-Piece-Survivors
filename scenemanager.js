@@ -19,6 +19,8 @@ class SceneManager {
         this.y = 0;
 
         this.waveMaker = new Wave(gameEngine);
+
+        
         
 
 
@@ -33,6 +35,8 @@ class SceneManager {
     update() {
 
         this.waveMaker.update();
+
+        
 
         let midpointX = params.screenWidth/2 - 100; //Canvas width - half of player width
         let midpointY = params.screenHeight/2 - 90;
