@@ -4,6 +4,7 @@ class Luffy{
         this.id = theId;
         this.weapons = [new Sword(game)];
         this.game.luffy = this;
+        this.shop = new Shop(game);
         
 
         //sprite
@@ -19,7 +20,7 @@ class Luffy{
         // player hitbox
         this.x =  512;
         this.y =  384;
-        this.radius = 10;
+        this.radius = 25;
         this.direction = Direction.Up;
 
         this.scale = 1.2;
@@ -57,6 +58,8 @@ class Luffy{
     }
 
     update(){
+
+        this.shop.update();
 
         if(this.dead) return;
         // changes the state of the player and the direction of the player when moving
@@ -114,6 +117,8 @@ class Luffy{
 
 
 
+
+
     };
 
     draw(ctx){
@@ -128,6 +133,8 @@ class Luffy{
         ctx.beginPath();
         ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
         ctx.stroke(); 
+
+        this.shop.draw(ctx);
     }
 }
 
@@ -250,7 +257,7 @@ class Zoro{
         this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
+        ctx.arc(this.x - this.game.camera.x, this.y - this.game.camera.y, this.radius, 0, 2 * Math.PI);
         ctx.stroke(); 
     }
 }
@@ -352,6 +359,9 @@ class Brook{
 
 
         }
+
+        
+
 
         // checks if the player is dead
         if (this.health <= 0){

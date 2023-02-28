@@ -7,6 +7,9 @@ class GameEngine {
         // Everything that will be updated and drawn each frame
         this.entities = [];
 
+        this.berries = [];
+        this.berriesTotal = 0;
+
         this.uniqueEId = 0;
 
         this.camera = this;
@@ -102,6 +105,10 @@ class GameEngine {
     addEnemy(enemy) {
         this.enemies.push(enemy);
     };
+
+    addBerry(berry) {
+        this.berries.push(berry);
+    };
     
 
     draw() {
@@ -117,10 +124,15 @@ class GameEngine {
             this.entities[i].draw(this.ctx, this);
         }
         
-
-        for (let i = this.enemies.length - 1; i >= 0; i--) {
-            this.enemies[i].draw(this.ctx, this);
+        for (let i = this.berries.length - 1; i >= 0; i--) {
+            this.berries[i].draw(this.ctx, this);
         }
+        for (let i = this.enemies.length - 1; i >= 0; i--) {
+
+            if(inWindow(this.enemies[i], this.player))this.enemies[i].draw(this.ctx, this);
+            
+        }
+        
         this.player.draw(this.ctx);
 
         var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth);
@@ -133,6 +145,11 @@ class GameEngine {
 
         this.ctx.font = "48px sans-serif";
         this.ctx.fillText(this.wave, 20, 100);
+
+        this.ctx.font = "48px sans-serif";
+        this.ctx.fillText(this.berriesTotal, 20, 150);
+
+        
 
 
         //added draw camera after entities
@@ -147,6 +164,7 @@ class GameEngine {
         let entitiesCount = this.entities.length;
 
         this.player.update();
+        
 
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
@@ -160,13 +178,20 @@ class GameEngine {
             let enemy = this.enemies[i];
             if (!enemy.removeFromWorld) {
                 enemy.update();
-                if(checkPlayerTouchingEnemy(this.player, enemy)) this.player.health -= enemy.health/200;
+                if(checkPlayerTouchingEnemy(this.player, enemy) && !enemy.dead){
+                    
+                    this.player.health -= Math.abs(enemy.health/200);
+                }
                 for(let j = 0; j < this.player.weapons.length; j ++){
                     if(CheckRectCircleColliding(enemy, this.player.weapons[j])){
                         enemy.health -= this.player.weapons[j].damage;
                         if(enemy.dead){
                             
-                            setTimeout(() => {enemy.removeFromWorld = true;}, 1000)
+                            setTimeout(() => {
+                                enemy.removeFromWorld = true;
+                                
+                            
+                            }, 1000)
 
                         } 
                     }
@@ -177,6 +202,14 @@ class GameEngine {
 
             
 
+        }
+        for (let i = 0; i < this.berries.length; i++) {
+            let berry = this.berries[i];
+
+            if(checkPlayerTouchingEnemy(this.player, berry)){
+                berry.removeFromWorld = true;
+                this.berriesTotal += berry.value;
+            }
         }
         
 
@@ -192,10 +225,22 @@ class GameEngine {
 
         for (let i = this.enemies.length - 1; i >= 0; --i) { 
              if (this.enemies[i].removeFromWorld) { 
+                let enemy = this.enemies[i];
+                
+                enemy.berry.x = enemy.x ;
+                enemy.berry.y = enemy.y ;
+                this.addBerry(enemy.berry)
                 this.score++;
-                 this.enemies.splice(i, 1); 
+                this.enemies.splice(i, 1); 
              }
         }
+
+        for (let i = this.berries.length - 1; i >= 0; --i) { 
+            if (this.berries[i].removeFromWorld) { 
+               
+               this.berries.splice(i, 1); 
+            }
+       }
         /* for (let i = this.entities.length - 1; i >= 0; --i) { */
         /*     if (this.entities[i].removeFromWorld) { */
         /*         this.entities.splice(i, 1); */

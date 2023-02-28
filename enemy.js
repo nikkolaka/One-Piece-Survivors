@@ -30,6 +30,8 @@ class Navy{
 
         this.removeFromWorld = false;
 
+        this.berry = new blueBerry();
+
     };
 
     loadAnimation(){
@@ -113,6 +115,7 @@ class Doflamingo{
         this.health = 150;
         this.removeFromWorld = false;
         this.game.Doflamingo = this;
+        this.berry = new blueBerry();
 
     };
     
@@ -195,6 +198,7 @@ class Blackbeard{
         this.health = 150;
         this.removeFromWorld = false;
         this.game.Blackbeard = this;
+        this.berry = new blueBerry();
 
     };
     
@@ -276,6 +280,7 @@ class Akainu{
         this.health = 150;
         this.removeFromWorld = false;
         this.game.Akainu = this;
+        this.berry = new blueBerry();
 
     };
     
