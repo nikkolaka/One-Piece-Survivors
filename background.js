@@ -17,11 +17,11 @@ class Background{
     };
 
     update() {
-        // if (this.x > 450) this.x = 450;
-        // else if (this.x < -4600) this.x = -4600;
+        if (this.x > 450) this.x = 450;
+        else if (this.x < -4600) this.x = -4600;
 
-        // if (this.y > 326) this.y = 326;
-        // else if (this.y < -4706) this.y = -4706;
+        if (this.y > 326) this.y = 326;
+        else if (this.y < -4706) this.y = -4706;
     };
 
     draw(ctx) {
