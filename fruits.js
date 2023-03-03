@@ -94,6 +94,8 @@ class Gomu{
         this.originX = this.game.player.x - this.width/2;
         this.originY = this.game.player.y - this.height/2;
 
+        this.direction = this.game.player.direction;
+
         if(this.direction !== this.lastDirection){
             this.lastDirection = this.direction;
             this.step = 0
@@ -146,7 +148,7 @@ class Gomu{
 
     draw(ctx){
         if (this.game.player.health <= 0) return;
-        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x + 25 - this.game.camera.x, this.y + 25 - this.game.camera.y, this.scale);
+        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x + 40 - this.game.camera.x, this.y + 25 - this.game.camera.y, this.scale);
         console.log(this.color)
 
 
@@ -174,7 +176,9 @@ class Sword{
     constructor(game){
         //hitbox dimensions
         this.width = 30;
-        this.height = 30;
+        this.height = 80;
+        this.ogWidth = 30;
+        this.ogHeight = 80;
         this.scale = 1;
 
         this.x;
@@ -183,10 +187,9 @@ class Sword{
         //sprites
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/sword.png");
         this.loadAnimation(this.spriteSheet);
-        this.facing = 0; // 0 = up, 1 = down, 2 = left, 3 = right
+        this.facing = 2; // 0 = up, 1 = down, 2 = left, 3 = right
 
-        this.direction = Direction.Up;
-        this.lastDirection = this.direction;
+        this.direction = Direction.Left;
         
 
         // hitbox
@@ -195,9 +198,9 @@ class Sword{
         this.originY;
         this.game = game;
         this.range = 200;
-        this.duration = 95;
+        this.duration = 50;
         this.step = 0;
-        this.damage = 3;
+        this.damage = 6;
     }
 
     loadAnimation(spriteSheet){
@@ -222,23 +225,22 @@ class Sword{
     }
 
     update(){
+        console.log(this.step)
         this.originX = this.game.player.x - this.width/2;
         this.originY = this.game.player.y - this.height/2;
 
-        if(this.direction !== this.lastDirection){
-            this.lastDirection = this.direction;
-            this.step = 0
-            if(this.direction == Direction.Up || this.direction == Direction.Down){
+        
+        if(this.direction == Direction.Up || this.direction == Direction.Down){
                 
-                this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
-                this.location = {x1: -10, y1: 3, x2: 10, y2: -3};
-            } else{
-                var temp = this.width;
-                this.width = this.height;
-                this.height = temp;
-                this.hitbox = {x1: -(this.height/2), y1: -(this.width/2), x2: (this.height/2), y2: (this.width/2)};
-                this.location = {x1: -3, y1: -10, x2: 10, y2: 3};
-            }
+            this.width = this.ogWidth;
+            this.height = this.ogHeight;
+            this.originX = this.game.player.x - this.width/2;
+            this.originY = this.game.player.y - this.height/2;
+        } else{
+            this.height = this.ogWidth;
+            this.width = this.ogHeight;
+            this.originX = this.game.player.x - this.width/2;
+            this.originY = this.game.player.y - this.height/2;
         }
 
         this.x = this.originX;
@@ -271,6 +273,7 @@ class Sword{
     }
 
     draw(ctx){
+        console.log("draw")
         if (this.game.player.dead) return;
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         
@@ -278,7 +281,7 @@ class Sword{
         if(this.direction == Direction.Up || this.direction == Direction.Down){
             ctx.rect(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.width, this.height);
         } else {
-            ctx.rect(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.height, this.width);
+            ctx.rect(this.x - this.game.camera.x + 53, this.y - this.game.camera.y + 50, this.width, this.height);
         }
         ctx.stroke();
         ctx.closePath();
