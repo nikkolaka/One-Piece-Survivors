@@ -2,7 +2,7 @@ class Luffy{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-        this.weapons = [new Sword(game), new Gomu(game)];
+        this.weapons = [new Axe(game), new Fire(game), new Sword(game), new Gomu(game)];
         this.game.luffy = this;
         this.shop = new Shop(game);
         

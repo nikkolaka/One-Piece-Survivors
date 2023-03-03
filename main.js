@@ -12,7 +12,13 @@ ASSET_MANAGER.queueDownload("./img/luffy7.png");
 ASSET_MANAGER.queueDownload("./img/zoro1.png");
 
 ASSET_MANAGER.queueDownload("./img/gomu.png");
+ASSET_MANAGER.queueDownload("./img/big gomu.png");
 ASSET_MANAGER.queueDownload("./img/sword.png");
+ASSET_MANAGER.queueDownload("./img/firewheel.png");
+ASSET_MANAGER.queueDownload("./img/axe.png");
+
+ASSET_MANAGER.queueDownload("./img/string.png");
+
 
 ASSET_MANAGER.queueDownload("./img/OnePieceMap.png");
 

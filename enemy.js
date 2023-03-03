@@ -117,6 +117,7 @@ class Doflamingo{
         this.health = 150;
         this.removeFromWorld = false;
         this.game.Doflamingo = this;
+        this.weapon = new String(game)
         this.berry = new blueBerry();
 
     };
@@ -154,6 +155,7 @@ class Doflamingo{
             }else{
                 this.facing = 0;
             }
+            this.weapon.update();
         }
         if(this.health <= 0){
             this.state = 1;
