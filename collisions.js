@@ -70,8 +70,6 @@ const CheckBorder = function(hero) {
     if (hero.y > 8500 - hero.radius) {
         hero.y = 8500 - hero.radius;
     }
-
-
 }
 
 const knockback = function(weapon, enemy) {
