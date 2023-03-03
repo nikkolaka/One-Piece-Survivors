@@ -148,21 +148,20 @@ class Gomu{
 
     draw(ctx){
         if (this.game.player.health <= 0) return;
-        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x + 40 - this.game.camera.x, this.y + 25 - this.game.camera.y, this.scale);
-        console.log(this.color)
-
-
-
-        
+        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x + 40 - this.game.camera.x, this.y + 25 - this.game.camera.y, this.scale);    
         ctx.beginPath()
         ctx.strokeStyle = "red";
         ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, 5, 0, 2 * Math.PI);
         ctx.strokeStyle = "black";
         ctx.rect(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.width, this.height);
-        
         ctx.stroke();
-        
         ctx.closePath();
+    }
+
+    colliding(enemy){
+        if(CheckRectCircleColliding(enemy, this)){
+            enemy.health -= this.damage;
+        }
     }
 
 
@@ -285,6 +284,12 @@ class Sword{
         }
         ctx.stroke();
         ctx.closePath();
+    }
+
+    colliding(enemy){
+        if(CheckRectCircleColliding(enemy, this)){
+            enemy.health -= this.damage;
+        }
     }
 
 
