@@ -13,6 +13,7 @@ class Navy{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
+        this.canKnockback = true;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -102,6 +103,7 @@ class Doflamingo{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
+        this.canKnockback = true;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -185,6 +187,7 @@ class Blackbeard{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
+        this.canKnockback = true;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -267,6 +270,7 @@ class Akainu{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
+        this.canKnockback = true;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -277,7 +281,7 @@ class Akainu{
         this.speed = 0.8;
 
         //stats
-        this.health = 150;
+        this.health = 1000;
         this.removeFromWorld = false;
         this.game.Akainu = this;
         this.berry = new blueBerry();

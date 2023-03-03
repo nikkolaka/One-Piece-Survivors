@@ -66,7 +66,8 @@ class Gomu{
         this.range = 200;
         this.duration = 95;
         this.step = 0;
-        this.damage = 15;
+        this.damage = 5;
+        this.knockbackDistance = 50
     }
 
     loadAnimation(spriteSheet){
@@ -160,7 +161,11 @@ class Gomu{
 
     colliding(enemy){
         if(CheckRectCircleColliding(enemy, this)){
+            if(enemy.canKnockback) {
+                knockback(this, enemy);
+            }
             enemy.health -= this.damage;
+            
         }
     }
 
@@ -200,6 +205,7 @@ class Sword{
         this.duration = 50;
         this.step = 0;
         this.damage = 6;
+        this.knockbackDistance = 30;
     }
 
     loadAnimation(spriteSheet){
@@ -224,7 +230,6 @@ class Sword{
     }
 
     update(){
-        console.log(this.step)
         this.originX = this.game.player.x - this.width/2;
         this.originY = this.game.player.y - this.height/2;
 
@@ -272,11 +277,14 @@ class Sword{
     }
 
     draw(ctx){
-        console.log("draw")
         if (this.game.player.dead) return;
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+
+
         
         ctx.beginPath()
+        
+        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, 5, 0, 2 * Math.PI);
         if(this.direction == Direction.Up || this.direction == Direction.Down){
             ctx.rect(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.width, this.height);
         } else {
@@ -288,6 +296,9 @@ class Sword{
 
     colliding(enemy){
         if(CheckRectCircleColliding(enemy, this)){
+            if(enemy.canKnockback) {
+                knockback(this, enemy);
+            }
             enemy.health -= this.damage;
         }
     }
