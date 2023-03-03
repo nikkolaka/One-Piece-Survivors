@@ -183,26 +183,13 @@ class GameEngine {
                     this.player.health -= Math.abs(enemy.health/200);
                 }
                 for(let j = 0; j < this.player.weapons.length; j ++){
-                    if(CheckRectCircleColliding(enemy, this.player.weapons[j])){
-                        enemy.health -= this.player.weapons[j].damage;
-                        if(enemy.dead){
-                            
-                            setTimeout(() => {
-                                enemy.removeFromWorld = true;
-                                
-                            
-                            }, 1000)
+                    this.player.weapons[j].colliding(enemy)
 
-                        } 
-                    }
+                    if(enemy.dead)setTimeout(() => {enemy.removeFromWorld = true;}, 1000);
                 }
-
-
             }
-
-            
-
         }
+
         for (let i = 0; i < this.berries.length; i++) {
             let berry = this.berries[i];
 
@@ -211,10 +198,6 @@ class GameEngine {
                 this.berriesTotal += berry.value;
             }
         }
-        
-
-        
-
 
         //added camera update
         this.camera.update();
