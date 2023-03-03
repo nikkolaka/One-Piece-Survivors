@@ -73,6 +73,24 @@ const CheckBorder = function(hero) {
 
 
 }
+
+const knockback = function(weapon, enemy) {
+    
+
+    enemy.canKnockback = false;
+    
+    setTimeout(() => {
+        enemy.canKnockback = true;
+        if(weapon.direction == Direction.Up) enemy.y -= 50;
+        else if(weapon.direction == Direction.Down) enemy.y += 50;
+        else if(weapon.direction == Direction.Left) enemy.x -= 50;
+        else if(weapon.direction == Direction.Right) enemy.x += 50;
+    
+    }, 200)
+    
+
+}
+
  // const checkSqaureColliding = function(thisEntity, otherEntity) {
 //     var COLLISIONREBOUND = 5;
 //     var dx = thisEntity.x - otherEntity.x;

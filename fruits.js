@@ -49,8 +49,15 @@ class Gomu{
         this.y;
 
         //sprites
+
+        // Gomu
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/gomu.png");
-        this.loadAnimation(this.spriteSheet);
+        //this.loadAnimation(this.spriteSheet, 1);
+
+        // Big Gomu
+        this.bigSpriteSheet = ASSET_MANAGER.getAsset("./img/big gomu.png");
+        this.loadAnimation(this.bigSpriteSheet, 2);
+
         this.facing = 0; // 0 = up, 1 = down, 2 = left, 3 = right
 
         this.direction = Direction.Up;
@@ -66,28 +73,49 @@ class Gomu{
         this.range = 200;
         this.duration = 95;
         this.step = 0;
-        this.damage = 15;
+        this.damage = 5;
+        this.knockbackDistance = 50
     }
 
-    loadAnimation(spriteSheet){
+    loadAnimation(spriteSheet, version) {
         this.animation = [];
         for(var i = 0; i < 4; i++){
             this.animation.push([]);
-            for(var j = 0; j < 2; j++){
-                this.animation[i].push([]);
-            }
         }
-        // up direction
-        this.animation[0] = new Animator(spriteSheet, -2, 270, 90, 90, 6, .3, false, true);
 
-        // down direction
-        this.animation[1] = new Animator(spriteSheet, -2, 180, 90, 90, 6, .3, false, true);
 
-        // left direction
-        this.animation[2] = new Animator(spriteSheet, -1, 0, 90, 90, 6, .3, false, true);
-        
-        // right direction
-        this.animation[3] = new Animator(spriteSheet, -1, 90, 90, 90, 6, .3, true, true);
+
+        // Gomu sprites
+        if (version == 1){
+            // up direction
+            this.animation[0] = new Animator(spriteSheet, -2, 270, 90, 90, 6, .3, false, true);
+
+            // down direction
+            this.animation[1] = new Animator(spriteSheet, -2, 180, 90, 90, 6, .3, false, true);
+
+            // left direction
+            this.animation[2] = new Animator(spriteSheet, -1, 0, 90, 90, 6, .3, false, true);
+            
+            // right direction
+            this.animation[3] = new Animator(spriteSheet, -1, 90, 90, 90, 6, .3, true, true);
+
+
+
+            // Big Gomu sprites
+        } else if (version == 2){
+
+            // up direction
+            this.animation[0] = new Animator(spriteSheet, 0, 250, 125, 125, 6, .3, false, true);
+
+            // down direction
+            this.animation[1] = new Animator(spriteSheet, 0, 375, 125, 125, 6, .3, false, true);
+
+            // left direction
+            this.animation[2] = new Animator(spriteSheet, 0, 125, 125, 125, 6, .3, false, true);
+            
+            // right direction
+            this.animation[3] = new Animator(spriteSheet, 0, 0, 125, 125, 6, .3, false, true);
+        }
     }
 
     update(){
@@ -160,7 +188,11 @@ class Gomu{
 
     colliding(enemy){
         if(CheckRectCircleColliding(enemy, this)){
+            if(enemy.canKnockback) {
+                knockback(this, enemy);
+            }
             enemy.health -= this.damage;
+            
         }
     }
 
@@ -200,15 +232,13 @@ class Sword{
         this.duration = 50;
         this.step = 0;
         this.damage = 6;
+        this.knockbackDistance = 30;
     }
 
     loadAnimation(spriteSheet){
         this.animation = [];
         for(var i = 0; i < 4; i++){
             this.animation.push([]);
-            for(var j = 0; j < 2; j++){
-                this.animation[i].push([]);
-            }
         }
         // up direction
         this.animation[0] = new Animator(spriteSheet, 27, 385,  95, 180, 3, .2, true, true);
@@ -224,7 +254,6 @@ class Sword{
     }
 
     update(){
-        console.log(this.step)
         this.originX = this.game.player.x - this.width/2;
         this.originY = this.game.player.y - this.height/2;
 
@@ -272,11 +301,14 @@ class Sword{
     }
 
     draw(ctx){
-        console.log("draw")
         if (this.game.player.dead) return;
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+
+
         
         ctx.beginPath()
+        
+        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, 5, 0, 2 * Math.PI);
         if(this.direction == Direction.Up || this.direction == Direction.Down){
             ctx.rect(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.width, this.height);
         } else {
@@ -288,7 +320,280 @@ class Sword{
 
     colliding(enemy){
         if(CheckRectCircleColliding(enemy, this)){
+            if(enemy.canKnockback) {
+                knockback(this, enemy);
+            }
             enemy.health -= this.damage;
+        }
+    }
+
+}
+
+
+class Fire{
+    constructor(game){
+        //hitbox dimensions
+        this.width = 30;
+        this.height = 80;
+        this.ogWidth = 30;
+        this.ogHeight = 80;
+        this.scale = 3;
+
+        this.x;
+        this.y;
+
+        //sprites
+        this.animation = new Animator(ASSET_MANAGER.getAsset("./img/firewheel.png"), 0, 0, 105, 110, 19, .1, false, true);
+
+        // hitbox
+        
+        this.originX;
+        this.originY;
+        this.game = game;
+        this.range = 200;
+        this.duration = 50;
+        this.step = 0;
+        this.damage = 6;
+    }
+
+    update(){
+        console.log(this.step)
+        this.originX = this.game.player.x - this.width/2;
+        this.originY = this.game.player.y - this.height/2;
+
+        this.x = this.originX;
+        this.y = this.originY;
+        
+
+
+        if(this.step >= this.range) this.step = 0;
+        
+        this.step += this.range/this.duration;
+
+    }
+
+    draw(ctx){
+        console.log("draw")
+        if (this.game.player.dead) return;
+        this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 90, this.y - this.game.camera.y - 70, this.scale);
+        
+        ctx.beginPath()
+        ctx.rect(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.width, this.height);
+        ctx.stroke();
+        ctx.closePath();
+    }
+
+    colliding(enemy){
+        if(CheckRectCircleColliding(enemy, this)){
+            enemy.health -= this.damage;
+        }
+    }
+
+
+
+
+
+
+}
+
+class Axe{
+    constructor(game){
+        //hitbox dimensions
+        this.width = 30;
+        this.height = 80;
+        this.ogWidth = 30;
+        this.ogHeight = 80;
+        this.scale = 1;
+
+        this.x;
+        this.y;
+
+        //sprites
+        this.animation = new Animator(ASSET_MANAGER.getAsset("./img/axe.png"), 0, 0, 88, 110, 10, .1, false, true);
+
+        // hitbox
+        
+        this.originX;
+        this.originY;
+        this.game = game;
+        this.range = 200;
+        this.duration = 50;
+        this.step = 0;
+        this.damage = 6;
+    }
+
+    update(){
+        console.log(this.step)
+        this.originX = this.game.player.x - this.width/2;
+        this.originY = this.game.player.y - this.height/2;
+
+        this.x = this.originX;
+        this.y = this.originY;
+        
+
+
+        if(this.step >= this.range) this.step = 0;
+        
+        this.step += this.range/this.duration;
+
+    }
+
+    draw(ctx){
+        console.log("draw")
+        if (this.game.player.dead) return;
+        this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 90, this.y - this.game.camera.y - 70, this.scale);
+        
+        ctx.beginPath()
+        ctx.rect(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.width, this.height);
+        ctx.stroke();
+        ctx.closePath();
+    }
+
+    colliding(enemy){
+        if(CheckRectCircleColliding(enemy, this)){
+            enemy.health -= this.damage;
+        }
+    }
+
+
+
+
+
+
+}
+
+
+
+
+
+// Enemy attacks
+
+class String{
+    constructor(game){
+        //hitbox dimensions
+        this.ogWidth = 50;
+        this.ogHeight = 20;
+        
+
+        this.width = 50;
+        this.height = 20;
+        this.scale = 1;
+
+        this.x;
+        this.y;
+
+        //sprites
+        this.spriteSheet = ASSET_MANAGER.getAsset("./img/string.png");
+        this.loadAnimation(this.spriteSheet);
+        this.facing = 0; // 0 = up, 1 = down, 2 = left, 3 = right
+
+        this.direction = Direction.Up;
+        this.lastDirection = this.direction;
+        this.color = "black"
+        
+
+        // hitbox
+        
+        this.originX;
+        this.originY;
+        this.game = game;
+        this.range = 200;
+        this.duration = 95;
+        this.step = 0;
+    }
+
+    loadAnimation(spriteSheet){
+        this.animation = [];
+        for(var i = 0; i < 4; i++){
+            this.animation.push([]);
+        }
+        // up direction
+        this.animation[0] = new Animator(spriteSheet, -2, 270, 90, 90, 8, .3, false, true);
+
+        // down direction
+        this.animation[1] = new Animator(spriteSheet, -2, 180, 90, 90, 8, .3, false, true);
+
+        // left direction
+        this.animation[2] = new Animator(spriteSheet, -1, 0, 90, 90, 8, .3, false, true);
+        
+        // right direction
+        this.animation[3] = new Animator(spriteSheet, -1, 90, 90, 90, 8, .3, true, true);
+    }
+
+    update(){
+        this.originX = this.game.player.x - this.width/2;
+        this.originY = this.game.player.y - this.height/2;
+
+        this.direction = this.game.player.direction;
+
+        if(this.direction !== this.lastDirection){
+            this.lastDirection = this.direction;
+            this.step = 0
+            if(this.direction == Direction.Up || this.direction == Direction.Down){
+                
+                this.width = this.ogWidth;
+                this.height = this.ogHeight;
+                this.originX = this.game.player.x - this.width/2;
+                this.originY = this.game.player.y - this.height/2;
+                /* this.hitbox = {x1: -(this.width/2), y1: -(this.height/2), x2: (this.width/2), y2: (this.height/2)};
+                this.location = {x1: -10, y1: 3, x2: 10, y2: -3}; */
+            } else{
+                this.height = this.ogWidth;
+                this.width = this.ogHeight;
+                this.originX = this.game.player.x - this.width/2;
+                this.originY = this.game.player.y - this.height/2;
+                /* this.hitbox = {x1: -(this.height/2), y1: -(this.width/2), x2: (this.height/2), y2: (this.width/2)};
+                this.location = {x1: -3, y1: -10, x2: 10, y2: 3}; */
+            }
+        }
+
+        this.x = this.originX;
+        this.y = this.originY;
+        
+
+
+        if(this.step >= this.range) this.step = 0;
+        
+        //updates the direction of gomu
+        if(this.direction == Direction.Up){
+            this.y -= this.step;
+            
+            this.facing = 0;
+        } else if(this.direction == Direction.Down){
+            this.y += this.step;
+            
+            this.facing = 1;
+        } else if(this.direction == Direction.Left){
+            this.x -= this.step;
+            this.facing = 2;
+        } else if(this.direction == Direction.Right){
+            this.x += this.step;
+            this.facing = 3;
+        }
+        
+        
+        this.step += this.range/this.duration;
+
+    }
+
+    draw(ctx){
+        if (this.game.player.health <= 0) return;
+        this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x + 40 - this.game.camera.x, this.y + 25 - this.game.camera.y, this.scale);    
+        ctx.beginPath()
+        ctx.strokeStyle = "red";
+        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, 5, 0, 2 * Math.PI);
+        ctx.strokeStyle = "black";
+        ctx.rect(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.width, this.height);
+        ctx.stroke();
+        ctx.closePath();
+    }
+
+    colliding(enemy){
+        if(CheckRectCircleColliding(enemy, this)){
+            enemy.speed -= this.speed/4;
+            setTimeout(() => {
+                enemy.speed += this.speed/4;
+            }, 5000);
         }
     }
 
