@@ -2,7 +2,7 @@ class Luffy{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-        this.weapons = [new Axe(game), new Fire(game), new Sword(game), new Gomu(game)];
+        this.weapons = [new Axe(game)];
         this.game.luffy = this;
         this.shop = new Shop(game);
         
@@ -61,7 +61,10 @@ class Luffy{
 
         this.shop.update();
 
-        if(this.dead) return;
+        if(this.dead){
+            this.weapons = [];
+            return;
+        } 
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
             this.states = 1;
@@ -196,8 +199,9 @@ class Zoro{
     update(){
 
         if(this.dead){
+            this.weapons = [];
             return;
-        }
+        } 
         
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
@@ -319,7 +323,10 @@ class Brook{
     }
 
     update(){
-        if(this.dead) return;
+        if(this.dead){
+            this.weapons = [];
+            return;
+        } 
         
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){

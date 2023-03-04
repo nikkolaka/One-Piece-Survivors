@@ -175,7 +175,6 @@ class Gomu{
     }
 
     draw(ctx){
-        if (this.game.player.health <= 0) return;
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x + 40 - this.game.camera.x, this.y + 25 - this.game.camera.y, this.scale);    
         ctx.beginPath()
         ctx.strokeStyle = "red";
@@ -301,7 +300,6 @@ class Sword{
     }
 
     draw(ctx){
-        if (this.game.player.dead) return;
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
 
 
@@ -373,7 +371,6 @@ class Fire{
     }
 
     draw(ctx){
-        console.log("draw")
         if (this.game.player.dead) return;
         this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 90, this.y - this.game.camera.y - 70, this.scale);
         
@@ -399,10 +396,7 @@ class Fire{
 class Axe{
     constructor(game){
         //hitbox dimensions
-        this.width = 30;
-        this.height = 80;
-        this.ogWidth = 30;
-        this.ogHeight = 80;
+        this.radius = 20;
         this.scale = 1;
 
         this.x;
@@ -420,37 +414,53 @@ class Axe{
         this.duration = 50;
         this.step = 0;
         this.damage = 6;
+        this.speed = 750;
+        this.framesTouching = 0;
+
+        this.visible = true;
+        this.trackedEnemy = null;
     }
 
     update(){
-        console.log(this.step)
-        this.originX = this.game.player.x - this.width/2;
-        this.originY = this.game.player.y - this.height/2;
+        this.originX = this.game.player.x;
+        this.originY = this.game.player.y;
 
-        this.x = this.originX;
-        this.y = this.originY;
+
+        if(this.trackedEnemy == null){
+            this.visible = false;
+            this.framesTouching = 0;
+            this.x = this.originX;
+            this.y = this.originY;
+            this.trackedEnemy = closestEnemy(this.game);
+        } else{
+            this.visible = true;
+            if(checkCircleTouching(this, this.trackedEnemy)) this.framesTouching++;
+            enemyTracking(this, this.trackedEnemy, this.game);
+            if(this.framesTouching > 10) this.trackedEnemy = null;
+        }
         
 
-
-        if(this.step >= this.range) this.step = 0;
         
-        this.step += this.range/this.duration;
+        
+    
 
     }
 
     draw(ctx){
-        console.log("draw")
-        if (this.game.player.dead) return;
-        this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 90, this.y - this.game.camera.y - 70, this.scale);
+        if (!this.visible) return;
+        this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x + 10, this.y - this.game.camera.y + 10, this.scale);
         
         ctx.beginPath()
-        ctx.rect(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.width, this.height);
+        ctx.arc(this.x - this.game.camera.x + 55, this.y - this.game.camera.y+ 55, this.radius, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.closePath();
     }
 
     colliding(enemy){
-        if(CheckRectCircleColliding(enemy, this)){
+        if(checkCircleTouching(enemy, this)){
+            if(enemy.canKnockback) {
+                knockback(this, enemy);
+            }
             enemy.health -= this.damage;
         }
     }
