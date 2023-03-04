@@ -6,7 +6,7 @@ class Collisions {
 
 
 // checks if a circle collides with a rectangle
-const checkPlayerTouchingEnemy = function(player, enemy){
+const checkCircleTouching = function(player, enemy){
 
     var dx = player.x - enemy.x;
     var dy = player.y - enemy.y;
@@ -34,7 +34,7 @@ const CheckRectCircleColliding = function (circle, rect){
 }
 
 //Checks if a circle is colliding with another circle
-const checkCircleColliding = function(thisEntity, otherEntity){
+const enemyCollision = function(thisEntity, otherEntity){
     var dx = thisEntity.x - otherEntity.x;
     var dy = thisEntity.y - otherEntity.y;
     var COLLISIONREBOUND = 5;

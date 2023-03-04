@@ -58,9 +58,9 @@ class Navy{
         // Check for collisions with other enemies
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                checkCircleColliding(this,this.game.enemies[i])
+                enemyCollision(this,this.game.enemies[i])
             }   
-            enemyTracking(this, this.game);
+            enemyTracking(this, this.game.player, this.game);
         }
 
         // Determine facing
@@ -145,9 +145,9 @@ class Doflamingo{
     update(){
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                checkCircleColliding(this,this.game.enemies[i])
+                enemyCollision(this,this.game.enemies[i])
             }   
-            enemyTracking(this, this.game);
+            enemyTracking(this, this.game.player, this.game);
         }
         if (this.dead == false){
             if (this.x > this.game.playerLocation.x){
@@ -229,9 +229,9 @@ class Blackbeard{
     update(){
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                checkCircleColliding(this,this.game.enemies[i])
+                enemyCollision(this,this.game.enemies[i])
             }   
-            enemyTracking(this, this.game);
+            enemyTracking(this, this.game.player,this.game);
         }
         if (this.dead == false){
             if (this.x > this.game.playerLocation.x){
@@ -312,9 +312,9 @@ class Akainu{
     update(){
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                checkCircleColliding(this,this.game.enemies[i])
+                enemyCollision(this,this.game.enemies[i])
             }   
-            enemyTracking(this, this.game);
+            enemyTracking(this, this.game.player, this.game);
         }
         if (this.dead == false){
             if (this.x > this.game.playerLocation.x){

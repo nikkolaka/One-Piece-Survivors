@@ -178,7 +178,7 @@ class GameEngine {
             let enemy = this.enemies[i];
             if (!enemy.removeFromWorld) {
                 enemy.update();
-                if(checkPlayerTouchingEnemy(this.player, enemy) && !enemy.dead){
+                if(checkCircleTouching(this.player, enemy) && !enemy.dead){
                     
                     this.player.health -= Math.abs(enemy.health/200);
                 }
@@ -193,7 +193,7 @@ class GameEngine {
         for (let i = 0; i < this.berries.length; i++) {
             let berry = this.berries[i];
 
-            if(checkPlayerTouchingEnemy(this.player, berry)){
+            if(checkCircleTouching(this.player, berry)){
                 berry.removeFromWorld = true;
                 this.berriesTotal += berry.value;
             }
