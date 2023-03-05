@@ -36,7 +36,7 @@ class Navy{
     };
 
     loadAnimation(){
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 3; i++){
             this.animation.push([]);
             for(var j = 0; j < 2; j++){
                 this.animation[i].push([]);
@@ -51,10 +51,14 @@ class Navy{
         this.animation[1][0] = new Animator(this.spriteSheet, 0, 210, 70, 60, 3, .2, true, false);
         // dead left
         this.animation[1][1] = new Animator(this.spriteSheet, 0, 140, 70, 60, 3, .2, false, false);
+
+        // dead right
+        this.animation[2][0] = new Animator(this.spriteSheet, 150, 210, 70, 60, 1, .1, false, true);
+        // dead left
+        this.animation[2][1] = new Animator(this.spriteSheet, 0, 140, 70, 60, 1, .1, false, true);
     }
 
     update(){
-        if(this.dead == true) return;
         // Check for collisions with other enemies
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
@@ -64,16 +68,10 @@ class Navy{
         }
 
         // Determine facing
-        if (this.dead == false){
-            if (this.x > this.game.playerLocation.x){
-                this.facing = 1;
-            }else{
-                this.facing = 0;
-            }
-        }
-        if(this.health <= 0){
-            this.state = 1;
-            this.dead = true;
+        if (this.x > this.game.playerLocation.x){
+            this.facing = 1;
+        }else{
+            this.facing = 0;
         }
 
     };
@@ -124,7 +122,7 @@ class Doflamingo{
     
 
     loadAnimation(){
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 3; i++){
             this.animation.push([]);
             for(var j = 0; j < 2; j++){
                 this.animation[i].push([]);
@@ -139,6 +137,11 @@ class Doflamingo{
         this.animation[1][0] = new Animator(this.spriteSheet, 0, 180, 89, 88, 6, .2, false, false);
         // dead left
         this.animation[1][1] = new Animator(this.spriteSheet, 0, 270, 90, 88, 6, .2, true, false);
+
+        // dead right
+        this.animation[2][0] = new Animator(this.spriteSheet, 0, 180, 89, 88, 1, .2, false, true);
+        // dead left
+        this.animation[2][1] = new Animator(this.spriteSheet, 350, 270, 90, 88, 1, .2, false, true);
     }
 
 
@@ -149,18 +152,13 @@ class Doflamingo{
             }   
             enemyTracking(this, this.game.player, this.game);
         }
-        if (this.dead == false){
-            if (this.x > this.game.playerLocation.x){
-                this.facing = 1;
-            }else{
-                this.facing = 0;
-            }
-            this.weapon.update();
+        if (this.x > this.game.playerLocation.x){
+            this.facing = 1;
+        }else{
+            this.facing = 0;
         }
-        if(this.health <= 0){
-            this.state = 1;
-            this.dead = true;
-        }
+        this.weapon.update();
+
 
     };
 
@@ -209,7 +207,7 @@ class Blackbeard{
     
 
     loadAnimation(){
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 3; i++){
             this.animation.push([]);
             for(var j = 0; j < 2; j++){
                 this.animation[i].push([]);
@@ -224,6 +222,11 @@ class Blackbeard{
         this.animation[1][0] = new Animator(this.spriteSheet, 0, 180, 90, 88, 5, .2, false, false);
         // dead left
         this.animation[1][1] = new Animator(this.spriteSheet, 0, 270, 90, 88, 5, .2, true, false);
+
+        //hurt right
+        this.animation[2][0] = new Animator(this.spriteSheet, 0, 180, 90, 88, 1, .2, false, true);
+        // hurt left
+        this.animation[2][1] = new Animator(this.spriteSheet, 350, 270, 90, 88, 1, .2, false, true);
     }
 
     update(){
@@ -233,16 +236,10 @@ class Blackbeard{
             }   
             enemyTracking(this, this.game.player,this.game);
         }
-        if (this.dead == false){
-            if (this.x > this.game.playerLocation.x){
-                this.facing = 1;
-            }else{
-                this.facing = 0;
-            }
-        }
-        if(this.health <= 0){
-            this.state = 1;
-            this.dead = true;
+        if (this.x > this.game.playerLocation.x){
+            this.facing = 1;
+        }else{
+            this.facing = 0;
         }
 
     };
@@ -292,7 +289,7 @@ class Akainu{
     
 
     loadAnimation(){
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 3; i++){
             this.animation.push([]);
             for(var j = 0; j < 2; j++){
                 this.animation[i].push([]);
@@ -307,6 +304,11 @@ class Akainu{
         this.animation[1][0] = new Animator(this.spriteSheet, 0, 180, 87, 90, 5, .2, false, false);
         // dead left
         this.animation[1][1] = new Animator(this.spriteSheet, 0, 270, 87, 90, 5, .2, true, false);
+
+        //hit right
+        this.animation[2][0] = new Animator(this.spriteSheet, 0, 180, 87, 90, 1, .5, false, true);
+        //hit left
+        this.animation[2][1] = new Animator(this.spriteSheet, 350, 270, 87, 90, 1, .5, false, true);
     }
 
     update(){
@@ -316,16 +318,10 @@ class Akainu{
             }   
             enemyTracking(this, this.game.player, this.game);
         }
-        if (this.dead == false){
-            if (this.x > this.game.playerLocation.x){
-                this.facing = 1;
-            }else{
-                this.facing = 0;
-            }
-        }
-        if(this.health <= 0){
-            this.state = 1;
-            this.dead = true;
+        if (this.x > this.game.playerLocation.x){
+            this.facing = 1;
+        }else{
+            this.facing = 0;
         }
 
     };
