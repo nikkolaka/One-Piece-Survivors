@@ -191,7 +191,15 @@ class Gomu{
                 knockback(this, enemy);
             }
             enemy.health -= this.damage;
-            
+            if (enemy.health >= 0) {
+                enemy.state = 2;
+                setTimeout(() => {
+                    enemy.state = 0;
+                }, 400);  
+            } else{
+                enemy.state = 1;
+                enemy.dead = true;
+            }      
         }
     }
 
@@ -322,6 +330,15 @@ class Sword{
                 knockback(this, enemy);
             }
             enemy.health -= this.damage;
+            if (enemy.health >= 0) {
+                enemy.state = 2;
+                setTimeout(() => {
+                    enemy.state = 0;
+                }, 400);  
+            } else{
+                enemy.state = 1;
+                enemy.dead = true;
+            }    
         }
     }
 
@@ -383,6 +400,15 @@ class Fire{
     colliding(enemy){
         if(CheckRectCircleColliding(enemy, this)){
             enemy.health -= this.damage;
+            if (enemy.health >= 0) {
+                enemy.state = 2;
+                setTimeout(() => {
+                    enemy.state = 0;
+                }, 400);  
+            } else{
+                enemy.state = 1;
+                enemy.dead = true;
+            }    
         }
     }
 
@@ -462,6 +488,15 @@ class Axe{
                 knockback(this, enemy);
             }
             enemy.health -= this.damage;
+            if (enemy.health >= 0) {
+                enemy.state = 2;
+                setTimeout(() => {
+                    enemy.state = 0;
+                }, 400);  
+            } else{
+                enemy.state = 1;
+                enemy.dead = true;
+            }    
         }
     }
 
@@ -564,7 +599,7 @@ class String{
 
         if(this.step >= this.range) this.step = 0;
         
-        //updates the direction of gomu
+        //updates the direction of string
         if(this.direction == Direction.Up){
             this.y -= this.step;
             
