@@ -2,7 +2,7 @@ class Luffy{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-        this.weapons = [new Axe(game), new Gomu(game), new Sword(game), new Fire(game)];
+        this.weapons = [new Gomu(game)];
         this.game.luffy = this;
         this.shop = new Shop(game);
         
@@ -28,7 +28,7 @@ class Luffy{
         //stats
         this.health = 100;
         this.maxHealth = 100;
-        this.speed = 200;
+        this.speed = 150;
 
     };
 
@@ -144,8 +144,9 @@ class Zoro{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-        this.weapons = [new Gomu(game)];
-        this.game.player = this;
+        this.weapons = [new Sword(game)];
+        this.game.Zoro = this;
+        this.shop = new Shop(game);
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/zoro1.png");
@@ -165,8 +166,8 @@ class Zoro{
         this.scale = 1.2;
 
         //stats
-        this.health = 100;
-        this.maxHealth = 100;
+        this.health = 150;
+        this.maxHealth = 150;
         this.speed = 200;
 
     };
@@ -191,18 +192,19 @@ class Zoro{
         this.animation[1][1] = new Animator(spriteSheet, 0, 270, 90, 88, 8, .2, true, true);
 
         // dead right
-        this.animation[2][0] = new Animator(spriteSheet, 0, 360, 90, 88, 4, .25, false, true);
+        this.animation[2][0] = new Animator(spriteSheet, 0, 360, 90, 88, 4, .25, false, false);
         // dead left
-        this.animation[2][1] = new Animator(spriteSheet, 0, 450, 90, 88, 4, .25, false, false);
+        this.animation[2][1] = new Animator(spriteSheet, 0, 450, 90, 88, 4, .25, true, false);
     }
 
     update(){
+
+        this.shop.update();
 
         if(this.dead){
             this.weapons = [];
             return;
         } 
-        
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
             this.states = 1;
@@ -231,12 +233,16 @@ class Zoro{
             this.states = 0;
         }
 
+        // this is for the camera to follow the player when he gets to the edge of the screen
+        if (this.game.playerLocation.x >= 600 || this.game.playerLocation.y >= 600) {
+            this.game.camera.x += this.game.clockTick * this.speed;
+            this.game.camera.y += this.game.clockTick * this.speed;
+        }
+
         for (let i = 0; i < this.weapons.length; i++) {
             let weapon = this.weapons[i];
 
             weapon.update();
-            weapon.direction = this.direction;
-
 
         }
 
@@ -247,6 +253,9 @@ class Zoro{
         }
         this.game.playerLocation.x = this.x;
         this.game.playerLocation.y = this.y;
+
+        // this is for the border collision
+        CheckBorder(this);
 
 
     };
@@ -269,21 +278,22 @@ class Brook{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-        this.weapons = [new Gomu(game)];
+        this.weapons = [];
         this.game.Brook = this;
+        this.shop = new Shop(game, this);
 
         //sprite
-        this.spriteSheet = ASSET_MANAGER.getAsset("./img/zoro1.png");
+        this.spriteSheet = ASSET_MANAGER.getAsset("./img/brook.png");
         this.loadAnimation(this.spriteSheet);
 
         //states
-        this.states = 0; // 0 = idle, 1 = walking 2 = dead
+        this.states = 0; // 0 = idle, 1 = walking 2 = dead 3 = revive
         this.facing = 0; // 0 = right, 1 = leftd
         this.dead = false;
 
         // player hitbox
-        this.x =  512;
-        this.y =  384;
+        this.x =  2500;
+        this.y =  2500;
         this.radius = 10;
         this.direction = Direction.Up;
 
@@ -292,14 +302,14 @@ class Brook{
         //stats
         this.health = 100;
         this.maxHealth = 100;
-        this.speed = 200;
+        this.speed = 100;
         this.revive = true;
 
     };
 
     loadAnimation(spriteSheet){
         this.animation = [];
-        for(var i = 0; i < 3; i++){
+        for(var i = 0; i < 4; i++){
             this.animation.push([]);
             for(var j = 0; j < 2; j++){
                 this.animation[i].push([]);
@@ -307,27 +317,33 @@ class Brook{
         }
 
         // idle right
-        this.animation[0][0] = new Animator(spriteSheet, 0, 0, 90, 88, 4, .25, false, true);
+        this.animation[0][0] = new Animator(spriteSheet, 0, 60, 160, 100, 4, .2, false, true);
         // idle left
-        this.animation[0][1] = new Animator(spriteSheet, 0, 90, 90, 88, 4, .25, false, true);
+        this.animation[0][1] = new Animator(spriteSheet, 0, 240, 160, 100, 4, .2, false, true);
 
         // walking right
-        this.animation[1][0] = new Animator(spriteSheet, 0, 180, 90, 88, 8, .2, false, true);
+        this.animation[1][0] = new Animator(spriteSheet, 0, 420, 160, 100, 8, .2, false, true);
         // walking left
-        this.animation[1][1] = new Animator(spriteSheet, 0, 270, 90, 88, 8, .2, true, true);
+        this.animation[1][1] = new Animator(spriteSheet, 0, 600, 160, 100, 8, .2, true, true);
 
         // dead right
-        this.animation[2][0] = new Animator(spriteSheet, 0, 360, 90, 88, 4, .25, false, true);
+        this.animation[2][0] = new Animator(spriteSheet, 0, 780, 160, 100, 3, .2, false, false);
         // dead left
-        this.animation[2][1] = new Animator(spriteSheet, 0, 450, 90, 88, 4, .25, false, false);
+        this.animation[2][1] = new Animator(spriteSheet, 0, 960, 160, 100, 3, .2, true, false);
+
+        // dead right
+        this.animation[3][0] = new Animator(spriteSheet, 0, 1140, 160, 100, 4, .2, false, false);
+        // dead left
+        this.animation[3][1] = new Animator(spriteSheet, 0, 1140, 160, 100, 4, .2, false, false);;
     }
 
     update(){
+        this.shop.update();
+
         if(this.dead){
             this.weapons = [];
             return;
         } 
-        
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
             this.states = 1;
@@ -356,28 +372,38 @@ class Brook{
             this.states = 0;
         }
 
-        // changes the direction of the player's direction
+        // this is for the camera to follow the player when he gets to the edge of the screen
+        if (this.game.playerLocation.x >= 600 || this.game.playerLocation.y >= 600) {
+            this.game.camera.x += this.game.clockTick * this.speed;
+            this.game.camera.y += this.game.clockTick * this.speed;
+        }
+
         for (let i = 0; i < this.weapons.length; i++) {
             let weapon = this.weapons[i];
 
             weapon.update();
-            weapon.direction = this.direction;
-
 
         }
 
-        
-
-
         // checks if the player is dead
         if (this.health <= 0){
-            this.dead = true;
-            this.weapon.visible = false;
             this.states = 2;
+            if (this.revive){
+                setTimeout(() => {
+                    this.revive = false;
+                },1000);
+                this.states = 3;
+                this.health = this.maxHealth;
+            } else {
+                this.states = 2;
+                this.dead = true;
+            }
         }
         this.game.playerLocation.x = this.x;
         this.game.playerLocation.y = this.y;
 
+        // this is for the border collision
+        CheckBorder(this);
 
     };
 
