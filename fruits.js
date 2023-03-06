@@ -348,10 +348,7 @@ class Sword{
 class Fire{
     constructor(game){
         //hitbox dimensions
-        this.width = 30;
-        this.height = 80;
-        this.ogWidth = 30;
-        this.ogHeight = 80;
+
         this.scale = 3;
 
         this.x;
@@ -365,19 +362,26 @@ class Fire{
         this.originX;
         this.originY;
         this.game = game;
-        this.range = 200;
+        
         this.duration = 50;
         this.step = 0;
-        this.damage = 6;
+        this.damage = 1;
+
+        this.innerCircle = {x: this.x, y:this.y, radius: 90}
+        this.outerCircle = {x: this.x, y:this.y, radius: 150}
     }
 
     update(){
         console.log(this.step)
-        this.originX = this.game.player.x - this.width/2;
-        this.originY = this.game.player.y - this.height/2;
+        this.x = this.game.player.x - 15;
+        this.y = this.game.player.y - 30;
 
-        this.x = this.originX;
-        this.y = this.originY;
+
+        this.innerCircle.x = this.x;
+        this.outerCircle.x = this.x;
+        this.innerCircle.y = this.y;
+        this.outerCircle.y = this.y;
+
         
 
 
@@ -392,19 +396,42 @@ class Fire{
         this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 90, this.y - this.game.camera.y - 70, this.scale);
         
         ctx.beginPath()
-        ctx.rect(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.width, this.height);
+        ctx.arc(this.x - this.game.camera.x + 70, this.y - this.game.camera.y+ 90, this.innerCircle.radius, 0, 2 * Math.PI);
+        ctx.arc(this.x - this.game.camera.x + 70, this.y - this.game.camera.y+ 90, this.outerCircle.radius, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.closePath();
     }
 
     colliding(enemy){
-        if(CheckRectCircleColliding(enemy, this)){
+        if(!checkCircleTouching(enemy, this.innerCircle) && checkCircleTouching(enemy, this.outerCircle)){
+            if(enemy.canKnockback){
+                enemy.canKnockback = false;
+    
+                setTimeout(() => {
+                    enemy.canKnockback = true;
+                    var dx = enemy.x - this.x;
+                    var dy = enemy.y - this.y;
+
+                    
+
+                    var distance = Math.sqrt(dx * dx + dy * dy);
+                    var step = 2;
+                    
+                    dx /= distance;
+                    dy /= distance;
+                    enemy.x += dx*step;
+                    enemy.y += dy*step;
+                
+                }, 500)
+                
+
+            }
             enemy.health -= this.damage;
             if (enemy.health >= 0) {
                 enemy.state = 2;
                 setTimeout(() => {
                     enemy.state = 0;
-                }, 400);  
+                }, 200);  
             } else{
                 enemy.state = 1;
                 enemy.dead = true;

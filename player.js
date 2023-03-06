@@ -2,7 +2,7 @@ class Luffy{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-        this.weapons = [new Axe(game), new Gomu(game), new Sword(game), new Fire(game)];
+        this.weapons = [new Gomu(game)];
         this.game.luffy = this;
         this.shop = new Shop(game);
         
@@ -144,7 +144,7 @@ class Zoro{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-        this.weapons = [new Gomu(game)];
+        this.weapons = [new Sword(game)];
         this.game.player = this;
 
         //sprite
@@ -269,7 +269,7 @@ class Brook{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-        this.weapons = [new Gomu(game)];
+        this.weapons = [new Sword(game)];
         this.game.Brook = this;
 
         //sprite
