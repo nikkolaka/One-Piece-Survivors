@@ -1,31 +1,9 @@
-class Sound {
-    constructor(src) {
-        this.sound = document.createElement("audio");
-        this.sound.src = src;
-        this.sound.setAttribute("preload", "auto");
-        this.sound.setAttribute("controls", "none");
-        this.sound.style.display = "none";
-        document.body.appendChild(this.sound);
-    }
-    play() {
-        this.sound.play();
-    }
-    stop() {
-        this.sound.pause();
-    }
+const Opening = new Audio("./music/Opening.mp3");
+const In_Game = new Audio("./music/In_Game.mp3");
+const Death = new Audio("./music/Death.mp3");
 
-    loop() {
-        this.sound.loop = true;
-        this.sound.play();
-    }
+Opening.loop = true;
+In_Game.loop = true;
+Death.loop = true;
 
-    stopLoop() {
-
-        this.sound.loop = false;
-        this.sound.pause();
-    }
-
-    setVolume(volume) {
-        this.sound.volume = volume;
-    }
-}
+Opening.play();

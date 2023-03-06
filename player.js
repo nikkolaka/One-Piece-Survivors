@@ -1,3 +1,29 @@
+// created a new class for the player death
+class Death {
+    constructor(entity, time) {
+        this.entity = entity;
+        this.time = time;
+    }
+}
+
+// created a new class for the opening music
+class Opening {
+    constructor() {
+        this.audio = new Audio("./music/Opening.mp3");
+        this.audio.loop = true;
+        this.audio.play();
+    }
+}
+
+// created a new class for the in game music
+class In_Game {
+    constructor() {
+        this.audio = new Audio("./music/In_Game.mp3");
+        this.audio.loop = true;
+        this.audio.play();
+    }
+}
+
 class Luffy{
     constructor(game, theId){
         this.game = game;
@@ -29,6 +55,11 @@ class Luffy{
         this.health = 100;
         this.maxHealth = 100;
         this.speed = 200;
+
+        // this.Death = new Death(this, 1);
+        // this.Opening = new Opening();
+        this.In_Game = new In_Game();
+
 
     };
 
@@ -107,9 +138,10 @@ class Luffy{
         }
 
         // checks if the player is dead
-        if (this.health <= 0){
+        if (this.health <= 0 && !this.dead){
             this.dead = true;
             this.states = 2;
+            this.Death = new Death(this, this.game.timer.gameTime);
         }
         this.game.playerLocation.x = this.x;
         this.game.playerLocation.y = this.y;
