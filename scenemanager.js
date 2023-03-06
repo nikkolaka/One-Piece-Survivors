@@ -26,7 +26,7 @@ class SceneManager {
         gameEngine.addPlayer(this.player);
 
         this.Background = new Background(gameEngine);
-        gameEngine.addEntity(this.Background);
+        gameEngine.addEntity(this.Background); 
 
     }
 

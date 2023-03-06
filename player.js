@@ -14,6 +14,7 @@ class Luffy{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
 
+        // position
         // player hitbox
         this.x =  512;
         this.y =  384;
@@ -24,6 +25,7 @@ class Luffy{
 
         //stats
         this.health = 100;
+        this.maxHealth = 100;
         this.speed = 200;
 
     };
@@ -55,7 +57,7 @@ class Luffy{
 
     update(){
 
-        
+        if(this.dead) return;
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
             this.states = 1;
@@ -84,12 +86,17 @@ class Luffy{
             this.states = 0;
         }
 
+        // this is for the camera to follow the player when he gets to the edge of the screen
+        if (this.game.playerLocation.x >= 600 || this.game.playerLocation.y >= 600) {
+            this.game.camera.x += this.game.clockTick * this.speed;
+            this.game.camera.y += this.game.clockTick * this.speed;
+        }
+
         for (let i = 0; i < this.weapons.length; i++) {
             let weapon = this.weapons[i];
 
             weapon.update();
             weapon.direction = this.direction;
-
 
         }
 
@@ -100,6 +107,10 @@ class Luffy{
         }
         this.game.playerLocation.x = this.x;
         this.game.playerLocation.y = this.y;
+
+        // this is for the border collision
+        CheckBorder(this);
+
 
 
     };
@@ -145,6 +156,7 @@ class Zoro{
 
         //stats
         this.health = 100;
+        this.maxHealth = 100;
         this.speed = 200;
 
     };
@@ -176,6 +188,9 @@ class Zoro{
 
     update(){
 
+        if(this.dead){
+            return;
+        }
         
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
@@ -229,7 +244,6 @@ class Zoro{
         for (let i = 0; i < this.weapons.length; i++) {
             let weapon = this.weapons[i];
             weapon.draw(ctx);
-
         }
 
         this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
@@ -266,7 +280,9 @@ class Brook{
 
         //stats
         this.health = 100;
+        this.maxHealth = 100;
         this.speed = 200;
+        this.revive = true;
 
     };
 
@@ -296,7 +312,7 @@ class Brook{
     }
 
     update(){
-
+        if(this.dead) return;
         
         // changes the state of the player and the direction of the player when moving
         if(this.game.keys.a || this.game.keys.A){
@@ -339,6 +355,7 @@ class Brook{
         // checks if the player is dead
         if (this.health <= 0){
             this.dead = true;
+            this.weapon.visible = false;
             this.states = 2;
         }
         this.game.playerLocation.x = this.x;
@@ -353,7 +370,6 @@ class Brook{
             weapon.draw(ctx);
 
         }
-
         this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
