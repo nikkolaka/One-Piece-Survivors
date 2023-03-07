@@ -59,19 +59,17 @@ const CheckBorder = function(hero) {
     if (hero.x < 0 + hero.radius) {
         hero.x = 0 + hero.radius;
     }
-    if (hero.x > 5000 - hero.radius) {
-        hero.x = 5000 - hero.radius;
+    if (hero.x > 9500 - hero.radius) {
+        hero.x = 9500 - hero.radius;
     }
 
     // if the player is within the boundaries, then there's no collision
     if (hero.y < 0 + hero.radius) {
         hero.y = 0 + hero.radius;
     }
-    if (hero.y > 5000 - hero.radius) {
-        hero.y = 5000 - hero.radius;
+    if (hero.y > 9500 - hero.radius) {
+        hero.y = 9500 - hero.radius;
     }
-
-
 }
 
 const knockback = function(weapon, enemy) {
