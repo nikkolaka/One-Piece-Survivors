@@ -13,6 +13,7 @@ class Navy{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
+        this.canKnockback = true;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -35,7 +36,7 @@ class Navy{
     };
 
     loadAnimation(){
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 3; i++){
             this.animation.push([]);
             for(var j = 0; j < 2; j++){
                 this.animation[i].push([]);
@@ -50,29 +51,27 @@ class Navy{
         this.animation[1][0] = new Animator(this.spriteSheet, 0, 210, 70, 60, 3, .2, true, false);
         // dead left
         this.animation[1][1] = new Animator(this.spriteSheet, 0, 140, 70, 60, 3, .2, false, false);
+
+        // dead right
+        this.animation[2][0] = new Animator(this.spriteSheet, 150, 210, 70, 60, 1, .1, false, true);
+        // dead left
+        this.animation[2][1] = new Animator(this.spriteSheet, 0, 140, 70, 60, 1, .1, false, true);
     }
 
     update(){
-        if(this.dead == true) return;
         // Check for collisions with other enemies
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                checkCircleColliding(this,this.game.enemies[i])
+                enemyCollision(this,this.game.enemies[i])
             }   
-            enemyTracking(this, this.game);
+            enemyTracking(this, this.game.player, this.game);
         }
 
         // Determine facing
-        if (this.dead == false){
-            if (this.x > this.game.playerLocation.x){
-                this.facing = 1;
-            }else{
-                this.facing = 0;
-            }
-        }
-        if(this.health <= 0){
-            this.state = 1;
-            this.dead = true;
+        if (this.x > this.game.playerLocation.x){
+            this.facing = 1;
+        }else{
+            this.facing = 0;
         }
 
     };
@@ -102,6 +101,7 @@ class Doflamingo{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
+        this.canKnockback = true;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -115,13 +115,14 @@ class Doflamingo{
         this.health = 150;
         this.removeFromWorld = false;
         this.game.Doflamingo = this;
+        this.weapon = new String(game)
         this.berry = new blueBerry();
 
     };
     
 
     loadAnimation(){
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 3; i++){
             this.animation.push([]);
             for(var j = 0; j < 2; j++){
                 this.animation[i].push([]);
@@ -136,27 +137,28 @@ class Doflamingo{
         this.animation[1][0] = new Animator(this.spriteSheet, 0, 180, 89, 88, 6, .2, false, false);
         // dead left
         this.animation[1][1] = new Animator(this.spriteSheet, 0, 270, 90, 88, 6, .2, true, false);
+
+        // dead right
+        this.animation[2][0] = new Animator(this.spriteSheet, 0, 180, 89, 88, 1, .2, false, true);
+        // dead left
+        this.animation[2][1] = new Animator(this.spriteSheet, 350, 270, 90, 88, 1, .2, false, true);
     }
 
 
     update(){
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                checkCircleColliding(this,this.game.enemies[i])
+                enemyCollision(this,this.game.enemies[i])
             }   
-            enemyTracking(this, this.game);
+            enemyTracking(this, this.game.player, this.game);
         }
-        if (this.dead == false){
-            if (this.x > this.game.playerLocation.x){
-                this.facing = 1;
-            }else{
-                this.facing = 0;
-            }
+        if (this.x > this.game.playerLocation.x){
+            this.facing = 1;
+        }else{
+            this.facing = 0;
         }
-        if(this.health <= 0){
-            this.state = 1;
-            this.dead = true;
-        }
+        this.weapon.update();
+
 
     };
 
@@ -185,6 +187,7 @@ class Blackbeard{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
+        this.canKnockback = true;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -204,7 +207,7 @@ class Blackbeard{
     
 
     loadAnimation(){
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 3; i++){
             this.animation.push([]);
             for(var j = 0; j < 2; j++){
                 this.animation[i].push([]);
@@ -219,25 +222,24 @@ class Blackbeard{
         this.animation[1][0] = new Animator(this.spriteSheet, 0, 180, 90, 88, 5, .2, false, false);
         // dead left
         this.animation[1][1] = new Animator(this.spriteSheet, 0, 270, 90, 88, 5, .2, true, false);
+
+        //hurt right
+        this.animation[2][0] = new Animator(this.spriteSheet, 0, 180, 90, 88, 1, .2, false, true);
+        // hurt left
+        this.animation[2][1] = new Animator(this.spriteSheet, 350, 270, 90, 88, 1, .2, false, true);
     }
 
     update(){
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                checkCircleColliding(this,this.game.enemies[i])
+                enemyCollision(this,this.game.enemies[i])
             }   
-            enemyTracking(this, this.game);
+            enemyTracking(this, this.game.player,this.game);
         }
-        if (this.dead == false){
-            if (this.x > this.game.playerLocation.x){
-                this.facing = 1;
-            }else{
-                this.facing = 0;
-            }
-        }
-        if(this.health <= 0){
-            this.state = 1;
-            this.dead = true;
+        if (this.x > this.game.playerLocation.x){
+            this.facing = 1;
+        }else{
+            this.facing = 0;
         }
 
     };
@@ -267,6 +269,7 @@ class Akainu{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
+        this.canKnockback = true;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -277,7 +280,7 @@ class Akainu{
         this.speed = 0.8;
 
         //stats
-        this.health = 150;
+        this.health = 1000;
         this.removeFromWorld = false;
         this.game.Akainu = this;
         this.berry = new blueBerry();
@@ -286,7 +289,7 @@ class Akainu{
     
 
     loadAnimation(){
-        for(var i = 0; i < 2; i++){
+        for(var i = 0; i < 3; i++){
             this.animation.push([]);
             for(var j = 0; j < 2; j++){
                 this.animation[i].push([]);
@@ -301,25 +304,24 @@ class Akainu{
         this.animation[1][0] = new Animator(this.spriteSheet, 0, 180, 87, 90, 5, .2, false, false);
         // dead left
         this.animation[1][1] = new Animator(this.spriteSheet, 0, 270, 87, 90, 5, .2, true, false);
+
+        //hit right
+        this.animation[2][0] = new Animator(this.spriteSheet, 0, 180, 87, 90, 1, .5, false, true);
+        //hit left
+        this.animation[2][1] = new Animator(this.spriteSheet, 350, 270, 87, 90, 1, .5, false, true);
     }
 
     update(){
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
-                checkCircleColliding(this,this.game.enemies[i])
+                enemyCollision(this,this.game.enemies[i])
             }   
-            enemyTracking(this, this.game);
+            enemyTracking(this, this.game.player, this.game);
         }
-        if (this.dead == false){
-            if (this.x > this.game.playerLocation.x){
-                this.facing = 1;
-            }else{
-                this.facing = 0;
-            }
-        }
-        if(this.health <= 0){
-            this.state = 1;
-            this.dead = true;
+        if (this.x > this.game.playerLocation.x){
+            this.facing = 1;
+        }else{
+            this.facing = 0;
         }
 
     };
