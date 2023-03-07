@@ -2,15 +2,49 @@ class Shop{
     constructor(game){
         this.berryRequirment = 100;
         this.game = game;
-
+        this.chosen = 0;
         this.inShop = false;
+        this.choices = [];
+        this.maxupgrades = 5;
+
+        this.fruitcount = ["Gomu", "Gomu", "Gomu", "Gomu", "Gomu", "Fire", "Fire", "Fire", "Fire", "Fire",
+        "Sword", "Sword", "Sword", "Sword", "Sword", "Axe", "Axe", "Axe", "Axe", "Axe"]
+
+        this.availFruit = {gomu:5, fire:5, sword:5, axe:5};
+
+
 
     }
 
     update(){
+        
+        if(this.inShop){
+            if(this.chosen != 0){
+                this.game.berriesTotal = 0;
+                this.inShop = false;
+                
+                this.addWeapon(this.choices[this.chosen-1])
+                this.chosen = 0;
+                this.choices = [];
+            }
+
+            if(this.game.keys["1"]) this.chosen = 1;
+            else if(this.game.keys["2"]) this.chosen = 2;
+
+
+            return;
+        }
         if(this.game.berriesTotal >= this.berryRequirment){
-            this.game.berriesTotal = 0
             this.berryRequirment = (this.berryRequirment*1.5) + 50;
+
+            let choice1 = randomInt(this.fruitcount.length)
+            this.choices.push(this.fruitcount[choice1])
+            this.fruitcount.splice(choice1, 1);
+
+            let choice2 = randomInt(this.fruitcount.length)
+            this.choices.push(this.fruitcount[choice2])
+            this.fruitcount.splice(choice2, 1);
+            
             this.inShop = true;
         }
 
@@ -18,6 +52,30 @@ class Shop{
 
     }
 
+    addWeapon(weaponClass){
+        switch (weaponClass) {
+            case "Gomu":
+                this.availFruit.gomu--;
+                if(this.availFruit.gomu == 4) this.game.player.weapons.push(new Gomu(this.game))
+                break;
+            case "Fire":
+                this.availFruit.fire--;
+                if(this.availFruit.fire == 4) this.game.player.weapons.push(new Fire(this.game))
+                break;
+            case "Axe":
+                this.availFruit.axe--;
+                if(this.availFruit.axe == 4) this.game.player.weapons.push(new Axe(this.game))
+                break;
+            case "Sword":
+                this.availFruit.sword--;
+                if(this.availFruit.sword == 4) this.game.player.weapons.push(new Sword(this.game))
+                break;
+        
+            default:
+                break;
+        }
+    }
+        
     draw(ctx){
         var berryWidth = params.screenWidth*(this.game.berriesTotal/this.berryRequirment);
         ctx.fillStyle = "grey";
@@ -26,7 +84,26 @@ class Shop{
         ctx.fillStyle = "blue";
         ctx.fillRect(0,0, berryWidth, 20)
         ctx.stroke();
+        
+        if(this.inShop){
+            ctx.fillStyle = "black";
+            ctx.fillRect((params.screenWidth/2)-(params.screenWidth/4),(params.screenHeight/2)-(params.screenHeight/4), params.screenWidth/2, params.screenHeight/2 )
+            ctx.fillStyle = "white";
+            ctx.fillRect((params.screenWidth/2)-(params.screenWidth/4)+5,(params.screenHeight/2)-(params.screenHeight/4)+5, params.screenWidth/2 - 10, params.screenHeight/2-10)
+            ctx.fillStyle = "black";
+            ctx.fillRect((params.screenWidth/2)-(params.screenWidth/4)+7.5,(params.screenHeight/2)-(params.screenHeight/4)+7.5, params.screenWidth/2 - 15, params.screenHeight/2-15)
+            ctx.font = "36px sans-serif";
+            ctx.fillStyle = "white";
+            ctx.fillText("Press 1 to choose " + this.choices[0], params.screenWidth/2 - 200, params.screenHeight/2 - 50);
+            ctx.stroke();
+            ctx.fillText("Press 2 to choose " + this.choices[1], params.screenWidth/2 - 200, params.screenHeight/2 + 50);
+            ctx.stroke();
+        }
+        
     }
+
+
+    
 
 
 
@@ -71,10 +148,10 @@ class Gomu{
         this.originY;
         this.game = game;
         this.range = 200;
-        this.duration = 95;
+        this.duration = 50;
         this.step = 0;
-        this.damage = 5;
-        this.knockbackDistance = 50
+        this.damage = 20;
+        this.knockback = 60;
     }
 
     loadAnimation(spriteSheet, version) {
@@ -176,20 +253,21 @@ class Gomu{
 
     draw(ctx){
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x + 40 - this.game.camera.x, this.y + 25 - this.game.camera.y, this.scale);    
-        ctx.beginPath()
-        ctx.strokeStyle = "red";
-        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, 5, 0, 2 * Math.PI);
-        ctx.strokeStyle = "black";
-        ctx.rect(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.width, this.height);
-        ctx.stroke();
-        ctx.closePath();
+        if(this.game.options.debugging){
+            ctx.beginPath()
+            ctx.strokeStyle = "red";
+            ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, 5, 0, 2 * Math.PI);
+            ctx.strokeStyle = "black";
+            ctx.rect(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.width, this.height);
+            ctx.stroke();
+            ctx.closePath();
+        }
+        
     }
 
     colliding(enemy){
-        if(CheckRectCircleColliding(enemy, this)){
-            if(enemy.canKnockback) {
-                knockback(this, enemy);
-            }
+        if(CheckRectCircleColliding(enemy, this) && !enemy.invincible){
+            knockback(this, enemy);
             enemy.health -= this.damage;
             if (enemy.health >= 0) {
                 enemy.state = 2;
@@ -238,8 +316,8 @@ class Sword{
         this.range = 200;
         this.duration = 50;
         this.step = 0;
-        this.damage = 6;
-        this.knockbackDistance = 30;
+        this.damage = 30;
+        this.knockback = 30;
     }
 
     loadAnimation(spriteSheet){
@@ -311,24 +389,25 @@ class Sword{
         this.animation[this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
 
 
+        if(this.game.options.debugging){
+
+            ctx.beginPath()
         
-        ctx.beginPath()
-        
-        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, 5, 0, 2 * Math.PI);
-        if(this.direction == Direction.Up || this.direction == Direction.Down){
-            ctx.rect(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.width, this.height);
-        } else {
-            ctx.rect(this.x - this.game.camera.x + 53, this.y - this.game.camera.y + 50, this.width, this.height);
+            ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, 5, 0, 2 * Math.PI);
+            if(this.direction == Direction.Up || this.direction == Direction.Down){
+                ctx.rect(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.width, this.height);
+            } else {
+                ctx.rect(this.x - this.game.camera.x + 53, this.y - this.game.camera.y + 50, this.width, this.height);
+            }
+            ctx.stroke();
+            ctx.closePath();
         }
-        ctx.stroke();
-        ctx.closePath();
+        
     }
 
     colliding(enemy){
-        if(CheckRectCircleColliding(enemy, this)){
-            if(enemy.canKnockback) {
-                knockback(this, enemy);
-            }
+        if(CheckRectCircleColliding(enemy, this) && !enemy.invincible){
+            knockback(this, enemy);
             enemy.health -= this.damage;
             if (enemy.health >= 0) {
                 enemy.state = 2;
@@ -338,7 +417,10 @@ class Sword{
             } else{
                 enemy.state = 1;
                 enemy.dead = true;
-            }    
+            }
+
+            
+             
         }
     }
 
@@ -394,39 +476,36 @@ class Fire{
     draw(ctx){
         if (this.game.player.dead) return;
         this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 90, this.y - this.game.camera.y - 70, this.scale);
+        if(this.game.options.debugging){
+            ctx.beginPath()
+            ctx.arc(this.x - this.game.camera.x + 70, this.y - this.game.camera.y+ 90, this.innerCircle.radius, 0, 2 * Math.PI);
+            ctx.arc(this.x - this.game.camera.x + 70, this.y - this.game.camera.y+ 90, this.outerCircle.radius, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.closePath();
+        }
         
-        ctx.beginPath()
-        ctx.arc(this.x - this.game.camera.x + 70, this.y - this.game.camera.y+ 90, this.innerCircle.radius, 0, 2 * Math.PI);
-        ctx.arc(this.x - this.game.camera.x + 70, this.y - this.game.camera.y+ 90, this.outerCircle.radius, 0, 2 * Math.PI);
-        ctx.stroke();
-        ctx.closePath();
     }
 
     colliding(enemy){
-        if(!checkCircleTouching(enemy, this.innerCircle) && checkCircleTouching(enemy, this.outerCircle)){
-            if(enemy.canKnockback){
-                enemy.canKnockback = false;
-    
-                setTimeout(() => {
-                    enemy.canKnockback = true;
-                    var dx = enemy.x - this.x;
-                    var dy = enemy.y - this.y;
-
-                    
-
-                    var distance = Math.sqrt(dx * dx + dy * dy);
-                    var step = 2;
-                    
-                    dx /= distance;
-                    dy /= distance;
-                    enemy.x += dx*step;
-                    enemy.y += dy*step;
-                
-                }, 500)
-                
-
-            }
+        if(!checkCircleTouching(enemy, this.innerCircle) && checkCircleTouching(enemy, this.outerCircle) && !enemy.invincible){
+            enemy.invincible = true;
             enemy.health -= this.damage;
+            var dx = enemy.x - this.x;
+            var dy = enemy.y - this.y;
+
+            var distance = Math.sqrt(dx * dx + dy * dy);
+            var step = 2;
+            
+            dx /= distance;
+            dy /= distance;
+            enemy.x += dx*step;
+            enemy.y += dy*step;
+            setTimeout(() => {
+                enemy.invincible = false;
+                
+            
+            }, 500)
+            
             if (enemy.health >= 0) {
                 enemy.state = 2;
                 setTimeout(() => {
@@ -466,12 +545,13 @@ class Axe{
         this.range = 200;
         this.duration = 50;
         this.step = 0;
-        this.damage = 6;
+        this.damage = 50;
         this.speed = 750;
         this.framesTouching = 0;
 
         this.visible = true;
         this.trackedEnemy = null;
+        this.knockback = 10;
     }
 
     update(){
@@ -502,19 +582,22 @@ class Axe{
     draw(ctx){
         if (!this.visible) return;
         this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x + 10, this.y - this.game.camera.y + 10, this.scale);
+        if(this.game.options.debugging){
+            ctx.beginPath()
+            ctx.arc(this.x - this.game.camera.x + 55, this.y - this.game.camera.y+ 55, this.radius, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.closePath();
+
+
+        }
         
-        ctx.beginPath()
-        ctx.arc(this.x - this.game.camera.x + 55, this.y - this.game.camera.y+ 55, this.radius, 0, 2 * Math.PI);
-        ctx.stroke();
-        ctx.closePath();
     }
 
     colliding(enemy){
-        if(checkCircleTouching(enemy, this)){
-            if(enemy.canKnockback) {
-                knockback(this, enemy);
-            }
+        if(checkCircleTouching(enemy, this) && !enemy.invincible){
+            knockback(this, enemy);
             enemy.health -= this.damage;
+            
             if (enemy.health >= 0) {
                 enemy.state = 2;
                 setTimeout(() => {

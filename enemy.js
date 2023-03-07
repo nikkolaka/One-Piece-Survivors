@@ -13,7 +13,7 @@ class Navy{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
-        this.canKnockback = true;
+        this.invincible = false;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -78,10 +78,13 @@ class Navy{
 
     draw(ctx){
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x + 65 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
-        ctx.stroke(); 
+        if(this.game.options.debugging){
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x + 65 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
+            ctx.stroke(); 
+        }
+        
     }
 
 }
@@ -101,7 +104,7 @@ class Doflamingo{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
-        this.canKnockback = true;
+        this.invincible = false;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -164,10 +167,14 @@ class Doflamingo{
 
     draw(ctx){
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
-        ctx.stroke(); 
+
+        if(this.game.options.debugging){
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
+            ctx.stroke(); 
+        }
+        
     }
 
 }
@@ -187,7 +194,7 @@ class Blackbeard{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
-        this.canKnockback = true;
+        this.invincible = false;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -246,11 +253,15 @@ class Blackbeard{
 
     draw(ctx){
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
-        ctx.stroke(); 
-    }
+
+        if(this.game.options.debugging){
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
+            ctx.stroke(); 
+           }
+        }
+        
 
 }
 
@@ -269,7 +280,7 @@ class Akainu{
         this.state = 0; // 0 = alive, 1 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
-        this.canKnockback = true;
+        this.invincible = false;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -328,10 +339,13 @@ class Akainu{
 
     draw(ctx){
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
-        ctx.stroke(); 
+        if(this.game.options.debugging){
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
+            ctx.stroke(); 
+        }
+        
     }
 
 }

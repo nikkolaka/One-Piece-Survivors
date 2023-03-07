@@ -8,7 +8,7 @@ class GameEngine {
         this.entities = [];
 
         this.berries = [];
-        this.berriesTotal = 0;
+        this.berriesTotal = 91;
 
         this.uniqueEId = 0;
 
@@ -162,6 +162,10 @@ class GameEngine {
 
     update() {
         let entitiesCount = this.entities.length;
+        if(this.player.shop.inShop){
+            this.player.shop.update();
+            return;
+        }
 
         this.player.update();
         

@@ -53,6 +53,7 @@ class Luffy{
         this.weapons = [new Gomu(game)];
         this.game.luffy = this;
         this.shop = new Shop(game);
+        this.shop.availFruit.gomu--;
 
         //music
         this.death = new Audio("./music/Death.mp3");
@@ -191,10 +192,13 @@ class Luffy{
         }
 
         this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
-        ctx.stroke(); 
+        if(this.game.options.debugging){
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
+            ctx.stroke(); 
+        }
+        
 
         this.shop.draw(ctx);
     }
@@ -205,8 +209,12 @@ class Zoro{
         this.game = game;
         this.id = theId;
         this.weapons = [new Sword(game)];
-        this.game.Zoro = this;
+
+
+        this.game.player = this;
         this.shop = new Shop(game);
+        this.shop.availFruit.sword--;
+        
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/zoro1.png");
@@ -327,11 +335,15 @@ class Zoro{
         }
 
         this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y +53, this.radius, 0, 2 * Math.PI);
-        ctx.stroke(); 
-        this.shop.draw(ctx);
+
+        if(this.game.options.debugging){
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y +53, this.radius, 0, 2 * Math.PI);
+            ctx.stroke(); 
+            this.shop.draw(ctx);
+    }
+        
     }
 }
 
@@ -341,8 +353,8 @@ class Brook{
         this.id = theId;
         this.weapons = [new Sword(this.game), new Fire(game)];
         this.game.Brook = this;
-        this.shop = new Shop(game, this);
-
+        this.shop = new Shop(game);
+        this.shop.availFruit.sword--;
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/brook.png");
         this.loadAnimation(this.spriteSheet);
@@ -474,10 +486,14 @@ class Brook{
 
         }
         this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 50, this.y - this.game.camera.y , this.scale);
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
-        ctx.stroke(); 
-        this.shop.draw(ctx);
+
+        if(this.game.options.debugging){
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
+            ctx.stroke(); 
+            this.shop.draw(ctx);
+    }
+        
     }
 }

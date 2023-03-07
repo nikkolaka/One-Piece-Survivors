@@ -75,16 +75,16 @@ const CheckBorder = function(hero) {
 const knockback = function(weapon, enemy) {
     
 
-    enemy.canKnockback = false;
-    
+    enemy.invincible = true;
+    if(weapon.direction == Direction.Up) enemy.y -= weapon.knockback;
+    else if(weapon.direction == Direction.Down) enemy.y += weapon.knockback;
+    else if(weapon.direction == Direction.Left) enemy.x -= weapon.knockback;
+    else if(weapon.direction == Direction.Right) enemy.x += weapon.knockback;
     setTimeout(() => {
-        enemy.canKnockback = true;
-        if(weapon.direction == Direction.Up) enemy.y -= 50;
-        else if(weapon.direction == Direction.Down) enemy.y += 50;
-        else if(weapon.direction == Direction.Left) enemy.x -= 50;
-        else if(weapon.direction == Direction.Right) enemy.x += 50;
+        enemy.invincible = false;
+        
     
-    }, 200)
+    }, 750)
     
 
 }
