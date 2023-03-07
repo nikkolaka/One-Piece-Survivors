@@ -341,8 +341,9 @@ class Zoro{
             ctx.beginPath();
             ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y +53, this.radius, 0, 2 * Math.PI);
             ctx.stroke(); 
-            this.shop.draw(ctx);
-    }
+            
+        }
+        this.shop.draw(ctx);
         
     }
 }
@@ -492,8 +493,8 @@ class Brook{
             ctx.beginPath();
             ctx.arc(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
             ctx.stroke(); 
-            this.shop.draw(ctx);
-    }
-        
+            
+        }
+        this.shop.draw(ctx);
     }
 }

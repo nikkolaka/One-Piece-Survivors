@@ -447,7 +447,7 @@ class Fire{
         
         this.duration = 50;
         this.step = 0;
-        this.damage = 1;
+        this.damage = 25;
 
         this.innerCircle = {x: this.x, y:this.y, radius: 90}
         this.outerCircle = {x: this.x, y:this.y, radius: 150}
@@ -504,7 +504,7 @@ class Fire{
                 enemy.invincible = false;
                 
             
-            }, 500)
+            }, 1000)
             
             if (enemy.health >= 0) {
                 enemy.state = 2;
