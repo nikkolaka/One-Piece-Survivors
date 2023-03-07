@@ -75,8 +75,8 @@ class Luffy{
 
         // position
         // player hitbox
-        this.x =  512;
-        this.y =  384;
+        this.x =  2500;
+        this.y =  2500;
         this.radius = 25;
         this.direction = Direction.Up;
 
@@ -218,9 +218,9 @@ class Zoro{
         this.dead = false;
 
         // player hitbox
-        this.x =  512;
-        this.y =  384;
-        this.radius = 10;
+        this.x =  2500;
+        this.y =  2500;
+        this.radius = 25;
         this.direction = Direction.Up;
 
         this.scale = 1.2;
@@ -329,8 +329,9 @@ class Zoro{
         this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x - this.game.camera.x, this.y - this.game.camera.y, this.radius, 0, 2 * Math.PI);
+        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y +53, this.radius, 0, 2 * Math.PI);
         ctx.stroke(); 
+        this.shop.draw(ctx);
     }
 }
 
@@ -338,7 +339,7 @@ class Brook{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-        this.weapons = [new Gomu(game)];
+        this.weapons = [new Sword(this.game), new Fire(game)];
         this.game.Brook = this;
         this.shop = new Shop(game, this);
 
@@ -354,7 +355,7 @@ class Brook{
         // player hitbox
         this.x =  2500;
         this.y =  2500;
-        this.radius = 10;
+        this.radius = 25;
         this.direction = Direction.Up;
 
         this.scale = 1.2;
@@ -387,14 +388,14 @@ class Brook{
         this.animation[1][1] = new Animator(spriteSheet, 0, 600, 160, 100, 8, .2, true, true);
 
         // dead right
-        this.animation[2][0] = new Animator(spriteSheet, 0, 780, 160, 100, 3, .2, false, false);
+        this.animation[3][0] = new Animator(spriteSheet, 0, 780, 160, 100, 3, .2, false, false);
         // dead left
-        this.animation[2][1] = new Animator(spriteSheet, 0, 960, 160, 100, 3, .2, true, false);
+        this.animation[3][1] = new Animator(spriteSheet, 0, 960, 160, 100, 3, .2, true, false);
 
         // dead right
-        this.animation[3][0] = new Animator(spriteSheet, 0, 1140, 160, 100, 4, .2, false, false);
+        this.animation[2][1] = new Animator(spriteSheet, 0, 1140, 160, 100, 4, .2, false, false);
         // dead left
-        this.animation[3][1] = new Animator(spriteSheet, 0, 1140, 160, 100, 4, .2, false, false);;
+        this.animation[2][0] = new Animator(spriteSheet, 800, 1140, 160, 100, 4, .2, true, false);;
     }
 
     update(){
@@ -447,15 +448,14 @@ class Brook{
 
         // checks if the player is dead
         if (this.health <= 0){
-            this.states = 2;
             if (this.revive){
+                this.states = 2;
                 setTimeout(() => {
                     this.revive = false;
+                    this.health = this.maxHealth;
                 },1000);
-                this.states = 3;
-                this.health = this.maxHealth;
             } else {
-                this.states = 2;
+                this.states = 3;
                 this.dead = true;
             }
         }
@@ -473,10 +473,11 @@ class Brook{
             weapon.draw(ctx);
 
         }
-        this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+        this.animation[this.states][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 50, this.y - this.game.camera.y , this.scale);
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x - this.game.camera.x + 52, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
+        ctx.arc(this.x - this.game.camera.x + 50, this.y - this.game.camera.y + 53, this.radius, 0, 2 * Math.PI);
         ctx.stroke(); 
+        this.shop.draw(ctx);
     }
 }
