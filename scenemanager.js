@@ -27,13 +27,13 @@ class SceneManager {
     loadTitleScreen() {
         this.game.stage = "title";
         this.clearEntities();
-        this.game.addEntity(new StartScreen(this.game));
+        gameEngine.addEntity(new StartScreen(gameEngine));
         
-        this.player = new Luffy(gameEngine);
+        //this.player = new Luffy(gameEngine);
         //gameEngine.addPlayer(this.player);
 
         this.Background = new Background(gameEngine);
-        gameEngine.addEntity(this.Background); 
+        //gameEngine.addEntity(this.Background); 
         //this.waveMaker = new Wave(gameEngine);
         //this.shop = new Shop(gameEngine);
     }
@@ -56,7 +56,6 @@ class SceneManager {
         //this.Background = new Background(gameEngine);
         gameEngine.addEntity(this.Background); 
 
-        //this.shop = new Shop(gameEngine);
         this.update();
     }
 
@@ -69,7 +68,10 @@ class SceneManager {
 
     update() {
 
-        this.waveMaker.update();
+
+        if (this.gameOver == false) {
+            this.waveMaker.update();
+        }
 
         let midpointX = params.screenWidth/2 - 100; //Canvas width - half of player width
         let midpointY = params.screenHeight/2 - 90;

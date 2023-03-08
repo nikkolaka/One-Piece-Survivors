@@ -181,13 +181,13 @@ class GameEngine {
 
     update() {
         let entitiesCount = this.entities.length;
-        if(this.player.shop.inShop){
+        /* if(this.player.shop.inShop){
             this.player.shop.update();
             return;
         }
 
         this.player.update();
-        
+         */
 
         /* for (let i = 0; i < entitiesCount; i++) { */
         /*     let entity = this.entities[i]; */
@@ -222,10 +222,10 @@ class GameEngine {
             }
         }
 
-        /* if(this.player.shop.inShop){ */
-        /*     this.player.shop.update(); */
-        /*     return; */
-        /* } */
+        if(this.player.shop.inShop){ 
+             this.player.shop.update(); 
+             return; 
+        } 
 
         //added camera update
         this.camera.update();
