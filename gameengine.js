@@ -25,6 +25,9 @@ class GameEngine {
         this.score = 0;
         this.wave = 0;
 
+        //shop default set to false
+        this.inShop = false;
+
         // music for in game
         this.In_Game = new Audio("./music/In_Game.mp3");
         this.In_Game.loop = true;
@@ -186,14 +189,14 @@ class GameEngine {
         this.player.update();
         
 
-        for (let i = 0; i < entitiesCount; i++) {
-            let entity = this.entities[i];
+        /* for (let i = 0; i < entitiesCount; i++) { */
+        /*     let entity = this.entities[i]; */
 
-            
-            
-            entity.update();
-           
-        }
+        /*      */
+        /*      */
+        /*     entity.update(); */
+        /*     */
+        /* } */
         for (let i = 0; i < this.enemies.length; i++) {
             let enemy = this.enemies[i];
             if (!enemy.removeFromWorld) {
@@ -219,6 +222,11 @@ class GameEngine {
             }
         }
 
+        /* if(this.player.shop.inShop){ */
+        /*     this.player.shop.update(); */
+        /*     return; */
+        /* } */
+
         //added camera update
         this.camera.update();
 
@@ -243,11 +251,11 @@ class GameEngine {
                this.berries.splice(i, 1); 
             }
        }
-        /* for (let i = this.entities.length - 1; i >= 0; --i) { */
-        /*     if (this.entities[i].removeFromWorld) { */
-        /*         this.entities.splice(i, 1); */
-        /*     } */
-        /* } */
+        for (let i = this.entities.length - 1; i >= 0; --i) {
+            if (this.entities[i].removeFromWorld) {
+                this.entities.splice(i, 1);
+            }
+        }
         /* for (let i = this.enemies.length - 1; i >= 0; --i) { */
         /*     if (this.enemies[i].removeFromWorld) { */
         /*         this.enemies.splice(i, 1); */

@@ -3,24 +3,68 @@ class SceneManager {
         
         this.game = game;
         this.game.camera = this;
+        this.game.stage;
 
         this.x = 0;
         this.y = 0;
 
-        this.loadAssets();
-    }
-
-    loadAssets() {
-        this.x = 0;
-        this.y = 0;
-
-        this.waveMaker = new Wave(gameEngine);
+        this.gameOver = true;
 
         this.player = new Luffy(gameEngine);
         gameEngine.addPlayer(this.player);
 
         this.Background = new Background(gameEngine);
+
+        this.waveMaker = new Wave(gameEngine);
+    }
+
+    clearEntities() {
+        this.game.entities.forEach(entity => {
+            entity.removeFromWorld = true;
+        });
+    }
+
+    loadTitleScreen() {
+        this.game.stage = "title";
+        this.clearEntities();
+        this.game.addEntity(new StartScreen(this.game));
+        
+        this.player = new Luffy(gameEngine);
+        //gameEngine.addPlayer(this.player);
+
+        this.Background = new Background(gameEngine);
         gameEngine.addEntity(this.Background); 
+        //this.waveMaker = new Wave(gameEngine);
+        //this.shop = new Shop(gameEngine);
+    }
+
+    loadAssets() {
+        this.clearEntities();
+        this.game.camera = this;
+        this.gameOver = false;
+
+        this.x = 0;
+        this.y = 0;
+
+        this.game.stage  = "game"
+
+        this.waveMaker = new Wave(gameEngine);
+
+        //this.player = new Luffy(gameEngine);
+        gameEngine.addPlayer(this.player);
+
+        //this.Background = new Background(gameEngine);
+        gameEngine.addEntity(this.Background); 
+
+        //this.shop = new Shop(gameEngine);
+        this.update();
+    }
+
+    loadGameOver() {
+        this.game.stage = "gameover";
+        this.gameOver = true;
+        this.clearEntities();
+        this.game.addEntity(new GameOverScreen(this.game));
     }
 
     update() {
