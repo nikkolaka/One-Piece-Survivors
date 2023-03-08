@@ -7,8 +7,9 @@ class GameEngine {
         // Everything that will be updated and drawn each frame
         this.entities = [];
 
+        // array of berries for the map
         this.berries = [];
-        this.berriesTotal = 0;
+        this.berriesTotal = 91;
 
         this.uniqueEId = 0;
 
@@ -17,12 +18,30 @@ class GameEngine {
 
         this.playerLocation = {x: params.screenWidth/2, y: params.screenHeight/2};
 
-
+        // array of enemies
         this.enemies = [];
 
+        // array of score and wave
         this.score = 0;
         this.wave = 0;
-        
+
+        // music for in game
+        this.In_Game = new Audio("./music/In_Game.mp3");
+        this.In_Game.loop = true;
+        this.In_Game.volume = 0.2;
+        this.In_Game.play();
+
+        // music for death
+        this.Death = new Audio("./music/Death.mp3");
+        this.Death.loop = true;
+        this.Death.volume = 0.2;
+
+        // music for opening
+        this.Opening = new Audio("./music/Opening.mp3");
+        this.Opening.loop = true;
+        this.Opening.volume = 0.2;
+        this.Opening.play();
+        this.Opening.pause();
 
         // Information on the input
         this.click = null;
@@ -98,9 +117,6 @@ class GameEngine {
     addPlayer(player) {
         this.player = player;
     }
-
-
-
     
     addEnemy(enemy) {
         this.enemies.push(enemy);
@@ -162,6 +178,10 @@ class GameEngine {
 
     update() {
         let entitiesCount = this.entities.length;
+        if(this.player.shop.inShop){
+            this.player.shop.update();
+            return;
+        }
 
         this.player.update();
         
@@ -204,7 +224,6 @@ class GameEngine {
 
 
         //mouse control
-        
 
         for (let i = this.enemies.length - 1; i >= 0; --i) { 
              if (this.enemies[i].removeFromWorld) { 
@@ -234,7 +253,16 @@ class GameEngine {
         /*         this.enemies.splice(i, 1); */
         /*     } */
         /* } */
-        
+
+
+        // music
+        if(!this.In_Game.playing && !this.player.dead) {
+            this.In_Game.play();
+        }
+        else {
+            this.In_Game.pause();
+            this.Death.play();
+        }
     };
 
     loop() {
@@ -242,6 +270,5 @@ class GameEngine {
         this.update();
         this.draw();
     };
-
 };
 

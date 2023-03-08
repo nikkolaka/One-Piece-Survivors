@@ -5,7 +5,7 @@ class Wave{
         this.minDifficulty = 1;
         this.maxDifficulty = 10;
         this.currentWave = 0;
-        this.spawnDensity = 10;
+        this.spawnDensity = 30;
         
 
 
@@ -20,10 +20,10 @@ class Wave{
             if(enemy.wave == this.currentWave){
                 oldWaveCount++;
             }
-            
         });
         if(oldWaveCount < 30){
             this.currentWave++;
+            this.spawnDensity += 5;
             this.game.wave++;
             switch(randomInt(2)){
                 case 0: 

@@ -9,6 +9,7 @@ ASSET_MANAGER.queueDownload("./img/akainu.png");
 
 ASSET_MANAGER.queueDownload("./img/luffy7.png");
 ASSET_MANAGER.queueDownload("./img/zoro1.png");
+ASSET_MANAGER.queueDownload("./img/brook.png");
 
 ASSET_MANAGER.queueDownload("./img/gomu.png");
 ASSET_MANAGER.queueDownload("./img/big gomu.png");

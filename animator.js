@@ -10,8 +10,12 @@ class Animator {
         this.elapsedTime += tick;
 
         if (this.isDone()) {
-            if (this.loop) this.elapsedTime -= this.totalTime;
-        } 
+            if (this.loop) {
+                this.elapsedTime -= this.totalTime;
+            } else {
+                return;
+            }
+        }
 
         let frame = this.currentFrame();
         if(this.reverse)
