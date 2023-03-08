@@ -1,51 +1,3 @@
-// created a new class for the player death
-// when the player dies the music will stop and the death music will play
-class Death {
-    constructor() {
-        this.audio = new Audio("./music/Death.mp3");
-        this.audio.loop = true;
-        this.audio.play();
-    }
-
-    stop() {
-        this.audio.pause();
-    }
-
-    play() {
-        this.audio.play();
-    }
-
-    restart() {
-        this.audio.currentTime = 0;
-    }
-}
-
-// created a new class for the opening music
-class Opening {
-    constructor() {
-        this.audio = new Audio("./music/Opening.mp3");
-        this.audio.loop = true;
-        this.audio.play();
-    }
-}
-
-// created a new class for the in game music
-class In_Game {
-    constructor() {
-        this.audio = new Audio("./music/In_Game.mp3");
-        this.audio.loop = true;
-        this.audio.play();
-    }
-
-    stop() {
-        this.audio.pause();
-    }
-
-    play() {
-        this.audio.play();
-    }
-}
-
 class Luffy{
     constructor(game, theId){
         this.game = game;
@@ -54,16 +6,6 @@ class Luffy{
         this.game.luffy = this;
         this.shop = new Shop(game);
         this.shop.availFruit.gomu--;
-
-        //music
-        this.death = new Audio("./music/Death.mp3");
-        this.death.loop = true;
-        this.In_Game = new Audio("./music/In_Game.mp3");
-        this.In_Game.loop = true;
-        this.In_Game.play();
-        // this.Death = new Death(this, 1);
-        // this.Opening = new Opening();
-        this.In_Game = new In_Game();
 
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/luffy7.png");
@@ -168,15 +110,7 @@ class Luffy{
         if (this.health <= 0 && !this.dead) {
             this.dead = true;
             this.states = 2;
-            // this.In_Game.pause();
-            this.death.play();
-            this.Death = new Death(this, this.game.timer.gameTime); // added this line to pass in the time the player died
-            // this.In_Game.stop();
-            this.In_Game = new In_Game(this, this.game.timer.gameTime);
-            this.In_Game.stop();
-
         }
-
         this.game.playerLocation.x = this.x;
         this.game.playerLocation.y = this.y;
 
@@ -356,6 +290,7 @@ class Brook{
         this.game.Brook = this;
         this.shop = new Shop(game);
         this.shop.availFruit.sword--;
+
         //sprite
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/brook.png");
         this.loadAnimation(this.spriteSheet);
@@ -477,7 +412,6 @@ class Brook{
 
         // this is for the border collision
         CheckBorder(this);
-
     };
 
     draw(ctx){
