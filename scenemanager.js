@@ -16,7 +16,7 @@ class SceneManager {
 
         this.waveMaker = new Wave(gameEngine);
 
-        this.player = new Luffy(gameEngine);
+        this.player = new Brook(gameEngine);
         gameEngine.addPlayer(this.player);
 
         this.Background = new Background(gameEngine);

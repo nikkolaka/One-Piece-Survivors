@@ -5,7 +5,7 @@ class Wave{
         this.minDifficulty = 1;
         this.maxDifficulty = 10;
         this.currentWave = 0;
-        this.spawnDensity = 30;
+        this.spawnDensity = 50;
         
 
 
@@ -21,7 +21,7 @@ class Wave{
                 oldWaveCount++;
             }
         });
-        if(oldWaveCount < 30){
+        if(oldWaveCount < 20){
             this.currentWave++;
             this.spawnDensity += 5;
             this.game.wave++;
@@ -38,12 +38,15 @@ class Wave{
 
     spawnSquare(){
         this.currentWave++;
-        var sqrDensity = Math.floor(this.spawnDensity/4);
+        
+        
         var playerX = this.game.player.x - params.screenWidth/2;
         var playerY = this.game.player.y - params.screenHeight/2;
-        var  buffer = -100;
+        var  buffer = 0;
         var enemy;
-        for(var i = 0; i < sqrDensity*4; i++){
+
+        var side = "left";
+        for(var i = 0; i < this.spawnDensity; i++){
             switch(randomInt(4)){
                 case 0:
                     enemy = new Blackbeard(this.game, this.game.uniqueEId++);
@@ -60,22 +63,22 @@ class Wave{
             } 
             enemy.wave = this.currentWave;
 
-            if(i > sqrDensity*3) {
+            if(i > (this.spawnDensity/4)*3) {
                 //bottom
-                enemy.x = (i*(params.screenWidth / sqrDensity) % params.screenWidth) + playerX ; 
+                enemy.x = (i*(params.screenWidth / (this.spawnDensity/4)) % params.screenWidth) + playerX ; 
                 enemy.y = (params.screenHeight + buffer) +playerY;
-            } else if(i > sqrDensity*2){
+            } else if(i > (this.spawnDensity/4)*2){
                 //top
-                enemy.x = (i*(params.screenWidth / sqrDensity) % params.screenWidth) + playerX; 
+                enemy.x = (i*(params.screenWidth / (this.spawnDensity/4)) % params.screenWidth) + playerX; 
                 enemy.y = (-1*buffer) +playerY;
-            } else if(i > sqrDensity){
+            } else if(i > (this.spawnDensity/4)){
                 //left
                 enemy.x = (-1 * buffer) + playerX;
-                enemy.y = (i*(params.screenHeight / sqrDensity) % params.screenHeight) + playerY;
+                enemy.y = (i*(params.screenHeight / (this.spawnDensity/4)) % params.screenHeight) + playerY;
             } else if(i >= 0){
                 //right
                 enemy.x = (params.screenWidth + buffer) + playerX;
-                enemy.y = (i*(params.screenHeight / sqrDensity) % params.screenHeight) + playerY;
+                enemy.y = (i*(params.screenHeight / (this.spawnDensity/4)) % params.screenHeight) + playerY;
             }
 
             this.game.addEnemy(enemy);
@@ -89,7 +92,7 @@ class Wave{
         
 
         var  buffer = 150;
-        for(var i = 0; i < this.spawnDensity*4; i++){
+        for(var i = 0; i < this.spawnDensity; i++){
             var enemy;
             var quadrant = randomInt(4);
             switch(randomInt(4)){

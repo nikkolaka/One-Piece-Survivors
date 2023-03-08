@@ -286,7 +286,7 @@ class Brook{
     constructor(game, theId){
         this.game = game;
         this.id = theId;
-        this.weapons = [new Sword(this.game), new Fire(game)];
+        this.weapons = [new Sword(this.game)];
         this.game.Brook = this;
         this.shop = new Shop(game);
         this.shop.availFruit.sword--;

@@ -26,16 +26,25 @@ class Shop{
                 this.addWeapon(this.choices[this.chosen-1])
                 this.chosen = 0;
                 this.choices = [];
+            } else{
+                if(this.game.keys["1"] && !this.game.keys["2"]) {
+                    setTimeout(() => {
+                        this.chosen = 1;
+                }, 500);
+                }else if(this.game.keys["2"] && !this.game.keys["1"]) {
+                    setTimeout(() => {
+                        this.chosen = 2;
+                }, 500);
+                }
             }
 
-            if(this.game.keys["1"]) this.chosen = 1;
-            else if(this.game.keys["2"]) this.chosen = 2;
+            
+            
 
 
             return;
-        }
-        if(this.game.berriesTotal >= this.berryRequirment){
-            this.berryRequirment = (this.berryRequirment*1.5) + 50;
+        } else if(this.game.berriesTotal >= this.berryRequirment){
+            this.berryRequirment = (this.berryRequirment*1.25) + 50;
 
             let choice1 = randomInt(this.fruitcount.length)
             this.choices.push(this.fruitcount[choice1])
@@ -44,11 +53,10 @@ class Shop{
             let choice2 = randomInt(this.fruitcount.length)
             this.choices.push(this.fruitcount[choice2])
             this.fruitcount.splice(choice2, 1);
+            this.chosen = 0;
             
             this.inShop = true;
-        }
-
-        
+        }        
 
     }
 
@@ -57,18 +65,127 @@ class Shop{
             case "Gomu":
                 this.availFruit.gomu--;
                 if(this.availFruit.gomu == 4) this.game.player.weapons.push(new Gomu(this.game))
+                else if(this.availFruit.gomu == 3){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Gomu){
+                            weapon.damage += 10;
+                        }
+                    });
+                }else if(this.availFruit.gomu == 2){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Gomu){
+                            weapon.damage += 15;
+                            weapon.range += 50;
+
+                        }
+                    });
+                }else if(this.availFruit.gomu == 1){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Gomu){
+                            weapon.damage += 20;
+                            weapon.knockback += 10;
+                        }
+                    });
+                }else if(this.availFruit.gomu == 0){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Gomu){
+                            weapon.damage += 25;
+                            weapon.knockback += 15;
+                            weapon.range += 100;
+                        }
+                    });
+                }
                 break;
             case "Fire":
                 this.availFruit.fire--;
                 if(this.availFruit.fire == 4) this.game.player.weapons.push(new Fire(this.game))
+                else if(this.availFruit.fire == 3){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Fire){
+                            weapon.damage += 10;
+                        }
+                    });
+                }else if(this.availFruit.fire == 2){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Fire){
+                            weapon.damage += 15;
+                        }
+                    });
+                }else if(this.availFruit.fire == 1){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Fire){
+                            weapon.damage += 20;
+                            weapon.knockback += 5;
+                        }
+                    });
+                }else if(this.availFruit.fire == 0){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Fire){
+                            weapon.damage += 25;
+                            weapon.knockback += 10;
+                        }
+                    });
+                }
                 break;
             case "Axe":
                 this.availFruit.axe--;
-                if(this.availFruit.axe == 4) this.game.player.weapons.push(new Axe(this.game))
+                if(this.availFruit.axe == 4) this.game.player.weapons.push(new Axe(this.game));
+                else if(this.availFruit.axe == 3){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Axe){
+                            weapon.damage += 25;
+                        }
+                    });
+                }else if(this.availFruit.axe == 2){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Axe){
+                            weapon.damage += 25;
+                            weapon.speed += 250;
+                        }
+                    });
+                }else if(this.availFruit.axe == 1){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Axe){
+                            weapon.damage += 25;
+                            weapon.speed += 250;
+                        }
+                    });
+                }else if(this.availFruit.axe == 0){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Axe){
+                            weapon.damage += 50;
+                            weapon.speed += 100;
+                            weapon.knockback += 20;
+                        }
+                    });
+                }
                 break;
             case "Sword":
                 this.availFruit.sword--;
-                if(this.availFruit.sword == 4) this.game.player.weapons.push(new Sword(this.game))
+                if(this.availFruit.sword == 4) this.game.player.weapons.push(new Sword(this.game));
+                else if(this.availFruit.sword == 3){
+                    let sword  = new Sword(this.game)
+                    sword.direction = Direction.Right;
+                    this.game.player.weapons.push(sword)
+                } else if(this.availFruit.sword == 2){
+                    let sword  = new Sword(this.game)
+                    sword.direction = Direction.Up;
+                    this.game.player.weapons.push(sword)
+                }else if(this.availFruit.sword == 1){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Sword){
+                            weapon.damage += 30;
+                        }
+                    });
+                }else if(this.availFruit.sword == 0){
+                    this.game.player.weapons.forEach(weapon => {
+                        if(weapon instanceof Sword){
+                            weapon.damage += 60;
+                            weapon.range += 200;
+                        }
+                    });
+                }
+                
                 break;
         
             default:
@@ -321,6 +438,7 @@ class Sword{
     }
 
     loadAnimation(spriteSheet){
+        
         this.animation = [];
         for(var i = 0; i < 4; i++){
             this.animation.push([]);
@@ -339,6 +457,18 @@ class Sword{
     }
 
     update(){
+        /* switch (this.game.player.shop.availFruit.Sword) {
+            case 3:
+                
+                break;
+        
+            default:
+                break;
+        } */
+
+
+
+        
         this.originX = this.game.player.x - this.width/2;
         this.originY = this.game.player.y - this.height/2;
 
@@ -448,6 +578,7 @@ class Fire{
         this.duration = 50;
         this.step = 0;
         this.damage = 25;
+        this.knockback = 5;
 
         this.innerCircle = {x: this.x, y:this.y, radius: 90}
         this.outerCircle = {x: this.x, y:this.y, radius: 150}
@@ -494,7 +625,7 @@ class Fire{
             var dy = enemy.y - this.y;
 
             var distance = Math.sqrt(dx * dx + dy * dy);
-            var step = 2;
+            var step = this.knockback;
             
             dx /= distance;
             dy /= distance;
