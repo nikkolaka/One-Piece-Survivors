@@ -25,6 +25,6 @@ class Background{
     };
 
     draw(ctx) {
-        ctx.drawImage(this.spritesheet, 0, 0, 8000, 8000, this.x - this.game.camera.x, this.y - this.game.camera.y, 10000, 10000);
+        //ctx.drawImage(this.spritesheet, 0, 0, 8000, 8000, this.x - this.game.camera.x, this.y - this.game.camera.y, 10000, 10000);
     };
 }
