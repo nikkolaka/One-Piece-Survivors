@@ -8,13 +8,11 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
 
-        this.gameOver = true;
+        //this.gameOver = true;
 
+        //initialize entities
         this.player = new Luffy(gameEngine);
-        gameEngine.addPlayer(this.player);
-
         this.Background = new Background(gameEngine);
-
         this.waveMaker = new Wave(gameEngine);
     }
 
@@ -28,20 +26,21 @@ class SceneManager {
         this.game.stage = "title";
         this.clearEntities();
         gameEngine.addEntity(new StartScreen(gameEngine));
-        
-        //this.player = new Luffy(gameEngine);
-        //gameEngine.addPlayer(this.player);
 
-        this.Background = new Background(gameEngine);
-        //gameEngine.addEntity(this.Background); 
-        //this.waveMaker = new Wave(gameEngine);
-        //this.shop = new Shop(gameEngine);
+        //this.Background = new Background(gameEngine);
+    }
+
+    loadCharacterSelect() {
+        this.game.stage = "characterSelect";
+        this.clearEntities();
+        gameEngine.addEntity(new CharacterSelect(gameEngine));
+
     }
 
     loadAssets() {
         this.clearEntities();
         this.game.camera = this;
-        this.gameOver = false;
+        this.game.gameOver = false;
 
         this.x = 0;
         this.y = 0;
@@ -61,7 +60,7 @@ class SceneManager {
 
     loadGameOver() {
         this.game.stage = "gameover";
-        this.gameOver = true;
+        this.game.gameOver = true;
         this.clearEntities();
         this.game.addEntity(new GameOverScreen(this.game));
     }
@@ -69,7 +68,7 @@ class SceneManager {
     update() {
 
 
-        if (this.gameOver == false) {
+        if (this.game.gameOver == false) {
             this.waveMaker.update();
         }
 
