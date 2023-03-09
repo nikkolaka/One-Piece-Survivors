@@ -1,24 +1,31 @@
 const gameEngine = new GameEngine();
 
 const ASSET_MANAGER = new AssetManager();
-
+//enemy
 ASSET_MANAGER.queueDownload("./img/Navy.png");
 ASSET_MANAGER.queueDownload("./img/Doflamingo.png");
 ASSET_MANAGER.queueDownload("./img/blackbeard1.png");
 ASSET_MANAGER.queueDownload("./img/akainu.png");
 
+//player
 ASSET_MANAGER.queueDownload("./img/luffy7.png");
 ASSET_MANAGER.queueDownload("./img/zoro1.png");
 ASSET_MANAGER.queueDownload("./img/brook.png");
 
+//player projectiles
 ASSET_MANAGER.queueDownload("./img/gomu.png");
 ASSET_MANAGER.queueDownload("./img/big gomu.png");
 ASSET_MANAGER.queueDownload("./img/sword.png");
 ASSET_MANAGER.queueDownload("./img/firewheel.png");
 ASSET_MANAGER.queueDownload("./img/axe.png");
 
+//enemy projectiles
 ASSET_MANAGER.queueDownload("./img/string.png");
 
+//items
+ASSET_MANAGER.queueDownload("./img/items.png");
+
+//map
 ASSET_MANAGER.queueDownload("./img/OnePieceMap.png");
 ASSET_MANAGER.queueDownload("./img/titlescreen.jpg");
 
