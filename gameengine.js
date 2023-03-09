@@ -13,7 +13,7 @@ class GameEngine {
 
         this.uniqueEId = 0;
 
-        this.camera = this;
+        this.camera = null;
         this.player;
 
         this.playerLocation = {x: params.screenWidth/2, y: params.screenHeight/2};
@@ -27,6 +27,7 @@ class GameEngine {
 
         //shop default set to false
         this.inShop = false;
+        this.gameOver = true;
 
         // music for in game
         this.In_Game = new Audio("./music/In_Game.mp3");
@@ -47,8 +48,11 @@ class GameEngine {
         this.Opening.pause();
 
         // Information on the input
-        this.click = null;
+        this.click = false;
         this.mouse = null;
+        this.mousedown = null;
+        this.mouseup = null;
+
         this.wheel = null;
         this.keys = {};
 
@@ -109,6 +113,25 @@ class GameEngine {
             this.rightclick = getXandY(e);
         });
 
+        this.ctx.canvas.addEventListener("mousedown", function (e) {
+            //Left mouse button
+            if (e.which == 1) {
+                this.click = true;
+                console.log("click");
+
+            }
+            else {
+                this.click = true;
+            }
+        }, false);
+
+        this.ctx.canvas.addEventListener("mouseup", function (e) {
+            //Left mouse button
+            if (e.which == 1) {
+                this.click = false;
+            }
+        }, false);
+
         this.ctx.canvas.addEventListener("keydown", event => this.keys[event.key] = true);
         this.ctx.canvas.addEventListener("keyup", event => this.keys[event.key] = false);
     };
@@ -151,22 +174,37 @@ class GameEngine {
             if(inWindow(this.enemies[i], this.player))this.enemies[i].draw(this.ctx, this);
             
         }
+
+        if(this.gameOver == false) {
+            this.player.draw(this.ctx);
+
+            var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth);
+            this.ctx.fillStyle = "red";
+            this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20)
+            this.ctx.stroke();
+            this.ctx.font = "48px sans-serif";
+            this.ctx.fillText(this.score, 20, 50);
+            this.ctx.font = "48px sans-serif";
+            this.ctx.fillText(this.wave, 20, 100);
+            this.ctx.font = "48px sans-serif";
+            this.ctx.fillText(this.berriesTotal, 20, 150);
+        }
         
-        this.player.draw(this.ctx);
+        //this.player.draw(this.ctx);
 
-        var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth);
-        this.ctx.fillStyle = "red";
-        this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20)
-        this.ctx.stroke();
+        /* var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth); */
+        /* this.ctx.fillStyle = "red"; */
+        /* this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20) */
+        /* this.ctx.stroke(); */
 
-        this.ctx.font = "48px sans-serif";
-        this.ctx.fillText(this.score, 20, 50);
+        /* this.ctx.font = "48px sans-serif"; */
+        /* this.ctx.fillText(this.score, 20, 50); */
 
-        this.ctx.font = "48px sans-serif";
-        this.ctx.fillText(this.wave, 20, 100);
+        /* this.ctx.font = "48px sans-serif"; */
+        /* this.ctx.fillText(this.wave, 20, 100); */
 
-        this.ctx.font = "48px sans-serif";
-        this.ctx.fillText(this.berriesTotal, 20, 150);
+        /* this.ctx.font = "48px sans-serif"; */
+        /* this.ctx.fillText(this.berriesTotal, 20, 150); */
 
         
 
@@ -185,18 +223,26 @@ class GameEngine {
             this.player.shop.update();
             return;
         }
+        */
 
-        this.player.update();
-         */
+        if(this.gameOver == false) {
+            if(this.player.shop.inShop){ 
+                this.player.shop.update(); 
+                return; 
+           } 
+           this.player.update();
+        }
+                
+                
+        //this.player.update();
+        
 
-        /* for (let i = 0; i < entitiesCount; i++) { */
-        /*     let entity = this.entities[i]; */
+        for (let i = 0; i < entitiesCount; i++) {
+            let entity = this.entities[i];
+  
+            entity.update();        
+        }
 
-        /*      */
-        /*      */
-        /*     entity.update(); */
-        /*     */
-        /* } */
         for (let i = 0; i < this.enemies.length; i++) {
             let enemy = this.enemies[i];
             if (!enemy.removeFromWorld) {
@@ -222,10 +268,16 @@ class GameEngine {
             }
         }
 
-        if(this.player.shop.inShop){ 
-             this.player.shop.update(); 
-             return; 
-        } 
+        /* if(this.game.camera.gameOver == false) { */
+        /*     if(this.player.shop.inShop){  */
+        /*         this.player.shop.update();  */
+        /*         return;  */
+        /*    }  */
+        /* } */
+        /*  */
+        /*  */
+        
+        
 
         //added camera update
         this.camera.update();
@@ -264,13 +316,13 @@ class GameEngine {
 
 
         // music
-        if(!this.In_Game.playing && !this.player.dead) {
-            this.In_Game.play();
-        }
-        else {
-            this.In_Game.pause();
-            this.Death.play();
-        }
+        /* if(!this.In_Game.playing && !this.player.dead) { */
+        /*     this.In_Game.play(); */
+        /* } */
+        /* else { */
+        /*     this.In_Game.pause(); */
+        /*     this.Death.play(); */
+        /* } */
     };
 
     loop() {

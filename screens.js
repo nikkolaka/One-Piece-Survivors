@@ -20,7 +20,6 @@ class EndScreen {
     }
 
     drawEnd(ctx) {
-        ctx.fillStyle = "background: url('img/titlescreen.jpg') no-repeat center center fixed;";
 
         //ctx.fillRect(0, 0, 800, 600);
         ctx.font = "100px Arial";
@@ -31,7 +30,12 @@ class EndScreen {
     }
 }
 
-
+class characterSelectScreen {
+    constructor(game) {
+        Object.assign(this, { game });
+        
+    }
+}
 
 class StartScreen {
 
@@ -39,15 +43,14 @@ class StartScreen {
         Object.assign(this, { game });
         this.spritesheet = ASSET_MANAGER.getAsset("./img/titlescreen.jpg");
         this.title = new Animator(this.spritesheet, 0, 0, 1024, 768, 1, 1);
-       // this.game = this;
     }
 
     update() {
         if (this.game.mouse !== null) {
             if(this.game.mouse && (this.game.mouse.x > 300 && this.game.mouse.x < 600 && this.game.mouse.y > 550
                  && this.game.mouse.y < 600) && this.game.click){
+                console.log("Start clicked");
                 this.game.camera.loadAssets();
-                console.log("clicked");
             }
             
         }
