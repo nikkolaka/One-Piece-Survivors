@@ -7,6 +7,7 @@ class Diamond{
         this.scale = 1;
         this.animation = new Animator(ASSET_MANAGER.getAsset("./img/items.png"), 0, 0, 90, 88, 4, .15, false, true);
         this.game.Diamond = this;
+        this.removeFromWorld = false;
     }
     update(){
 
@@ -24,10 +25,18 @@ class Bomb{
         this.x = 2500;
         this.y = 2500;
         this.scale = 1;
+        this.radius = 5;
         this.animation = new Animator(ASSET_MANAGER.getAsset("./img/items.png"), 0, 88, 90, 88, 2, 0.2, false, true);
         this.game.Bomb = this;
+        this.removeFromWorld = false;
     }
     update(){
+        if(checkCircleTouching(this.game.player, this)){
+            this.game.enemies.forEach(enemy => {if(inWindow(enemy, this.game.player)) enemy.dead = true;});
+            this.removeFromWorld = true;
+        }
+
+
 
     }
     draw(ctx){
@@ -44,6 +53,7 @@ class Freeze{
         this.scale = 1;
         this.animation = new Animator(ASSET_MANAGER.getAsset("./img/items.png"), 0, 176, 90, 88, 1, .1, false, true);
         this.game.Freeze = this;
+        this.removeFromWorld = false;
     }
     update(){
 
@@ -61,10 +71,19 @@ class Meat{
         this.x = 2500;
         this.y = 2500;
         this.scale = 1;
+        this.radius = 5;
         this.animation = new Animator(ASSET_MANAGER.getAsset("./img/items.png"), 0, 264, 90, 88, 1, 0.1, false, true);
         this.game.Meat = this;
+        this.removeFromWorld = false;
     }
     update(){
+
+        if(checkCircleTouching(this.game.player, this)){
+            this.game.player.maxHealth += 10;
+            this.game.player.health += this.game.player.maxHealth/4;
+            if(this.game.player.health > this.game.player.maxHealth) this.game.player.health = this.game.player.maxHealth;
+            this.removeFromWorld = true;
+        }
 
     }
     draw(ctx){
@@ -82,6 +101,7 @@ class Weight{
         this.scale = 1;
         this.animation = new Animator(ASSET_MANAGER.getAsset("./img/items.png"), 0, 352, 90, 88, 1, 0.1, false, true);
         this.game.Weight = this;
+        this.removeFromWorld = false;
     }
     update(){
 

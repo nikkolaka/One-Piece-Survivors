@@ -246,11 +246,11 @@ class Gomu{
 
         // Gomu
         this.spriteSheet = ASSET_MANAGER.getAsset("./img/gomu.png");
-        //this.loadAnimation(this.spriteSheet, 1);
+        this.loadAnimation(this.spriteSheet, 1);
 
         // Big Gomu
         this.bigSpriteSheet = ASSET_MANAGER.getAsset("./img/big gomu.png");
-        this.loadAnimation(this.bigSpriteSheet, 2);
+        /* this.loadAnimation(this.bigSpriteSheet, 2); */
 
         this.facing = 0; // 0 = up, 1 = down, 2 = left, 3 = right
 
