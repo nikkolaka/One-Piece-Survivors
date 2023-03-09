@@ -23,7 +23,7 @@ ASSET_MANAGER.queueDownload("./img/axe.png");
 ASSET_MANAGER.queueDownload("./img/string.png");
 
 //items
-ASSET_MANAGER.queueDownload("./img/item.png");
+ASSET_MANAGER.queueDownload("./img/items.png");
 
 //map
 ASSET_MANAGER.queueDownload("./img/OnePieceMap.png");

@@ -18,7 +18,6 @@ class SceneManager {
 
         this.player = new Brook(gameEngine);
         gameEngine.addPlayer(this.player);
-
         this.Background = new Background(gameEngine);
         gameEngine.addEntity(this.Background); 
     }
