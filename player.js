@@ -311,7 +311,7 @@ class Brook{
         //stats
         this.health = 100;
         this.maxHealth = 100;
-        this.speed = 100;
+        this.speed = 125;
         this.revive = true;
 
     };
