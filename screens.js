@@ -20,8 +20,8 @@ class EndScreen {
     }
 
     drawEnd(ctx) {
-        // // Draw game over screen
-        // this.gameover.drawFrameStill(this.game.clockTick, ctx, 0, 0, 1);
+        // Draw game over screen
+        this.gameover.drawFrameStill(this.game.clockTick, ctx, 0, 0, 1);
 
         // Draw game over message
         ctx.font = "100px Arial";
@@ -44,9 +44,6 @@ class EndScreen {
             ctx.font = "50px Arial";
             ctx.fillText("Click to Restart", 300, 600);
         }
-
-        // Draw game over screen
-        // this.gameover.drawFrameStill(this.game.clockTick, ctx, 0, 0, 1);
     }
 }  
 

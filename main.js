@@ -19,6 +19,9 @@ ASSET_MANAGER.queueDownload("./img/sword.png");
 ASSET_MANAGER.queueDownload("./img/firewheel.png");
 ASSET_MANAGER.queueDownload("./img/axe.png");
 
+//end screen image
+ASSET_MANAGER.queueDownload("./img/endscreen.jpg");
+
 //enemy projectiles
 ASSET_MANAGER.queueDownload("./img/string.png");
 

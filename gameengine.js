@@ -29,23 +29,23 @@ class GameEngine {
         this.inShop = false;
         this.gameOver = true;
 
-        // music for in game
-        this.In_Game = new Audio("./music/In_Game.mp3");
-        this.In_Game.loop = true;
-        this.In_Game.volume = 0.2;
-        this.In_Game.play();
+        // // music for in game
+        // this.In_Game = new Audio("./music/In_Game.mp3");
+        // this.In_Game.loop = true;
+        // this.In_Game.volume = 0.2;
+        // this.In_Game.play();
 
-        // music for death
-        this.Death = new Audio("./music/Death.mp3");
-        this.Death.loop = true;
-        this.Death.volume = 0.2;
+        // // music for death
+        // this.Death = new Audio("./music/Death.mp3");
+        // this.Death.loop = true;
+        // this.Death.volume = 0.2;
 
-        // music for opening
-        this.Opening = new Audio("./music/Opening.mp3");
-        this.Opening.loop = true;
-        this.Opening.volume = 0.2;
-        this.Opening.play();
-        this.Opening.pause();
+        // // music for opening
+        // this.Opening = new Audio("./music/Opening.mp3");
+        // this.Opening.loop = true;
+        // this.Opening.volume = 0.2;
+        // this.Opening.play();
+        // this.Opening.pause();
 
         // Information on the input
         this.click = false;

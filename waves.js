@@ -1,16 +1,14 @@
 class Wave{
     constructor(game){
-        
         this.game = game
         this.minDifficulty = 1;
         this.maxDifficulty = 10;
         this.currentWave = 0;
         this.spawnDensity = 50;
-        
 
-
-
-
+        // intialize wave and score
+        this.game.wave = 0;
+        this.game.score = 0;
     };
 
 

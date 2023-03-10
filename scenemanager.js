@@ -14,11 +14,36 @@ class SceneManager {
         this.player = new Luffy(gameEngine);
         this.Background = new Background(gameEngine);
         this.waveMaker = new Wave(gameEngine);
+
+        // music
+        this.Opening = new Audio("./music/Opening.mp3");
+        this.Opening.loop = true;
+        this.Opening.volume = 0.2;
+        this.Opening.play();
+        this.Opening.pause();
+
+        this.In_Game = new Audio("./music/In_Game.mp3");
+        this.In_Game.loop = true;
+        this.In_Game.volume = 0.2;
+        this.In_Game.play();
+        this.In_Game.pause();
+
+        this.Death = new Audio("./music/Death.mp3");
+        this.Death.loop = true;
+        this.Death.volume = 0.2;
+        this.Death.play();
     }
 
     clearEntities() {
         this.game.entities.forEach(entity => {
             entity.removeFromWorld = true;
+        });
+        this.game.enemies.forEach(enemies => {
+            this.game.score -= 1;
+            enemies.removeFromWorld = true;
+        });
+        this.game.berries.forEach(berries => {
+            berries.removeFromWorld = true;
         });
     }
 
@@ -26,6 +51,14 @@ class SceneManager {
         this.game.stage = "title";
         this.clearEntities();
         gameEngine.addEntity(new StartScreen(gameEngine));
+
+        this.player = new Luffy(gameEngine);
+        this.Background = new Background(gameEngine);
+        this.waveMaker = new Wave(gameEngine);
+
+        this.Opening.play();
+        this.In_Game.pause();
+        this.Death.pause();
 
         //this.Background = new Background(gameEngine);
     }
@@ -36,12 +69,20 @@ class SceneManager {
         // this.game.gameOver = true;
         this.clearEntities();
         gameEngine.addEntity(new EndScreen(gameEngine));
+
+        this.Opening.pause();
+        this.In_Game.pause();
+        this.Death.play();
     }
 
     loadCharacterSelect() {
         this.game.stage = "characterSelect";
         this.clearEntities();
         gameEngine.addEntity(new CharacterSelect(gameEngine));
+
+        this.Opening.play();
+        this.In_Game.pause();
+        this.Death.pause();
 
     }
 
@@ -56,6 +97,10 @@ class SceneManager {
         this.game.stage = "game"; // this is the intro game screen
 
         this.waveMaker = new Wave(gameEngine);
+
+        this.Opening.pause();
+        this.In_Game.play();
+        this.Death.pause();
 
         //this.player = new Luffy(gameEngine);
         gameEngine.addPlayer(this.player);
