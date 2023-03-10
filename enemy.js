@@ -14,6 +14,7 @@ class Navy{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
         this.invincible = false;
+        this.frozen = false;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -31,7 +32,7 @@ class Navy{
 
         this.removeFromWorld = false;
 
-        this.berry = new blueBerry();
+        this.berry = new Berry(Berries.BLUE);
 
     };
 
@@ -59,6 +60,8 @@ class Navy{
     }
 
     update(){
+        if(this.frozen) return;
+
         // Check for collisions with other enemies
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
@@ -77,6 +80,10 @@ class Navy{
     };
 
     draw(ctx){
+        if(this.frozen){
+            this.animation[this.state][this.facing].drawFrame(0, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+            return;
+        } 
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         if(this.game.options.debugging){
             ctx.fillStyle = this.color;
@@ -119,7 +126,7 @@ class Doflamingo{
         this.removeFromWorld = false;
         this.game.Doflamingo = this;
         this.weapon = new String(game)
-        this.berry = new blueBerry();
+        this.berry = new Berry(Berries.RED);
 
     };
     
@@ -149,6 +156,7 @@ class Doflamingo{
 
 
     update(){
+        if(this.frozen) return;
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 enemyCollision(this,this.game.enemies[i])
@@ -166,12 +174,16 @@ class Doflamingo{
     };
 
     draw(ctx){
+        if(this.frozen){
+            this.animation[this.state][this.facing].drawFrame(0, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+            return;
+        }
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
 
         if(this.game.options.debugging){
-            ctx.fillStyle = this.color;
             ctx.beginPath();
             ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = "black";
             ctx.stroke(); 
         }
         
@@ -208,7 +220,7 @@ class Blackbeard{
         this.health = 150;
         this.removeFromWorld = false;
         this.game.Blackbeard = this;
-        this.berry = new blueBerry();
+        this.berry = new Berry(Berries.RED);
 
     };
     
@@ -237,6 +249,7 @@ class Blackbeard{
     }
 
     update(){
+        if(this.frozen) return;
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 enemyCollision(this,this.game.enemies[i])
@@ -252,12 +265,17 @@ class Blackbeard{
     };
 
     draw(ctx){
+        if(this.frozen){
+            this.animation[this.state][this.facing].drawFrame(0, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+            return;
+        }
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
 
         if(this.game.options.debugging){
-            ctx.fillStyle = this.color;
+            
             ctx.beginPath();
             ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = "black";
             ctx.stroke(); 
            }
         }
@@ -294,7 +312,7 @@ class Akainu{
         this.health = 1000;
         this.removeFromWorld = false;
         this.game.Akainu = this;
-        this.berry = new blueBerry();
+        this.berry = new Berry(Berries.GREEN);
 
     };
     
@@ -323,6 +341,7 @@ class Akainu{
     }
 
     update(){
+        if(this.frozen) return;
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
                 enemyCollision(this,this.game.enemies[i])
@@ -338,11 +357,15 @@ class Akainu{
     };
 
     draw(ctx){
+        if(this.frozen){
+            this.animation[this.state][this.facing].drawFrame(0, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
+            return;
+        }
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         if(this.game.options.debugging){
-            ctx.fillStyle = this.color;
             ctx.beginPath();
             ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = "black";
             ctx.stroke(); 
         }
         
