@@ -35,26 +35,22 @@ class SceneManager {
     }
 
     clearEntities() {
-        this.game.entities.forEach(entity => {
-            entity.removeFromWorld = true;
-        });
-        this.game.enemies.forEach(enemies => {
-            this.game.score -= 1;
-            enemies.removeFromWorld = true;
-        });
-        this.game.berries.forEach(berries => {
-            berries.removeFromWorld = true;
-        });
+        this.game.entities = []
+        this.game.enemies = []
+        this.game.berries = []
     }
 
     loadTitleScreen() {
         this.game.stage = "title";
         this.clearEntities();
         gameEngine.addEntity(new StartScreen(gameEngine));
-
+        this.game.berriesTotal = 0;
+        this.game.score = 0;
+        this.game.wave = 0;
         this.player = new Luffy(gameEngine);
         this.Background = new Background(gameEngine);
         this.waveMaker = new Wave(gameEngine);
+        
 
         this.Opening.play();
         this.In_Game.pause();

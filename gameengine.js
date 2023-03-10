@@ -276,7 +276,7 @@ class GameEngine {
 
 
         //mouse control
-
+        console.log(this.score);
         for (let i = this.enemies.length - 1; i >= 0; --i) { 
              if (this.enemies[i].removeFromWorld) { 
                 let enemy = this.enemies[i];
@@ -285,6 +285,7 @@ class GameEngine {
                 enemy.berry.y = enemy.y ;
                 this.addBerry(enemy.berry)
                 this.score++;
+                
                 this.enemies.splice(i, 1); 
              }
         }

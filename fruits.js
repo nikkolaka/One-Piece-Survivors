@@ -313,7 +313,6 @@ class Gomu{
     }
 
     update(){
-        console.log(this.damage);
         this.originX = this.game.player.x - this.width/2;
         this.originY = this.game.player.y - this.height/2;
 
@@ -586,7 +585,6 @@ class Fire{
     }
 
     update(){
-        console.log(this.step)
         this.x = this.game.player.x - 15;
         this.y = this.game.player.y - 30;
 
