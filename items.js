@@ -99,11 +99,22 @@ class Weight{
         this.x = 2500;
         this.y = 2500;
         this.scale = 1;
+        this.radius = 5;
         this.animation = new Animator(ASSET_MANAGER.getAsset("./img/items.png"), 0, 352, 90, 88, 1, 0.1, false, true);
         this.game.Weight = this;
         this.removeFromWorld = false;
     }
     update(){
+        if(checkCircleTouching(this.game.player, this)){
+            this.game.player.weapons.forEach(weapon => {
+                let temp = weapon.damage;
+                weapon.damage += 100;
+                setTimeout(() => {
+                    weapon.damage = temp;
+                },20000);
+            });
+            this.removeFromWorld = true;
+        }
 
     }
     draw(ctx){
