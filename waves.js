@@ -60,7 +60,7 @@ class Wave{
 
         
         for(var i = 0; i < this.spawnDensity; i++){
-            enemy = enemy = this.spawnEnemy(); 
+            enemy = this.spawnEnemy(); 
             enemy.wave = this.currentWave;
 
             if(i > (this.spawnDensity/4)*3) {
