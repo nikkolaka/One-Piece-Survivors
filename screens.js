@@ -2,7 +2,6 @@ class EndScreen {
     constructor(game) {
         Object.assign(this, { game });
         this.game = game;
-
         this.spritesheet = ASSET_MANAGER.getAsset("./img/endscreen.jpg");
         this.gameover = new Animator(this.spritesheet, 0, 0, 1024, 768, 1, 1);
     }
@@ -34,7 +33,7 @@ class EndScreen {
         // Draw restart message
         if(this.game.mouse && (this.game.mouse.x > 300 && this.game.mouse.x < 600 && this.game.mouse.y > 550
             && this.game.mouse.y < 600)) {
-            ctx.fillStyle = "red";
+            ctx.fillStyle = "gray";
             ctx.font = "50px Arial";
             ctx.fillText("Click to Restart", 300, 600);
         } else {
@@ -44,7 +43,7 @@ class EndScreen {
         }
 
         // Draw game over screen
-        this.gameover.drawFrame(this.game.clockTick, ctx, 0, 0, 1);
+        this.game.drawFrame(this.game.clockTick, ctx, 0, 0, 1);
     }
 }  
 
@@ -66,7 +65,7 @@ class StartScreen {
     update() {
         if (this.game.mouse !== null) {
             if(this.game.mouse && (this.game.mouse.x > 300 && this.game.mouse.x < 600 && this.game.mouse.y > 550
-                 && this.game.mouse.y < 600) && this.game.click){
+                 && this.game.mouse.y < 600) && this.game.click) {
                 console.log("Start clicked");
                 this.game.camera.loadAssets();
             }
@@ -99,6 +98,4 @@ class StartScreen {
             ctx.fillText("Click to Start", 300, 600);
         }
     }
-
-
 }
