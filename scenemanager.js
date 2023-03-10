@@ -94,12 +94,24 @@ class SceneManager {
 
     update() {
         if (this.player.dead) { // if player is dead load game over screen
+            this.game.gameOver = true;
             this.loadGameOver();
         }
 
         if (this.game.gameOver == false) { // if game is not over update the wave maker
             this.waveMaker.update();
         }
+        else {
+            this.game.enemies.forEach(enemy => {
+                enemy.removeFromWorld = true;
+            });
+            this.game.berries.forEach(berry => {
+                berry.removeFromWorld = true;
+            });
+
+            }
+
+        
 
         let midpointX = params.screenWidth/2 - 100; //Canvas width - half of player width
         let midpointY = params.screenHeight/2 - 90;
