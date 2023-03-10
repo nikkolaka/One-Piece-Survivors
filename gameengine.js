@@ -9,7 +9,7 @@ class GameEngine {
 
         // array of berries for the map
         this.berries = [];
-        this.berriesTotal = 91;
+        this.berriesTotal = 0;
 
         this.uniqueEId = 0;
 
@@ -182,12 +182,11 @@ class GameEngine {
             this.ctx.fillStyle = "red";
             this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20)
             this.ctx.stroke();
-            this.ctx.font = "48px sans-serif";
-            this.ctx.fillText(this.score, 20, 50);
-            this.ctx.font = "48px sans-serif";
-            this.ctx.fillText(this.wave, 20, 100);
-            this.ctx.font = "48px sans-serif";
-            this.ctx.fillText(this.berriesTotal, 20, 150);
+            this.ctx.fillStyle = "white";
+            this.ctx.font = "48px monospace";
+            this.ctx.fillText(this.score, 20, 70);
+            this.ctx.font = "48px monospace";
+            this.ctx.fillText(this.wave, 20, 120);
         }
         
         //this.player.draw(this.ctx);
@@ -261,21 +260,14 @@ class GameEngine {
 
         for (let i = 0; i < this.berries.length; i++) {
             let berry = this.berries[i];
-
+            berry.update(this);
             if(checkCircleTouching(this.player, berry)){
                 berry.removeFromWorld = true;
                 this.berriesTotal += berry.value;
             }
         }
 
-        /* if(this.game.camera.gameOver == false) { */
-        /*     if(this.player.shop.inShop){  */
-        /*         this.player.shop.update();  */
-        /*         return;  */
-        /*    }  */
-        /* } */
-        /*  */
-        /*  */
+        if(this.berries.length == 0 && this.player != undefined) this.player.magnet = false;
         
         
 

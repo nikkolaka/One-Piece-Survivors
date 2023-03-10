@@ -105,7 +105,7 @@ class SceneManager {
         //this.player = new Luffy(gameEngine);
         gameEngine.addPlayer(this.player);
 
-        for(let i = 0; i < 100; i++){
+        for(let i = 0; i < 25; i++){
             let item;
             switch (randomInt(5)) {
                 case 0:
@@ -147,12 +147,8 @@ class SceneManager {
             this.waveMaker.update();
         }
         else {
-            this.game.enemies.forEach(enemy => {
-                enemy.removeFromWorld = true;
-            });
-            this.game.berries.forEach(berry => {
-                berry.removeFromWorld = true;
-            });
+            this.game.enemies = [];
+            this.game.berries = [];
 
             }
 
