@@ -9,7 +9,7 @@ class GameEngine {
 
         // array of berries for the map
         this.berries = [];
-        this.berriesTotal = 0;
+        this.berriesTotal = 91;
 
         this.uniqueEId = 0;
 
@@ -303,10 +303,10 @@ class GameEngine {
                this.berries.splice(i, 1); 
             }
        }
-        for (let i = this.entities.length - 1; i >= 0; --i) { 
+        for (let i = this.entities.length - 1; i >= 0; --i) {
             if (this.entities[i].removeFromWorld) {
-                 this.entities.splice(i, 1);
-             }
+                this.entities.splice(i, 1);
+            }
         }
         /* for (let i = this.enemies.length - 1; i >= 0; --i) { */
         /*     if (this.enemies[i].removeFromWorld) { */
@@ -331,4 +331,3 @@ class GameEngine {
         this.draw();
     };
 };
-

@@ -30,6 +30,14 @@ class SceneManager {
         //this.Background = new Background(gameEngine);
     }
 
+    // this is the end screen
+    loadGameOver() {
+        this.game.stage = "gameover";
+        this.game.gameOver = true;
+        this.clearEntities();
+        this.game.addEntity(new EndScreen(this.game));
+    }
+
     loadCharacterSelect() {
         this.game.stage = "characterSelect";
         this.clearEntities();
@@ -45,30 +53,25 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
 
-        this.game.stage  = "game"
+        this.game.stage = "game"; // this is the intro game screen
 
         this.waveMaker = new Wave(gameEngine);
 
-        this.player = new Brook(gameEngine);
+        //this.player = new Luffy(gameEngine);
         gameEngine.addPlayer(this.player);
 
-        this.Background = new Background(gameEngine);
+        //this.Background = new Background(gameEngine);
         gameEngine.addEntity(this.Background); 
 
         this.update();
     }
 
-    loadGameOver() {
-        this.game.stage = "gameover";
-        this.game.gameOver = true;
-        this.clearEntities();
-        this.game.addEntity(new GameOverScreen(this.game));
-    }
-
     update() {
+        if (this.player.dead) { // if player is dead load game over screen
+            this.loadGameOver();
+        }
 
-
-        if (this.game.gameOver == false) {
+        if (this.game.gameOver == false) { // if game is not over update the wave maker
             this.waveMaker.update();
         }
 
