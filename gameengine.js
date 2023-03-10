@@ -212,12 +212,13 @@ class GameEngine {
 
         for (let i = 0; i < this.berries.length; i++) {
             let berry = this.berries[i];
-
+            berry.update(this);
             if(checkCircleTouching(this.player, berry)){
                 berry.removeFromWorld = true;
                 this.berriesTotal += berry.value;
             }
         }
+        if(this.berries.length == 0) this.player.magnet = false;
 
         //added camera update
         this.camera.update();

@@ -20,7 +20,7 @@ class SceneManager {
         gameEngine.addPlayer(this.player);
         
 
-        for(let i = 0; i < 100; i++){
+        for(let i = 0; i < 200; i++){
             let item;
             switch (randomInt(5)) {
                 case 0:

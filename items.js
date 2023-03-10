@@ -5,11 +5,16 @@ class Diamond{
         this.x = 2500;
         this.y = 2500;
         this.scale = 1;
+        this.radius = 5;
         this.animation = new Animator(ASSET_MANAGER.getAsset("./img/items.png"), 0, 0, 90, 88, 4, .15, false, true);
         this.game.Diamond = this;
         this.removeFromWorld = false;
     }
     update(){
+        if(checkCircleTouching(this.game.player, this)){
+            this.game.player.magnet = true;
+            this.removeFromWorld = true;
+        }
 
     }
     draw(ctx){
@@ -51,11 +56,22 @@ class Freeze{
         this.x = 2500;
         this.y = 2500;
         this.scale = 1;
+        this.radius = 5;
         this.animation = new Animator(ASSET_MANAGER.getAsset("./img/items.png"), 0, 176, 90, 88, 1, .1, false, true);
         this.game.Freeze = this;
         this.removeFromWorld = false;
     }
     update(){
+        if(checkCircleTouching(this.game.player, this)){
+            this.game.enemies.forEach(enemy => {if(inWindow(enemy, this.game.player)) 
+                enemy.frozen = true;
+                setTimeout(() => {
+                    enemy.frozen = false;
+                },10000);
+            });
+            
+            this.removeFromWorld = true;
+        }
 
     }
     draw(ctx){
