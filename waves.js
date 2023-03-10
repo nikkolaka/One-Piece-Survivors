@@ -1,6 +1,5 @@
 class Wave{
     constructor(game){
-        
         this.game = game
         this.minDifficulty = 1;
         this.maxDifficulty = 10;
@@ -12,13 +11,9 @@ class Wave{
         this.dofyProb = 0.04;
         this.blackProb = 0.04;
 
-
-
-        
-
-
-
-
+        // intialize wave and score
+        this.game.wave = 0;
+        this.game.score = 0;
     };
 
 
@@ -37,7 +32,6 @@ class Wave{
             this.dofyProb += 0.01;
             this.blackProb += 0.01;
             this.navyProb -= 0.01;
-            
             switch(randomInt(2)){
                 case 0: 
                     this.spawnRand();
@@ -47,10 +41,10 @@ class Wave{
                     break;
             }
         }
-    }
+    }   
 
     spawnSquare(){
-        this.currentWave++;
+        
         
         
         var playerX = this.game.player.x - params.screenWidth/2;
@@ -58,10 +52,10 @@ class Wave{
         var buffer = 0;
         var enemy;
 
-        
         for(var i = 0; i < this.spawnDensity; i++){
-            enemy = this.spawnEnemy(); 
+            enemy = this.spawnEnemy();
             enemy.wave = this.currentWave;
+            
 
             if(i > (this.spawnDensity/4)*3) {
                 //bottom
@@ -81,14 +75,12 @@ class Wave{
                 enemy.y = (i*(params.screenHeight / (this.spawnDensity/4)) % params.screenHeight) + playerY;
             }
 
-            this.game.addEnemy(enemy);
+        this.game.addEnemy(enemy);
         }
     }
 
-
-
     spawnRand(){
-        this.currentWave++;
+        
         var playerX = this.game.player.x;
         var playerY = this.game.player.y;
         
@@ -146,8 +138,5 @@ class Wave{
         else if(probabilityArray[idx] == 1) return new Doflamingo(this.game, this.game.uniqueEId++);
         else if(probabilityArray[idx] == 2) return new Blackbeard(this.game, this.game.uniqueEId++);
         else if(probabilityArray[idx] == 3) return new Akainu(this.game, this.game.uniqueEId++);
-        
-
     }
-
 }

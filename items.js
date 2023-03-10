@@ -15,7 +15,6 @@ class Diamond{
             this.game.player.magnet = true;
             this.removeFromWorld = true;
         }
-
     }
     draw(ctx){
         this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x , this.y - this.game.camera.y, this.scale);
@@ -69,10 +68,9 @@ class Freeze{
                     enemy.frozen = false;
                 },10000);
             });
-            
+
             this.removeFromWorld = true;
         }
-
     }
     draw(ctx){
         this.animation.drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x , this.y - this.game.camera.y , this.scale);

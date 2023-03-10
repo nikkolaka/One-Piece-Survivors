@@ -15,7 +15,7 @@ class Berry{
                 this.value = 500;
                 this.speed = randomInt(100) + 700;
                 break;
-        
+
             default:
                 break;
         }
@@ -24,7 +24,7 @@ class Berry{
         this.y;
         this.removeFromWorld = false;
 
-        
+
         this.radius = 5;
 
 
@@ -38,15 +38,11 @@ class Berry{
 
 
     draw(ctx, game){
-        
         ctx.strokeStyle = this.type;
         ctx.beginPath();
-        ctx.arc(this.x +50 - game.camera.x, this.y +50 - game.camera.y, this.radius, 0, 2 * Math.PI);    
+        ctx.arc(this.x +50 - game.camera.x, this.y +50 - game.camera.y, this.radius, 0, 2 * Math.PI);  
         ctx.fillStyle = this.type;
         ctx.fill();
         ctx.stroke();
-        
     }
-
-
 }

@@ -13,7 +13,7 @@ class GameEngine {
 
         this.uniqueEId = 0;
 
-        this.camera = this;
+        this.camera = null;
         this.player;
 
         this.playerLocation = {x: params.screenWidth/2, y: params.screenHeight/2};
@@ -25,27 +25,34 @@ class GameEngine {
         this.score = 0;
         this.wave = 0;
 
-        // music for in game
-        this.In_Game = new Audio("./music/In_Game.mp3");
-        this.In_Game.loop = true;
-        this.In_Game.volume = 0.2;
-        this.In_Game.play();
+        //shop default set to false
+        this.inShop = false;
+        this.gameOver = true;
 
-        // music for death
-        this.Death = new Audio("./music/Death.mp3");
-        this.Death.loop = true;
-        this.Death.volume = 0.2;
+        // // music for in game
+        // this.In_Game = new Audio("./music/In_Game.mp3");
+        // this.In_Game.loop = true;
+        // this.In_Game.volume = 0.2;
+        // this.In_Game.play();
 
-        // music for opening
-        this.Opening = new Audio("./music/Opening.mp3");
-        this.Opening.loop = true;
-        this.Opening.volume = 0.2;
-        this.Opening.play();
-        this.Opening.pause();
+        // // music for death
+        // this.Death = new Audio("./music/Death.mp3");
+        // this.Death.loop = true;
+        // this.Death.volume = 0.2;
+
+        // // music for opening
+        // this.Opening = new Audio("./music/Opening.mp3");
+        // this.Opening.loop = true;
+        // this.Opening.volume = 0.2;
+        // this.Opening.play();
+        // this.Opening.pause();
 
         // Information on the input
-        this.click = null;
+        this.click = false;
         this.mouse = null;
+        this.mousedown = null;
+        this.mouseup = null;
+
         this.wheel = null;
         this.keys = {};
 
@@ -106,6 +113,25 @@ class GameEngine {
             this.rightclick = getXandY(e);
         });
 
+        this.ctx.canvas.addEventListener("mousedown", function (e) {
+            //Left mouse button
+            if (e.which == 1) {
+                this.click = true;
+                console.log("click");
+
+            }
+            else {
+                this.click = true;
+            }
+        }, false);
+
+        this.ctx.canvas.addEventListener("mouseup", function (e) {
+            //Left mouse button
+            if (e.which == 1) {
+                this.click = false;
+            }
+        }, false);
+
         this.ctx.canvas.addEventListener("keydown", event => this.keys[event.key] = true);
         this.ctx.canvas.addEventListener("keyup", event => this.keys[event.key] = false);
     };
@@ -148,21 +174,36 @@ class GameEngine {
             if(inWindow(this.enemies[i], this.player))this.enemies[i].draw(this.ctx, this);
             
         }
+
+        if(this.gameOver == false) {
+            this.player.draw(this.ctx);
+
+            var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth);
+            this.ctx.fillStyle = "red";
+            this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20)
+            this.ctx.stroke();
+            this.ctx.fillStyle = "white";
+            this.ctx.font = "48px monospace";
+            this.ctx.fillText(this.score, 20, 70);
+            this.ctx.font = "48px monospace";
+            this.ctx.fillText(this.wave, 20, 120);
+        }
         
-        this.player.draw(this.ctx);
+        //this.player.draw(this.ctx);
 
-        var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth);
-        this.ctx.fillStyle = "red";
-        this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20)
-        this.ctx.stroke();
-        this.ctx.fillStyle = "white";
-        this.ctx.font = "48px monospace";
-        this.ctx.fillText(this.score, 20, 70);
+        /* var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth); */
+        /* this.ctx.fillStyle = "red"; */
+        /* this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20) */
+        /* this.ctx.stroke(); */
 
-        this.ctx.font = "48px monospace";
-        this.ctx.fillText(this.wave, 20, 120);
+        /* this.ctx.font = "48px sans-serif"; */
+        /* this.ctx.fillText(this.score, 20, 50); */
 
-        
+        /* this.ctx.font = "48px sans-serif"; */
+        /* this.ctx.fillText(this.wave, 20, 100); */
+
+        /* this.ctx.font = "48px sans-serif"; */
+        /* this.ctx.fillText(this.berriesTotal, 20, 150); */
 
         
 
@@ -177,22 +218,30 @@ class GameEngine {
 
     update() {
         let entitiesCount = this.entities.length;
-        if(this.player.shop.inShop){
+        /* if(this.player.shop.inShop){
             this.player.shop.update();
             return;
         }
+        */
 
-        this.player.update();
+        if(this.gameOver == false) {
+            if(this.player.shop.inShop){ 
+                this.player.shop.update(); 
+                return; 
+           } 
+           this.player.update();
+        }
+                
+                
+        //this.player.update();
         
 
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
-
-            
-            
-            entity.update();
-           
+  
+            entity.update();        
         }
+
         for (let i = 0; i < this.enemies.length; i++) {
             let enemy = this.enemies[i];
             if (!enemy.removeFromWorld) {
@@ -217,14 +266,17 @@ class GameEngine {
                 this.berriesTotal += berry.value;
             }
         }
+
         if(this.berries.length == 0 && this.player != undefined) this.player.magnet = false;
+        
+        
 
         //added camera update
         this.camera.update();
 
 
         //mouse control
-
+        console.log(this.score);
         for (let i = this.enemies.length - 1; i >= 0; --i) { 
              if (this.enemies[i].removeFromWorld) { 
                 let enemy = this.enemies[i];
@@ -233,6 +285,7 @@ class GameEngine {
                 enemy.berry.y = enemy.y ;
                 this.addBerry(enemy.berry)
                 this.score++;
+                
                 this.enemies.splice(i, 1); 
              }
         }
@@ -243,10 +296,10 @@ class GameEngine {
                this.berries.splice(i, 1); 
             }
        }
-        for (let i = this.entities.length - 1; i >= 0; --i) { 
+        for (let i = this.entities.length - 1; i >= 0; --i) {
             if (this.entities[i].removeFromWorld) {
-                 this.entities.splice(i, 1);
-             }
+                this.entities.splice(i, 1);
+            }
         }
         /* for (let i = this.enemies.length - 1; i >= 0; --i) { */
         /*     if (this.enemies[i].removeFromWorld) { */
@@ -256,19 +309,19 @@ class GameEngine {
 
 
         // music
-        if(!this.In_Game.playing && !this.player.dead) {
-            this.In_Game.play();
-        }
-        else {
-            this.In_Game.pause();
-            this.Death.play();
-        }
+        /* if(!this.In_Game.playing && !this.player.dead) { */
+        /*     this.In_Game.play(); */
+        /* } */
+        /* else { */
+        /*     this.In_Game.pause(); */
+        /*     this.Death.play(); */
+        /* } */
     };
 
     loop() {
         this.clockTick = this.timer.tick();
         this.update();
         this.draw();
+        this.click = null;
     };
 };
-

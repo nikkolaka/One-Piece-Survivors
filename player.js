@@ -161,7 +161,6 @@ class Zoro{
         this.dead = false;
         this.magnet = false;
 
-
         // player hitbox
         this.x =  2500;
         this.y =  2500;
@@ -304,7 +303,6 @@ class Brook{
         this.dead = false;
         this.magnet = false;
 
-
         // player hitbox
         this.x =  2500;
         this.y =  2500;
@@ -316,7 +314,7 @@ class Brook{
         //stats
         this.health = 100;
         this.maxHealth = 100;
-        this.speed = 100;
+        this.speed = 125;
         this.revive = true;
 
     };

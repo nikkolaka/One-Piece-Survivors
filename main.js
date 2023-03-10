@@ -19,6 +19,9 @@ ASSET_MANAGER.queueDownload("./img/sword.png");
 ASSET_MANAGER.queueDownload("./img/firewheel.png");
 ASSET_MANAGER.queueDownload("./img/axe.png");
 
+//end screen image
+ASSET_MANAGER.queueDownload("./img/endscreen.jpg");
+
 //enemy projectiles
 ASSET_MANAGER.queueDownload("./img/string.png");
 
@@ -27,6 +30,7 @@ ASSET_MANAGER.queueDownload("./img/items.png");
 
 //map
 ASSET_MANAGER.queueDownload("./img/OnePieceMap.png");
+ASSET_MANAGER.queueDownload("./img/titlescreen.jpg");
 
 // music
 ASSET_MANAGER.queueDownload("./music/Opening.mp3");
@@ -43,8 +47,10 @@ ASSET_MANAGER.downloadAll(() => {
 
     gameEngine.init(ctx);
 
-	new SceneManager(gameEngine);
-
+    
+	this.scene = new SceneManager(gameEngine);
+    gameEngine.addEntity(scene);
+    this.scene.loadTitleScreen();
     gameEngine.start();
 	
 });

@@ -14,7 +14,7 @@ class Navy{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
         this.invincible = false;
-        this.frozen = false;
+        this.freeze = false;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -61,7 +61,6 @@ class Navy{
 
     update(){
         if(this.frozen) return;
-
         // Check for collisions with other enemies
         for(let i = 0; i < this.game.enemies.length; i++){
             if(this.id !== this.game.enemies[i].id && this.id !== 0){
@@ -112,6 +111,7 @@ class Doflamingo{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
         this.invincible = false;
+        this.freeze = false;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -207,6 +207,7 @@ class Blackbeard{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
         this.invincible = false;
+        this.freeze = false;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -272,7 +273,6 @@ class Blackbeard{
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
 
         if(this.game.options.debugging){
-            
             ctx.beginPath();
             ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
             ctx.strokeStyle = "black";
@@ -299,6 +299,7 @@ class Akainu{
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
         this.invincible = false;
+        this.freeze = false;
 
         this.radius = 20;
         this.diameter = this.radius*2;
@@ -363,6 +364,7 @@ class Akainu{
         }
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
         if(this.game.options.debugging){
+            ctx.fillStyle = this.color;
             ctx.beginPath();
             ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
             ctx.strokeStyle = "black";
