@@ -33,9 +33,9 @@ class SceneManager {
     // this is the end screen
     loadGameOver() {
         this.game.stage = "gameover";
-        this.game.gameOver = true;
+        // this.game.gameOver = true;
         this.clearEntities();
-        this.game.addEntity(new EndScreen(this.game));
+        gameEngine.addEntity(new EndScreen(gameEngine));
     }
 
     loadCharacterSelect() {

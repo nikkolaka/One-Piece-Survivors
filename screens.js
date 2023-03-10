@@ -10,7 +10,7 @@ class EndScreen {
         if (this.game.mouse !== null) {
             if (this.game.mouse && (this.game.mouse.x > 300 && this.game.mouse.x < 600 && this.game.mouse.y > 550 && this.game.mouse.y < 600) && this.game.click) {
                 console.log("Restart clicked");
-                this.game.camera.loadAssets();
+                this.game.camera.loadTitleScreen();
             }
         }
     }
@@ -20,6 +20,9 @@ class EndScreen {
     }
 
     drawEnd(ctx) {
+        // Draw game over screen
+        this.gameover.drawFrameStill(this.game.clockTick, ctx, 0, 0, 1);
+
         // Draw game over message
         ctx.font = "100px Arial";
         ctx.fillStyle = "red";
@@ -41,9 +44,6 @@ class EndScreen {
             ctx.font = "50px Arial";
             ctx.fillText("Click to Restart", 300, 600);
         }
-
-        // Draw game over screen
-        this.game.drawFrame(this.game.clockTick, ctx, 0, 0, 1);
     }
 }  
 
