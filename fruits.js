@@ -1,5 +1,5 @@
-class Shop{
-    constructor(game){
+class Shop {
+    constructor(game) {
         this.berryRequirment = 100;
         this.game = game;
         this.chosen = 0;
@@ -11,15 +11,12 @@ class Shop{
         "Sword", "Sword", "Sword", "Sword", "Sword", "Axe", "Axe", "Axe", "Axe", "Axe"]
 
         this.availFruit = {gomu:5, fire:5, sword:5, axe:5};
-
-
-
     }
 
-    update(){
+    update() {
         
-        if(this.inShop){
-            if(this.chosen != 0){
+        if(this.inShop) {
+            if(this.chosen != 0) {
                 this.game.berriesTotal = 0;
                 this.inShop = false;
                 
@@ -37,13 +34,10 @@ class Shop{
                 }, 500);
                 }
             }
-
             
-            
-
-
             return;
-        } else if(this.game.berriesTotal >= this.berryRequirment){
+
+        } else if(this.game.berriesTotal >= this.berryRequirment) {
             this.berryRequirment = (this.berryRequirment*1.25) + 50;
 
             let choice1 = randomInt(this.fruitcount.length)
@@ -57,10 +51,9 @@ class Shop{
             
             this.inShop = true;
         }        
-
     }
 
-    addWeapon(weaponClass){
+    addWeapon(weaponClass) {
         switch (weaponClass) {
             case "Gomu":
                 this.availFruit.gomu--;
@@ -216,15 +209,7 @@ class Shop{
             ctx.fillText("Press 2 to choose " + this.choices[1], params.screenWidth/2 - 200, params.screenHeight/2 + 50);
             ctx.stroke();
         }
-        
     }
-
-
-    
-
-
-
-
 }
 
 
@@ -234,7 +219,6 @@ class Gomu{
         this.ogWidth = 50;
         this.ogHeight = 20;
         
-
         this.width = 50;
         this.height = 20;
         this.scale = 1;
@@ -258,7 +242,6 @@ class Gomu{
         this.lastDirection = this.direction;
         this.color = "black"
         
-
         // hitbox
         
         this.originX;
@@ -277,8 +260,6 @@ class Gomu{
             this.animation.push([]);
         }
 
-
-
         // Gomu sprites
         if (version == 1){
             // up direction
@@ -292,8 +273,6 @@ class Gomu{
             
             // right direction
             this.animation[3] = new Animator(spriteSheet, -1, 90, 90, 90, 6, .3, true, true);
-
-
 
             // Big Gomu sprites
         } else if (version == 2){
@@ -342,8 +321,6 @@ class Gomu{
         this.x = this.originX;
         this.y = this.originY;
         
-
-
         if(this.step >= this.range) this.step = 0;
         
         //updates the direction of gomu
@@ -363,7 +340,6 @@ class Gomu{
             this.facing = 3;
         }
         
-        
         this.step += this.range/this.duration;
 
     }
@@ -379,7 +355,6 @@ class Gomu{
             ctx.stroke();
             ctx.closePath();
         }
-        
     }
 
     colliding(enemy){
@@ -397,12 +372,6 @@ class Gomu{
             }      
         }
     }
-
-
-
-
-
-
 }
 
 class Sword{
@@ -466,9 +435,6 @@ class Sword{
                 break;
         } */
 
-
-
-        
         this.originX = this.game.player.x - this.width/2;
         this.originY = this.game.player.y - this.height/2;
 
@@ -489,8 +455,6 @@ class Sword{
         this.x = this.originX;
         this.y = this.originY;
         
-
-
         if(this.step >= this.range) this.step = 0;
         
         //updates the direction of gomu
@@ -509,7 +473,6 @@ class Sword{
             this.x += this.step;
             this.facing = 3;
         }
-        
         
         this.step += this.range/this.duration;
 
@@ -532,7 +495,6 @@ class Sword{
             ctx.stroke();
             ctx.closePath();
         }
-        
     }
 
     colliding(enemy){
@@ -548,16 +510,11 @@ class Sword{
                 enemy.state = 1;
                 enemy.dead = true;
             }
-
-            
-             
         }
     }
-
 }
 
-
-class Fire{
+class Fire {
     constructor(game){
         //hitbox dimensions
 
@@ -588,19 +545,14 @@ class Fire{
         this.x = this.game.player.x - 15;
         this.y = this.game.player.y - 30;
 
-
         this.innerCircle.x = this.x;
         this.outerCircle.x = this.x;
         this.innerCircle.y = this.y;
         this.outerCircle.y = this.y;
 
-        
-
-
         if(this.step >= this.range) this.step = 0;
         
         this.step += this.range/this.duration;
-
     }
 
     draw(ctx){
@@ -613,7 +565,6 @@ class Fire{
             ctx.stroke();
             ctx.closePath();
         }
-        
     }
 
     colliding(enemy){
@@ -647,15 +598,9 @@ class Fire{
             }    
         }
     }
-
-
-
-
-
-
 }
 
-class Axe{
+class Axe {
     constructor(game){
         //hitbox dimensions
         this.radius = 20;
@@ -701,12 +646,6 @@ class Axe{
             enemyTracking(this, this.trackedEnemy, this.game);
             if(this.framesTouching > 10) this.trackedEnemy = null;
         }
-        
-
-        
-        
-    
-
     }
 
     draw(ctx){
@@ -717,10 +656,7 @@ class Axe{
             ctx.arc(this.x - this.game.camera.x + 55, this.y - this.game.camera.y+ 55, this.radius, 0, 2 * Math.PI);
             ctx.stroke();
             ctx.closePath();
-
-
         }
-        
     }
 
     colliding(enemy){
@@ -739,17 +675,7 @@ class Axe{
             }    
         }
     }
-
-
-
-
-
-
 }
-
-
-
-
 
 // Enemy attacks
 
@@ -776,7 +702,6 @@ class String{
         this.lastDirection = this.direction;
         this.color = "black"
         
-
         // hitbox
         
         this.originX;
@@ -835,8 +760,6 @@ class String{
         this.x = this.originX;
         this.y = this.originY;
         
-
-
         if(this.step >= this.range) this.step = 0;
         
         //updates the direction of string
@@ -855,7 +778,6 @@ class String{
             this.x += this.step;
             this.facing = 3;
         }
-        
         
         this.step += this.range/this.duration;
 
@@ -881,10 +803,4 @@ class String{
             }, 5000);
         }
     }
-
-
-
-
-
-
 }

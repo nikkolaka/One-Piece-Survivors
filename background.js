@@ -1,4 +1,4 @@
-class Background{
+class Background {
     constructor(game, img) {
         this.game = game;
 

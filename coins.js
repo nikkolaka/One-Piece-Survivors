@@ -1,5 +1,5 @@
-class Berry{
-    constructor(type){
+class Berry {
+    constructor(type) {
         switch (type) {
             case Berries.BLUE:
                 this.value = 10;
@@ -24,20 +24,16 @@ class Berry{
         this.y;
         this.removeFromWorld = false;
 
-
         this.radius = 5;
-
-
     }
 
-    update(game){
-        if(game.player.magnet){
+    update(game) {
+        if(game.player.magnet) {
             enemyTracking(this, game.player, game);
         }
     }
 
-
-    draw(ctx, game){
+    draw(ctx, game) {
         ctx.strokeStyle = this.type;
         ctx.beginPath();
         ctx.arc(this.x +50 - game.camera.x, this.y +50 - game.camera.y, this.radius, 0, 2 * Math.PI);  

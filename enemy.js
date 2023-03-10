@@ -1,5 +1,5 @@
-class Navy{
-    constructor(game, theId){
+class Navy {
+    constructor(game, theId) {
         this.game = game;
         this.id = theId;
         this.wave;
@@ -36,10 +36,10 @@ class Navy{
 
     };
 
-    loadAnimation(){
-        for(var i = 0; i < 3; i++){
+    loadAnimation() {
+        for (var i = 0; i < 3; i++) {
             this.animation.push([]);
-            for(var j = 0; j < 2; j++){
+            for (var j = 0; j < 2; j++) {
                 this.animation[i].push([]);
             }
         }
@@ -59,44 +59,45 @@ class Navy{
         this.animation[2][1] = new Animator(this.spriteSheet, 0, 140, 70, 60, 1, .1, false, true);
     }
 
-    update(){
-        if(this.frozen) return;
+    update() {
+        if (this.frozen) return;
+
         // Check for collisions with other enemies
-        for(let i = 0; i < this.game.enemies.length; i++){
-            if(this.id !== this.game.enemies[i].id && this.id !== 0){
+        for (let i = 0; i < this.game.enemies.length; i++) {
+            if (this.id !== this.game.enemies[i].id && this.id !== 0) {
                 enemyCollision(this,this.game.enemies[i])
             }   
             enemyTracking(this, this.game.player, this.game);
         }
 
         // Determine facing
-        if (this.x > this.game.playerLocation.x){
+        if (this.x > this.game.playerLocation.x) {
             this.facing = 1;
-        }else{
+        }
+        else {
             this.facing = 0;
         }
-
     };
 
-    draw(ctx){
-        if(this.frozen){
+    draw(ctx) {
+        if(this.frozen) {
             this.animation[this.state][this.facing].drawFrame(0, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
             return;
-        } 
+        }
+
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
-        if(this.game.options.debugging){
+
+        if(this.game.options.debugging) {
             ctx.fillStyle = this.color;
             ctx.beginPath();
             ctx.arc(this.x + 65 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
             ctx.stroke(); 
         }
-        
     }
-
 }
 
-class Doflamingo{
-    constructor(game, theId){
+class Doflamingo {
+    constructor(game, theId) {
         this.game = game;
         this.id = theId;
         this.wave;
@@ -127,14 +128,12 @@ class Doflamingo{
         this.game.Doflamingo = this;
         this.weapon = new String(game)
         this.berry = new Berry(Berries.RED);
-
     };
     
-
-    loadAnimation(){
-        for(var i = 0; i < 3; i++){
+    loadAnimation() {
+        for(var i = 0; i < 3; i++) {
             this.animation.push([]);
-            for(var j = 0; j < 2; j++){
+            for(var j = 0; j < 2; j++) {
                 this.animation[i].push([]);
             }
         }
@@ -154,11 +153,10 @@ class Doflamingo{
         this.animation[2][1] = new Animator(this.spriteSheet, 350, 270, 90, 88, 1, .2, false, true);
     }
 
-
-    update(){
+    update() {
         if(this.frozen) return;
         for(let i = 0; i < this.game.enemies.length; i++){
-            if(this.id !== this.game.enemies[i].id && this.id !== 0){
+            if(this.id !== this.game.enemies[i].id && this.id !== 0) {
                 enemyCollision(this,this.game.enemies[i])
             }   
             enemyTracking(this, this.game.player, this.game);
@@ -169,30 +167,26 @@ class Doflamingo{
             this.facing = 0;
         }
         this.weapon.update();
-
-
     };
 
-    draw(ctx){
-        if(this.frozen){
+    draw(ctx) {
+        if(this.frozen) {
             this.animation[this.state][this.facing].drawFrame(0, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
             return;
         }
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
 
-        if(this.game.options.debugging){
+        if(this.game.options.debugging) {
             ctx.beginPath();
             ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
             ctx.strokeStyle = "black";
             ctx.stroke(); 
         }
-        
     }
-
 }
 
-class Blackbeard{
-    constructor(game, theId){
+class Blackbeard {
+    constructor(game, theId) {
         this.game = game;
         this.id = theId;
         this.wave;
@@ -225,14 +219,14 @@ class Blackbeard{
 
     };
     
-
-    loadAnimation(){
-        for(var i = 0; i < 3; i++){
+    loadAnimation() {
+        for(var i = 0; i < 3; i++) {
             this.animation.push([]);
-            for(var j = 0; j < 2; j++){
+            for(var j = 0; j < 2; j++) {
                 this.animation[i].push([]);
             }
         }
+
         // walking right
         this.animation[0][0] = new Animator(this.spriteSheet, 0, 0, 90, 88, 8, .19, false, true);
         //walking left
@@ -249,15 +243,15 @@ class Blackbeard{
         this.animation[2][1] = new Animator(this.spriteSheet, 350, 270, 90, 88, 1, .2, false, true);
     }
 
-    update(){
+    update() {
         if(this.frozen) return;
-        for(let i = 0; i < this.game.enemies.length; i++){
-            if(this.id !== this.game.enemies[i].id && this.id !== 0){
+        for(let i = 0; i < this.game.enemies.length; i++) {
+            if(this.id !== this.game.enemies[i].id && this.id !== 0) {
                 enemyCollision(this,this.game.enemies[i])
             }   
             enemyTracking(this, this.game.player,this.game);
         }
-        if (this.x > this.game.playerLocation.x){
+        if (this.x > this.game.playerLocation.x) {
             this.facing = 1;
         }else{
             this.facing = 0;
@@ -265,26 +259,24 @@ class Blackbeard{
 
     };
 
-    draw(ctx){
-        if(this.frozen){
+    draw(ctx) {
+        if(this.frozen) {
             this.animation[this.state][this.facing].drawFrame(0, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
             return;
         }
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
 
-        if(this.game.options.debugging){
+        if(this.game.options.debugging) {
             ctx.beginPath();
             ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
             ctx.strokeStyle = "black";
             ctx.stroke(); 
            }
         }
-        
-
 }
 
-class Akainu{
-    constructor(game, theId){
+class Akainu {
+    constructor(game, theId) {
         this.game = game;
         this.id = theId;
         this.wave;
@@ -314,14 +306,12 @@ class Akainu{
         this.removeFromWorld = false;
         this.game.Akainu = this;
         this.berry = new Berry(Berries.GREEN);
-
     };
     
-
-    loadAnimation(){
-        for(var i = 0; i < 3; i++){
+    loadAnimation() {
+        for(var i = 0; i < 3; i++) {
             this.animation.push([]);
-            for(var j = 0; j < 2; j++){
+            for(var j = 0; j < 2; j++) {
                 this.animation[i].push([]);
             }
         }
@@ -341,10 +331,10 @@ class Akainu{
         this.animation[2][1] = new Animator(this.spriteSheet, 350, 270, 87, 90, 1, .5, false, true);
     }
 
-    update(){
+    update() {
         if(this.frozen) return;
-        for(let i = 0; i < this.game.enemies.length; i++){
-            if(this.id !== this.game.enemies[i].id && this.id !== 0){
+        for(let i = 0; i < this.game.enemies.length; i++) {
+            if(this.id !== this.game.enemies[i].id && this.id !== 0) {
                 enemyCollision(this,this.game.enemies[i])
             }   
             enemyTracking(this, this.game.player, this.game);
@@ -354,23 +344,22 @@ class Akainu{
         }else{
             this.facing = 0;
         }
-
     };
 
-    draw(ctx){
-        if(this.frozen){
+    draw(ctx) {
+        if(this.frozen) {
             this.animation[this.state][this.facing].drawFrame(0, ctx,  this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
             return;
         }
+
         this.animation[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, this.scale);
-        if(this.game.options.debugging){
+
+        if(this.game.options.debugging) {
             ctx.fillStyle = this.color;
             ctx.beginPath();
             ctx.arc(this.x + 55 - this.game.camera.x, this.y + 50 - this.game.camera.y, this.radius, 0, 2 * Math.PI);
             ctx.strokeStyle = "black";
             ctx.stroke(); 
         }
-        
     }
-
 }
