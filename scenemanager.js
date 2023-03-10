@@ -102,7 +102,10 @@ class SceneManager {
         this.In_Game.play();
         this.Death.pause();
 
-        for(let i = 0; i < 25; i++){
+        //this.player = new Luffy(gameEngine);
+        gameEngine.addPlayer(this.player);
+
+        for(let i = 0; i < 100; i++){
             let item;
             switch (randomInt(5)) {
                 case 0:

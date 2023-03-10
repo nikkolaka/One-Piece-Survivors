@@ -6,18 +6,6 @@ class Wave{
         this.currentWave = 0;
         this.spawnDensity = 50;
 
-        this.akainuProb = 0.01;
-        this.navyProb = 0.9;
-        this.dofyProb = 0.04;
-        this.blackProb = 0.04;
-
-
-
-        
-
-
-
-
         // intialize wave and score
         this.game.wave = 0;
         this.game.score = 0;
@@ -35,11 +23,6 @@ class Wave{
             this.currentWave++;
             this.spawnDensity += 5;
             this.game.wave++;
-            this.akainuProb += 0.01;
-            this.dofyProb += 0.01;
-            this.blackProb += 0.01;
-            this.navyProb -= 0.01;
-            
             switch(randomInt(2)){
                 case 0: 
                     this.spawnRand();
@@ -57,12 +40,25 @@ class Wave{
         
         var playerX = this.game.player.x - params.screenWidth/2;
         var playerY = this.game.player.y - params.screenHeight/2;
-        var buffer = 0;
+        var  buffer = 0;
         var enemy;
 
-        
+        var side = "left";
         for(var i = 0; i < this.spawnDensity; i++){
-            enemy = enemy = this.spawnEnemy(); 
+            switch(randomInt(4)){
+                case 0:
+                    enemy = new Blackbeard(this.game, this.game.uniqueEId++);
+                    break;
+                case 1:
+                    enemy = new Doflamingo(this.game, this.game.uniqueEId++);
+                    break;
+                case 2:
+                    enemy = new Navy(this.game, this.game.uniqueEId++);
+                    break;
+                case 3:
+                    enemy = new Akainu(this.game, this.game.uniqueEId++);
+                    break;
+            } 
             enemy.wave = this.currentWave;
 
             if(i > (this.spawnDensity/4)*3) {
@@ -87,8 +83,6 @@ class Wave{
         }
     }
 
-
-
     spawnRand(){
         this.currentWave++;
         var playerX = this.game.player.x;
@@ -99,7 +93,20 @@ class Wave{
         for(var i = 0; i < this.spawnDensity; i++){
             var enemy;
             var quadrant = randomInt(4);
-            enemy = this.spawnEnemy();          
+            switch(randomInt(4)){
+                case 0:
+                    enemy = new Blackbeard(this.game, this.game.uniqueEId++);
+                    break;
+                case 1:
+                    enemy = new Doflamingo(this.game, this.game.uniqueEId++);
+                    break;
+                case 2:
+                    enemy = new Navy(this.game, this.game.uniqueEId++);
+                    break;
+                case 3:
+                    enemy = new Akainu(this.game, this.game.uniqueEId++);
+                    break;
+            }          
             enemy.wave = this.currentWave;
             switch(quadrant){
                 case 0:
@@ -126,30 +133,6 @@ class Wave{
             }
             this.game.addEnemy(enemy);
         }
-    }
-
-    spawnEnemy(){
-        var probabilityArray = [];
-        for(let i = 0; i < (this.navyProb*1000); i++){
-            probabilityArray.push(0);
-        }
-        for(let i = 0; i < (this.dofyProb*1000); i++){
-            probabilityArray.push(1);
-        }
-        for(let i = 0; i < (this.blackProb*1000); i++){
-            probabilityArray.push(2);
-        }
-        for(let i = 0; i < (this.akainuProb*1000); i++){
-            probabilityArray.push(3);
-        }
-        var idx = Math.floor(Math.random() * probabilityArray.length);
-
-        if(probabilityArray[idx] == 0) return new Navy(this.game, this.game.uniqueEId++);
-        else if(probabilityArray[idx] == 1) return new Doflamingo(this.game, this.game.uniqueEId++);
-        else if(probabilityArray[idx] == 2) return new Blackbeard(this.game, this.game.uniqueEId++);
-        else if(probabilityArray[idx] == 3) return new Akainu(this.game, this.game.uniqueEId++);
-        
-
     }
 
 }
