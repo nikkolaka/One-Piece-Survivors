@@ -15,7 +15,6 @@ class Luffy{
         this.states = 0; // 0 = idle, 1 = walking 2 = dead
         this.facing = 0; // 0 = right, 1 = left
         this.dead = false;
-        this.magnet = false;
 
         // position
         // player hitbox
@@ -159,8 +158,6 @@ class Zoro{
         this.states = 0; // 0 = idle, 1 = walking 2 = dead
         this.facing = 0; // 0 = right, 1 = leftd
         this.dead = false;
-        this.magnet = false;
-
 
         // player hitbox
         this.x =  2500;
@@ -302,8 +299,6 @@ class Brook{
         this.states = 0; // 0 = idle, 1 = walking 2 = dead 3 = revive
         this.facing = 0; // 0 = right, 1 = leftd
         this.dead = false;
-        this.magnet = false;
-
 
         // player hitbox
         this.x =  2500;

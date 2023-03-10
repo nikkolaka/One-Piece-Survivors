@@ -8,12 +8,6 @@ const Direction = {
     Right: 'Right'
 };
 
-const Berries = {
-    BLUE: 'cyan',
-    RED: 'red',
-    GREEN: 'lime'
-};
-
 /**
  * @param {Number} n
  * @returns Random Integer Between 0 and n-1
