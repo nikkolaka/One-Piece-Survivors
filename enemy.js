@@ -122,7 +122,7 @@ class Doflamingo{
         this.speed = 0.8;
 
         //stats
-        this.health = 150;
+        this.health = 200;
         this.removeFromWorld = false;
         this.game.Doflamingo = this;
         this.weapon = new String(game)
@@ -217,7 +217,7 @@ class Blackbeard{
         this.speed = 0.8;
 
         //stats
-        this.health = 150;
+        this.health = 300;
         this.removeFromWorld = false;
         this.game.Blackbeard = this;
         this.berry = new Berry(Berries.RED);
