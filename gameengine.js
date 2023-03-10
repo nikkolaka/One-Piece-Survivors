@@ -178,33 +178,19 @@ class GameEngine {
         if(this.gameOver == false) {
             this.player.draw(this.ctx);
 
-            var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth);
-            this.ctx.fillStyle = "red";
-            this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20)
-            this.ctx.stroke();
-            this.ctx.font = "48px sans-serif";
-            this.ctx.fillText(this.score, 20, 50);
-            this.ctx.font = "48px sans-serif";
-            this.ctx.fillText(this.wave, 20, 100);
-            this.ctx.font = "48px sans-serif";
-            this.ctx.fillText(this.berriesTotal, 20, 150);
-        }
-        
-        //this.player.draw(this.ctx);
+        var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth);
+        this.ctx.fillStyle = "red";
+        this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20)
+        this.ctx.stroke();
 
-        /* var healthWidth = params.screenWidth*(this.player.health/this.player.maxHealth); */
-        /* this.ctx.fillStyle = "red"; */
-        /* this.ctx.fillRect(0,params.screenHeight-20, healthWidth, 20) */
-        /* this.ctx.stroke(); */
+        this.ctx.font = "48px sans-serif";
+        this.ctx.fillText(this.score, 20, 50);
 
-        /* this.ctx.font = "48px sans-serif"; */
-        /* this.ctx.fillText(this.score, 20, 50); */
+        this.ctx.font = "48px sans-serif";
+        this.ctx.fillText(this.wave, 20, 100);
 
-        /* this.ctx.font = "48px sans-serif"; */
-        /* this.ctx.fillText(this.wave, 20, 100); */
-
-        /* this.ctx.font = "48px sans-serif"; */
-        /* this.ctx.fillText(this.berriesTotal, 20, 150); */
+        this.ctx.font = "48px sans-serif";
+        this.ctx.fillText(this.berriesTotal, 20, 150);
 
         
 
@@ -267,17 +253,7 @@ class GameEngine {
                 this.berriesTotal += berry.value;
             }
         }
-
-        /* if(this.game.camera.gameOver == false) { */
-        /*     if(this.player.shop.inShop){  */
-        /*         this.player.shop.update();  */
-        /*         return;  */
-        /*    }  */
-        /* } */
-        /*  */
-        /*  */
-        
-        
+        if(this.berries.length == 0) this.player.magnet = false;
 
         //added camera update
         this.camera.update();
