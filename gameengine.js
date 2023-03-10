@@ -51,7 +51,7 @@ class GameEngine {
 
         // Options and the Details
         this.options = options || {
-            debugging: true,
+            debugging: false,
         };
     };
 
