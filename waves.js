@@ -44,7 +44,7 @@ class Wave{
     }   
 
     spawnSquare(){
-        this.currentWave++;
+        
         
         
         var playerX = this.game.player.x - params.screenWidth/2;
@@ -55,8 +55,7 @@ class Wave{
         for(var i = 0; i < this.spawnDensity; i++){
             enemy = this.spawnEnemy();
             enemy.wave = this.currentWave;
-            } 
-            enemy.wave = this.currentWave;
+            
 
             if(i > (this.spawnDensity/4)*3) {
                 //bottom
@@ -77,10 +76,11 @@ class Wave{
             }
 
         this.game.addEnemy(enemy);
+        }
     }
 
     spawnRand(){
-        this.currentWave++;
+        
         var playerX = this.game.player.x;
         var playerY = this.game.player.y;
         
