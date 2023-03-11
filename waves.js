@@ -32,6 +32,9 @@ class Wave{
             this.dofyProb += 0.01;
             this.blackProb += 0.01;
             this.navyProb -= 0.01;
+
+            if(this.game.wave % 3 == 2) this.spawnItems(5);
+
             switch(randomInt(2)){
                 case 0: 
                     this.spawnRand();
@@ -41,6 +44,8 @@ class Wave{
                     break;
             }
         }
+
+
     }   
 
     spawnSquare(){
@@ -138,5 +143,34 @@ class Wave{
         else if(probabilityArray[idx] == 1) return new Doflamingo(this.game, this.game.uniqueEId++);
         else if(probabilityArray[idx] == 2) return new Blackbeard(this.game, this.game.uniqueEId++);
         else if(probabilityArray[idx] == 3) return new Akainu(this.game, this.game.uniqueEId++);
+    }
+
+    spawnItems(amount){
+        for(let i = 0; i < amount; i++){
+            let item;
+            switch (randomInt(5)) {
+                case 0:
+                    item = new Diamond(this.game);
+                    break;
+                case 1:
+                    item = new Weight(this.game);
+                    break;
+                case 2:
+                    item = new Bomb(this.game);
+                    break;
+                case 3:
+                    item = new Freeze(this.game);
+                    break;
+                case 4:
+                    item = new Meat(this.game);
+                    break;
+                
+            
+            }
+            item.x = randomInt(7680);
+            item.y = randomInt(7680);
+
+            this.game.addEntity(item);
+        }
     }
 }

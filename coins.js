@@ -12,7 +12,7 @@ class Berry{
                 break;
 
             case Berries.GREEN:
-                this.value = 500;
+                this.value = 150;
                 this.speed = randomInt(100) + 700;
                 break;
 
