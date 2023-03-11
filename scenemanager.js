@@ -101,7 +101,7 @@ class SceneManager {
         //this.player = new Luffy(gameEngine);
         gameEngine.addPlayer(this.player);
 
-        for(let i = 0; i < 200; i++){
+        for(let i = 0; i < 15; i++){
             let item;
             switch (randomInt(5)) {
                 case 0:

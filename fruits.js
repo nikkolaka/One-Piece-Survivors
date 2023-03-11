@@ -18,7 +18,7 @@ class Shop{
 
     update(){
         
-        if(this.inShop){
+        if(this.inShop && this.fruitcount.length > 0){
             if(this.chosen != 0){
                 this.game.berriesTotal = 0;
                 this.inShop = false;
@@ -56,6 +56,9 @@ class Shop{
             this.chosen = 0;
             
             this.inShop = true;
+        }
+        if(this.fruitcount.length == 0){
+            this.inShop = false;
         }        
 
     }
