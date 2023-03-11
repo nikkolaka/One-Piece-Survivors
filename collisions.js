@@ -36,7 +36,7 @@ const enemyCollision = function(thisEntity, otherEntity) {
     var radiusSum = thisEntity.radius+otherEntity.radius
 
     //if the distance is less than the radius, then there's no collision
-    if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)){
+    if((dx * dx + dy * dy) < (radiusSum)*(radiusSum)) {
         var distance = Math.sqrt(dx * dx + dy * dy);
         var step = radiusSum - distance;
         
@@ -45,7 +45,6 @@ const enemyCollision = function(thisEntity, otherEntity) {
         thisEntity.x += dx*step/COLLISIONREBOUND;
         thisEntity.y += dy*step/COLLISIONREBOUND;
     }
-
 }
 
 // this is the collision function for the map boundaries
@@ -78,3 +77,22 @@ const knockback = function(weapon, enemy) {
         enemy.invincible = false;
     }, 750)
 }
+
+const checkFenceCollision = function(player) {
+    for (let i = 0; i < this.collisions.length; i++) {
+        const fence = this.collisions[i];
+        if (CheckRectCircleColliding(player, fence)) {
+            // Handle collision with fence here
+            // For example, stop the player's movement or apply knockback
+            console.log("Player collided with fence");
+        }
+    }
+}
+
+// const fenceCollision = function(player, fence) {
+//     if (CheckRectCircleColliding(player, fence)) {
+//         // Handle collision with fence here
+//         // For example, stop the player's movement or apply knockback
+//         console.log("Player collided with fence");
+//     }
+// }
