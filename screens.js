@@ -122,13 +122,7 @@ class StartScreen {
 
     drawTitle(ctx) {
 
-        //ctx.fillStyle = "background: url('img/titlescreen.jpg') no-repeat center center fixed;";
         this.title.drawFrameStill(this.game.clockTick, ctx, 0, 0, 1);
-
-        //ctx.fillRect(0, 0, 800, 600);
-        /* ctx.font = "100px Arial"; */
-        /* ctx.fillStyle = "white"; */
-        /* ctx.fillText("One Piece", 200, 200); */
 
         if(this.game.mouse && (this.game.mouse.x > 350 && this.game.mouse.x < 635 && this.game.mouse.y > 630
              && this.game.mouse.y < 690)) {

@@ -117,7 +117,7 @@ class SceneManager {
     update() {
 
         
-        if (this.game.characterselected && this.player.dead) { // if player is dead load game over screen
+        if (this.game.characterselect && this.player.dead) { // if player is dead load game over screen
             this.game.gameOver = true;
             this.loadGameOver();
         }

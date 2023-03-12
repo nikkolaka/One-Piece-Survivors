@@ -19,7 +19,7 @@ class GameEngine {
         this.playerLocation = {x: params.screenWidth/2, y: params.screenHeight/2};
 
         //characters clicked
-        this.characterselected = false;
+        this.characterselect = false;
         this.luffyclicked = false;
         this.zoroclicked = false;
         this.brookclicked = false;
