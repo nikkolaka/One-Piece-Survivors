@@ -11,7 +11,8 @@ class SceneManager {
         //this.gameOver = true;
 
         //initialize entities
-        this.player = new Luffy(gameEngine);
+        //this.player = new characterSelectScreen(gameEngine);
+        this.player;
         this.Background = new Background(gameEngine);
         this.waveMaker = new Wave(gameEngine);
 
@@ -47,16 +48,12 @@ class SceneManager {
         this.game.berriesTotal = 0;
         this.game.score = 0;
         this.game.wave = 0;
-        this.player = new Luffy(gameEngine);
-        this.Background = new Background(gameEngine);
-        this.waveMaker = new Wave(gameEngine);
-        
+
 
         this.Opening.play();
         this.In_Game.pause();
         this.Death.pause();
 
-        //this.Background = new Background(gameEngine);
     }
 
     // this is the end screen
@@ -74,7 +71,23 @@ class SceneManager {
     loadCharacterSelect() {
         this.game.stage = "characterSelect";
         this.clearEntities();
-        gameEngine.addEntity(new CharacterSelect(gameEngine));
+
+        /* if (this.game.luffyclicked) { */
+        /*     this.player = new Luffy(gameEngine); */
+        /* } */
+
+        gameEngine.addEntity(new characterSelectScreen(gameEngine));
+
+        /* if (this.game.luffyclicked) { */
+        /*     console.log("luffyclicked"); */
+        /*     this.player = new Luffy(gameEngine); */
+        /*     //this.waveMaker = new Wave(gameEngine); */
+        /* } */
+        //this.game.characterselected = true;
+        this.player;
+
+        this.Background = new Background(gameEngine);
+        this.waveMaker = new Wave(gameEngine);
 
         this.Opening.play();
         this.In_Game.pause();
@@ -109,12 +122,14 @@ class SceneManager {
     }
 
     update() {
-        if (this.player.dead) { // if player is dead load game over screen
+
+        
+        if (this.game.characterselected && this.player.dead) { // if player is dead load game over screen
             this.game.gameOver = true;
             this.loadGameOver();
         }
 
-        if (this.game.gameOver == false) { // if game is not over update the wave maker
+        if (this.game.characterselected && this.game.gameOver == false) { // if game is not over update the wave maker
             this.waveMaker.update();
         }
         else {
@@ -128,7 +143,11 @@ class SceneManager {
         let midpointX = params.screenWidth/2 - 100; //Canvas width - half of player width
         let midpointY = params.screenHeight/2 - 90;
 
-        this.x = this.player.x - midpointX;
-        this.y = this.player.y - midpointY;
+        if (this.game.characterselected) {
+            this.x = this.player.x - midpointX;
+            this.y = this.player.y - midpointY;
+        }
+        /* this.x = this.player.x - midpointX; */
+        /* this.y = this.player.y - midpointY; */
     }
 }

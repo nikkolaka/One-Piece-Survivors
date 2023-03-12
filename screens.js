@@ -50,7 +50,35 @@ class EndScreen {
 class characterSelectScreen {
     constructor(game) {
         Object.assign(this, { game });
-        
+        this.spritesheet = ASSET_MANAGER.getAsset("./img/titlescreen.jpg");
+        this.gameover = new Animator(this.spritesheet, 0, 0, 1024, 768, 1, 1);
+    }
+
+    update() {
+        if (this.game.mouse !== null) {
+            if (this.game.mouse && (this.game.mouse.x > 130 && this.game.mouse.x < 210
+                    && this.game.mouse.y > 340 && this.game.mouse.y < 428) && this.game.click) {
+                //console.log("Player clicked");
+                this.game.camera.player = new Luffy(gameEngine);
+                this.game.characterselect = true;
+                /* this.game.luffyclicked = true; */
+                /* this.game.zoroclicked = false; */
+                /* this.game.brookclicked = false; */
+                this.game.camera.loadAssets();
+            }
+        }
+    }
+
+    draw(ctx) {
+        this.drawCharacterSelect(ctx);
+    }
+
+    drawCharacterSelect(ctx) {
+        this.gameover.drawFrameStill(this.game.clockTick, ctx, 0, 0, 1);
+
+        ctx.font = "100px Arial";
+        ctx.fillStyle = "red";
+        ctx.fillText("Character Select", 120, 330);
     }
 }
 
@@ -67,7 +95,7 @@ class StartScreen {
             if(this.game.mouse && (this.game.mouse.x > 300 && this.game.mouse.x < 600 && this.game.mouse.y > 550
                  && this.game.mouse.y < 600) && this.game.click) {
                 console.log("Start clicked");
-                this.game.camera.loadAssets();
+                this.game.camera.loadCharacterSelect();
             }
             
         }
