@@ -21,7 +21,8 @@ ASSET_MANAGER.queueDownload("./img/axe.png");
 
 //end and title screen image
 ASSET_MANAGER.queueDownload("./img/endscreen.jpg");
-ASSET_MANAGER.queueDownload("./img/titlescreen.jpg");
+ASSET_MANAGER.queueDownload("./img/titlescreen.png");
+ASSET_MANAGER.queueDownload("./img/characterscreen.png");
 
 
 //enemy projectiles

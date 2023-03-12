@@ -8,11 +8,8 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
 
-        //this.gameOver = true;
-
         //initialize entities
-        //this.player = new characterSelectScreen(gameEngine);
-        this.player;
+        this.player = new Luffy(gameEngine);
         this.Background = new Background(gameEngine);
         this.waveMaker = new Wave(gameEngine);
 
@@ -72,22 +69,7 @@ class SceneManager {
         this.game.stage = "characterSelect";
         this.clearEntities();
 
-        /* if (this.game.luffyclicked) { */
-        /*     this.player = new Luffy(gameEngine); */
-        /* } */
-
         gameEngine.addEntity(new characterSelectScreen(gameEngine));
-
-        /* if (this.game.luffyclicked) { */
-        /*     console.log("luffyclicked"); */
-        /*     this.player = new Luffy(gameEngine); */
-        /*     //this.waveMaker = new Wave(gameEngine); */
-        /* } */
-        //this.game.characterselected = true;
-        this.player;
-
-        this.Background = new Background(gameEngine);
-        this.waveMaker = new Wave(gameEngine);
 
         this.Opening.play();
         this.In_Game.pause();
@@ -105,6 +87,17 @@ class SceneManager {
 
         this.game.stage = "game"; // this is the intro game screen
 
+        if (this.game.luffyclicked) {
+            this.player = new Luffy(gameEngine);
+        }
+        if (this.game.zoroclicked) {
+            this.player = new Zoro(gameEngine);
+        }
+        if (this.game.brookclicked) {
+            this.player = new Brook(gameEngine);
+        }
+
+        this.Background = new Background(gameEngine);
         this.waveMaker = new Wave(gameEngine);
 
         this.Opening.pause();
@@ -129,7 +122,7 @@ class SceneManager {
             this.loadGameOver();
         }
 
-        if (this.game.characterselected && this.game.gameOver == false) { // if game is not over update the wave maker
+        if (this.game.gameOver == false) { // if game is not over update the wave maker
             this.waveMaker.update();
         }
         else {
@@ -143,11 +136,7 @@ class SceneManager {
         let midpointX = params.screenWidth/2 - 100; //Canvas width - half of player width
         let midpointY = params.screenHeight/2 - 90;
 
-        if (this.game.characterselected) {
-            this.x = this.player.x - midpointX;
-            this.y = this.player.y - midpointY;
-        }
-        /* this.x = this.player.x - midpointX; */
-        /* this.y = this.player.y - midpointY; */
+        this.x = this.player.x - midpointX;
+        this.y = this.player.y - midpointY;
     }
 }
