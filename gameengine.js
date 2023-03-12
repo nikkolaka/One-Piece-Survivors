@@ -296,14 +296,6 @@ class GameEngine {
         /* } */
 
 
-        // music
-        /* if(!this.In_Game.playing && !this.player.dead) { */
-        /*     this.In_Game.play(); */
-        /* } */
-        /* else { */
-        /*     this.In_Game.pause(); */
-        /*     this.Death.play(); */
-        /* } */
     };
 
     loop() {

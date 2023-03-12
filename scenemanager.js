@@ -39,8 +39,8 @@ class SceneManager {
     }
 
     loadTitleScreen() {
-        this.game.stage = "title";
         this.clearEntities();
+        this.game.stage = "title";
         gameEngine.addEntity(new StartScreen(gameEngine));
         this.game.berriesTotal = 0;
         this.game.score = 0;
@@ -115,8 +115,7 @@ class SceneManager {
     }
 
     update() {
-
-        
+  
         if (this.game.characterselect && this.player.dead) { // if player is dead load game over screen
             this.game.gameOver = true;
             this.loadGameOver();
