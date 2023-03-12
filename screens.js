@@ -9,8 +9,10 @@ class EndScreen {
     update() {
         if (this.game.mouse !== null) {
             if (this.game.mouse && (this.game.mouse.x > 300 && this.game.mouse.x < 600 && this.game.mouse.y > 550 && this.game.mouse.y < 600) && this.game.click) {
-                console.log("Restart clicked");
-                this.game.camera.loadTitleScreen();
+                //console.log("Restart clicked");
+                this.scene = new SceneManager(gameEngine);
+                gameEngine.addEntity(scene);
+                this.scene.loadTitleScreen();
             }
         }
     }
@@ -68,6 +70,7 @@ class characterSelectScreen {
         }
         if (this.game.mouse && (this.game.mouse.x > 440 && this.game.mouse.x < 565
             && this.game.mouse.y > 290 && this.game.mouse.y < 475) && this.game.click) {
+                this.game.camera.player = null;
                 this.game.characterselect = true;
                 this.game.luffyclicked = false; 
                 this.game.zoroclicked = true;
@@ -76,6 +79,7 @@ class characterSelectScreen {
         }
         if (this.game.mouse && (this.game.mouse.x > 720 && this.game.mouse.x < 840
             && this.game.mouse.y > 280 && this.game.mouse.y < 480) && this.game.click) {
+                this.game.camera.player = null;
                 this.game.characterselect = true;
                 this.game.luffyclicked = false; 
                 this.game.zoroclicked = false;
@@ -122,13 +126,7 @@ class StartScreen {
 
     drawTitle(ctx) {
 
-        //ctx.fillStyle = "background: url('img/titlescreen.jpg') no-repeat center center fixed;";
         this.title.drawFrameStill(this.game.clockTick, ctx, 0, 0, 1);
-
-        //ctx.fillRect(0, 0, 800, 600);
-        /* ctx.font = "100px Arial"; */
-        /* ctx.fillStyle = "white"; */
-        /* ctx.fillText("One Piece", 200, 200); */
 
         if(this.game.mouse && (this.game.mouse.x > 350 && this.game.mouse.x < 635 && this.game.mouse.y > 630
              && this.game.mouse.y < 690)) {
