@@ -8,8 +8,6 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
 
-        //this.gameOver = true;
-
         //initialize entities
         this.player = new Luffy(gameEngine);
         this.Background = new Background(gameEngine);
@@ -47,16 +45,12 @@ class SceneManager {
         this.game.berriesTotal = 0;
         this.game.score = 0;
         this.game.wave = 0;
-        this.player = new Luffy(gameEngine);
-        this.Background = new Background(gameEngine);
-        this.waveMaker = new Wave(gameEngine);
-        
+
 
         this.Opening.play();
         this.In_Game.pause();
         this.Death.pause();
 
-        //this.Background = new Background(gameEngine);
     }
 
     // this is the end screen
@@ -74,7 +68,8 @@ class SceneManager {
     loadCharacterSelect() {
         this.game.stage = "characterSelect";
         this.clearEntities();
-        gameEngine.addEntity(new CharacterSelect(gameEngine));
+
+        gameEngine.addEntity(new characterSelectScreen(gameEngine));
 
         this.Opening.play();
         this.In_Game.pause();
@@ -92,6 +87,17 @@ class SceneManager {
 
         this.game.stage = "game"; // this is the intro game screen
 
+        if (this.game.luffyclicked) {
+            this.player = new Luffy(gameEngine);
+        }
+        if (this.game.zoroclicked) {
+            this.player = new Zoro(gameEngine);
+        }
+        if (this.game.brookclicked) {
+            this.player = new Brook(gameEngine);
+        }
+
+        this.Background = new Background(gameEngine);
         this.waveMaker = new Wave(gameEngine);
 
         this.Opening.pause();
@@ -109,7 +115,9 @@ class SceneManager {
     }
 
     update() {
-        if (this.player.dead) { // if player is dead load game over screen
+
+        
+        if (this.game.characterselected && this.player.dead) { // if player is dead load game over screen
             this.game.gameOver = true;
             this.loadGameOver();
         }

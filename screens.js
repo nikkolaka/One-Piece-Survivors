@@ -50,7 +50,50 @@ class EndScreen {
 class characterSelectScreen {
     constructor(game) {
         Object.assign(this, { game });
-        
+        this.spritesheet = ASSET_MANAGER.getAsset("./img/characterscreen.png");
+        this.gameover = new Animator(this.spritesheet, 0, 0, 1024, 768, 1, 1);
+    }
+
+    update() {
+        if (this.game.mouse !== null) {
+            if (this.game.mouse && (this.game.mouse.x > 165 && this.game.mouse.x < 290
+                    && this.game.mouse.y > 290 && this.game.mouse.y < 465) && this.game.click) {
+                this.game.camera.player = null;
+                this.game.characterselect = true;
+                this.game.luffyclicked = true;
+                this.game.zoroclicked = false;
+                this.game.brookclicked = false;
+                this.game.camera.loadAssets();
+            }
+        }
+        if (this.game.mouse && (this.game.mouse.x > 440 && this.game.mouse.x < 565
+            && this.game.mouse.y > 290 && this.game.mouse.y < 475) && this.game.click) {
+                this.game.characterselect = true;
+                this.game.luffyclicked = false; 
+                this.game.zoroclicked = true;
+                this.game.brookclicked = false;
+                this.game.camera.loadAssets();
+        }
+        if (this.game.mouse && (this.game.mouse.x > 720 && this.game.mouse.x < 840
+            && this.game.mouse.y > 280 && this.game.mouse.y < 480) && this.game.click) {
+                this.game.characterselect = true;
+                this.game.luffyclicked = false; 
+                this.game.zoroclicked = false;
+                this.game.brookclicked = true;
+                this.game.camera.loadAssets();
+        }
+    }
+
+    draw(ctx) {
+        this.drawCharacterSelect(ctx);
+    }
+
+    drawCharacterSelect(ctx) {
+        this.gameover.drawFrameStill(this.game.clockTick, ctx, 0, 0, 1);
+
+        ctx.font = "100px Arial";
+        ctx.fillStyle = "red";
+        ctx.fillText("Character Select", 120, 200);
     }
 }
 
@@ -58,16 +101,16 @@ class StartScreen {
 
     constructor(game) {
         Object.assign(this, { game });
-        this.spritesheet = ASSET_MANAGER.getAsset("./img/titlescreen.jpg");
+        this.spritesheet = ASSET_MANAGER.getAsset("./img/titlescreen.png");
         this.title = new Animator(this.spritesheet, 0, 0, 1024, 768, 1, 1);
     }
 
     update() {
         if (this.game.mouse !== null) {
-            if(this.game.mouse && (this.game.mouse.x > 300 && this.game.mouse.x < 600 && this.game.mouse.y > 550
-                 && this.game.mouse.y < 600) && this.game.click) {
+            if(this.game.mouse && (this.game.mouse.x > 350 && this.game.mouse.x < 635 && this.game.mouse.y > 630
+                && this.game.mouse.y < 690) && this.game.click) {
                 console.log("Start clicked");
-                this.game.camera.loadAssets();
+                this.game.camera.loadCharacterSelect();
             }
             
         }
@@ -83,19 +126,19 @@ class StartScreen {
         this.title.drawFrameStill(this.game.clockTick, ctx, 0, 0, 1);
 
         //ctx.fillRect(0, 0, 800, 600);
-        ctx.font = "100px Arial";
-        ctx.fillStyle = "white";
-        ctx.fillText("One Piece", 200, 200);
+        /* ctx.font = "100px Arial"; */
+        /* ctx.fillStyle = "white"; */
+        /* ctx.fillText("One Piece", 200, 200); */
 
-        if(this.game.mouse && (this.game.mouse.x > 300 && this.game.mouse.x < 600 && this.game.mouse.y > 550
-             && this.game.mouse.y < 600)) {
+        if(this.game.mouse && (this.game.mouse.x > 350 && this.game.mouse.x < 635 && this.game.mouse.y > 630
+             && this.game.mouse.y < 690)) {
             ctx.fillStyle = "GRAY";
              ctx.font = "50px Arial";
-            ctx.fillText("Click to Start", 300, 600);
+            ctx.fillText("Click to Start", 350, 680);
         } else {
             ctx.fillStyle = "white";
              ctx.font = "50px Arial";
-            ctx.fillText("Click to Start", 300, 600);
+            ctx.fillText("Click to Start", 350, 680);
         }
     }
 }
