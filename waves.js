@@ -4,12 +4,12 @@ class Wave{
         this.minDifficulty = 1;
         this.maxDifficulty = 10;
         this.currentWave = 0;
-        this.spawnDensity = 50;
+        this.spawnDensity = 200;
 
-        this.akainuProb = 0.01;
+        this.akainuProb = 0.5;
         this.navyProb = 0.9;
-        this.dofyProb = 0.04;
-        this.blackProb = 0.04;
+        this.dofyProb = 0.5;
+        this.blackProb = 0.5;
 
         // intialize wave and score
         this.game.wave = 0;
@@ -33,7 +33,7 @@ class Wave{
             this.blackProb += 0.01;
             this.navyProb -= 0.01;
 
-            if(this.game.wave % 3 == 2) this.spawnItems(5);
+            if(this.game.wave % 3 == 1) this.spawnItems(30);
 
             switch(randomInt(2)){
                 case 0: 
