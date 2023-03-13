@@ -98,6 +98,37 @@ class characterSelectScreen {
         ctx.font = "100px Arial";
         ctx.fillStyle = "red";
         ctx.fillText("Character Select", 120, 200);
+
+        //for luffy
+        if(this.game.mouse && (this.game.mouse.x > 165 && this.game.mouse.x < 290
+            && this.game.mouse.y > 290 && this.game.mouse.y < 465)) {
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "red";
+            ctx.strokeRect(165, 290, 140, 200);
+            ctx.closePath();
+            ctx.lineWidth = 2;
+            this.game.luffy.animation[1][0].drawFrame(this.game.clockTick, ctx, this.game.luffy.x - this.game.camera.x - 75, this.game.luffy.y - this.game.camera.y + 150, this.game.luffy.scale * 3);
+        } 
+        //zoro
+        if(this.game.mouse && (this.game.mouse.x > 440 && this.game.mouse.x < 565
+            && this.game.mouse.y > 290 && this.game.mouse.y < 475)) {
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "red";
+            ctx.strokeRect(440, 290, 140, 200);
+            ctx.closePath();
+            ctx.lineWidth = 2;
+            this.game.zoro.animation[1][0].drawFrame(this.game.clockTick, ctx, this.game.zoro.x - this.game.camera.x - 75, this.game.zoro.y - this.game.camera.y + 160, this.game.zoro.scale * 3);
+        } 
+        //brook
+        if(this.game.mouse && (this.game.mouse.x > 720 && this.game.mouse.x < 840
+            && this.game.mouse.y > 280 && this.game.mouse.y < 480)) {
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "red";
+            ctx.strokeRect(720, 290, 140, 200);
+            ctx.closePath();
+            ctx.lineWidth = 2;
+            this.game.Brook.animation[1][0].drawFrame(this.game.clockTick, ctx, this.game.Brook.x - this.game.camera.x -95, this.game.Brook.y - this.game.camera.y + 180, this.game.Brook.scale * 2);
+        }
     }
 }
 
