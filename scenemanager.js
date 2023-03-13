@@ -10,6 +10,8 @@ class SceneManager {
 
         //initialize entities
         this.player = new Luffy(gameEngine);
+        this.player = new Zoro(gameEngine);
+        this.player = new Brook(gameEngine);
         this.Background = new Background(gameEngine);
         this.waveMaker = new Wave(gameEngine);
 
@@ -115,7 +117,7 @@ class SceneManager {
     }
 
     update() {
-  
+
         if (this.game.characterselect && this.player.dead) { // if player is dead load game over screen
             this.game.gameOver = true;
             this.loadGameOver();

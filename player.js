@@ -146,6 +146,7 @@ class Zoro{
         this.weapons = [new Sword(game)];
 
 
+        this.game.zoro = this;
         this.game.player = this;
         this.shop = new Shop(game);
         this.shop.availFruit.sword--;
